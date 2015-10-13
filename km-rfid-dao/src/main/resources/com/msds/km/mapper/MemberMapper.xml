@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.MemberMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.MemberEntity">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="phone" property="phone" />
+		<result column="sex" property="sex" />
+		<result column="ico" property="ico" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="province" property="province" />
+		<result column="province_name" property="provinceName" />
+		<result column="city" property="city" />
+		<result column="city_name" property="cityName" />
+		<result column="area" property="area" />
+		<result column="area_name" property="areaName" />
+		<result column="address" property="address" />
+		<result column="full_address" property="fullAddress" />
+	</resultMap>
+
+	<!-- b_member 字段 -->
+	<sql id="Column_List">
+		b_member.id,b_member.username,b_member.password,b_member.name,b_member.phone,b_member.sex,b_member.ico,b_member.create_date,b_member.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_member.id = #{id}
+			</if>
+			<if test="username != null and username != ''">
+				and b_member.username = #{username}
+			</if>
+			<if test="password != null and password != ''">
+				and b_member.password = #{password}
+			</if>
+			<if test="name != null and name != ''">
+				and b_member.name = #{name}
+			</if>
+			<if test="phone != null and phone != ''">
+				and b_member.phone = #{phone}
+			</if>
+			<if test="sex != null and sex != ''">
+				and b_member.sex = #{sex}
+			</if>
+			<if test="ico != null and ico != ''">
+				and b_member.ico = #{ico}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_member.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_member.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_member.id = #{id}
+			</if>
+			<if test="username != null and username != ''">
+				and b_member.username like CONCAT('%',#{username},'%')
+			</if>
+			<if test="password != null and password != ''">
+				and b_member.password like CONCAT('%',#{password},'%')
+			</if>
+			<if test="name != null and name != ''">
+				and b_member.name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="phone != null and phone != ''">
+				and b_member.phone like CONCAT('%',#{phone},'%')
+			</if>
+			<if test="sex != null and sex != ''">
+				and b_member.sex like CONCAT('%',#{sex},'%')
+			</if>
+			<if test="ico != null and ico != ''">
+				and b_member.ico like CONCAT('%',#{ico},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_member.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_member.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_member(id,username,password,name,phone,sex,ico,create_date,modify_date,province,city,area,address,full_address)
+ values(#{id},#{username},#{password},#{name},#{phone},#{sex},#{ico},#{createDate},#{modifyDate},#{province},#{city},#{area},#{address},#{fullAddress})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_member set 
+	<trim  suffixOverrides="," >
+	<if test="username != null  ">
+		username=#{username},
+	</if>
+	<if test="password != null  ">
+		password=#{password},
+	</if>
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="phone != null  ">
+		phone=#{phone},
+	</if>
+	<if test="sex != null  ">
+		sex=#{sex},
+	</if>
+	<if test="ico != null  ">
+		ico=#{ico}, 
+	</if>
+	<if test="province != null  ">
+		province=#{province}, 
+	</if>
+	<if test="city != null  ">
+		city=#{city}, 
+	</if>
+	<if test="area != null  ">
+		area=#{area}, 
+	</if>
+	<if test="address != null  ">
+		address=#{address}, 
+	</if>
+	<if test="fullAddress != null  ">
+		full_address=#{fullAddress}, 
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_member where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_member where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_member 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_member 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_member 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

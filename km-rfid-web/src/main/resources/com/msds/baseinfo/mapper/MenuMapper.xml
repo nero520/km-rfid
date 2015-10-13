@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.baseinfo.mapper.MenuMapper">
+    <resultMap type="com.msds.baseinfo.entity.Permission" id="pms">
+    <result property ="id" column="id"/>
+    <result property ="name" column="name"/>
+    <result property ="codename" column="codename"/>
+    <result property ="parentNode" column="parent_node"/>
+    <result property ="isMenu" column="is_menu"/>
+    <result property ="sequence" column="num_of_char"/>
+    <result property ="permission" column="permission"/>
+    <result property="parentIds" column="parentIds"/>
+    </resultMap>
+	<select id="getMenuListByUserId" parameterType="int"  resultMap="pms">
+	<![CDATA[
+       	select DISTINCT * from auth_permission_cs p,auth_group_permissions_cs ap,auth_group_cs bp, auth_user_groups_cs cp where p.id = ap.permission_id and ap.group_id=bp.id and bp.id = cp.group_id and cp.user_id=#{user_id}
+    ]]>
+  </select>
+  <select id="getAdminList" resultMap="pms">
+  		select DISTINCT * from auth_permission_cs order by num_of_char
+  </select> 	
+ <select id="getMenuListByParentNode" resultMap="pms">  
+     Select  *
+     from  auth_permission_cs where id in  
+     <foreach item="item" index="index" collection="list" open="(" separator="," close=")">  
+      #{item}  
+     </foreach>  
+      order by num_of_char
+   </select>  
+  	
+</mapper>
+

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.RefundMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.RefundEntity">
+		<result column="id" property="id" />
+		<result column="refund_sn" property="refundSn" />
+		<result column="order_sn" property="orderSn" />
+		<result column="member_id" property="memberId" />
+		<result column="price" property="price" />
+		<result column="state" property="state" />
+		<result column="pay_code" property="payCode" />
+		<result column="old_pay_mode" property="oldPayMode" />
+		<result column="batch_no" property="batchNo" />
+		<result column="old_pay_code" property="oldPayCode" />
+		<result column="operator" property="operator" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+	
+	<resultMap id="ResultMap1" type="com.msds.km.vo.RefundList">
+		<result column="id" property="id" />
+		<result column="refund_sn" property="refundSn" />
+		<result column="order_sn" property="orderSn" />
+		<result column="member_id" property="memberId" />
+		<result column="price" property="price" />
+		<result column="state" property="state" />
+		<result column="pay_code" property="payCode" />
+		<result column="old_pay_mode" property="oldPayMode" />
+		<result column="batch_no" property="batchNo" />
+		<result column="old_pay_code" property="oldPayCode" />
+		<result column="operator" property="operator" />
+		<result column="create_date" property="nowDate" />
+		<result column="modify_date" property="modifyDate" />
+		
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="order_state" property="orderState" />
+		<result column="license" property="license" />
+		<result column="create_date" property="afterDate" />
+		<result column="service_name" property="serviceName" />
+		<result column="parts_sn" property="partsSn" />
+		
+		<result column="phone" property="phone" />
+		<result column="name" property="name" />
+
+		<result column="return_sn" property="returnSn" />
+		<result column="user_person" property="userPerson" />
+		<result column="payment_serial_number" property="paymentSerialNumber" />
+		
+	</resultMap>
+
+	<!-- b_refund 字段 -->
+	<sql id="Column_List">
+		b_refund.id,b_refund.refund_sn,b_refund.order_sn,b_refund.member_id,b_refund.price,b_refund.state,b_refund.pay_code,b_refund.old_pay_mode,b_refund.batch_no,b_refund.old_pay_code,b_refund.operator,b_refund.create_date,b_refund.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_refund.id = #{id}
+			</if>
+			<if test="refundSn != null and refundSn != ''">
+				and b_refund.refund_sn = #{refundSn}
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_refund.order_sn = #{orderSn}
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_refund.member_id = #{memberId}
+			</if>
+			<if test="price != null and price != ''">
+				and b_refund.price = #{price}
+			</if>
+			<if test="state != null and state != ''">
+				and b_refund.state = #{state}
+			</if>
+			<if test="payCode != null and payCode != ''">
+				and b_refund.pay_code = #{payCode}
+			</if>
+			<if test="oldPayMode != null and oldPayMode != ''">
+				and b_refund.old_pay_mode = #{oldPayMode}
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				and b_refund.batch_no = #{batchNo}
+			</if>
+			<if test="oldPayCode != null and oldPayCode != ''">
+				and b_refund.old_pay_code = #{oldPayCode}
+			</if>
+			<if test="operator != null and operator != ''">
+				and b_refund.operator = #{operator}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_refund.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_refund.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_refund.id = #{id}
+			</if>
+			<if test="refundSn != null and refundSn != ''">
+				and b_refund.refund_sn like CONCAT('%',#{refundSn},'%')
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_refund.order_sn like CONCAT('%',#{orderSn},'%')
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_refund.member_id like CONCAT('%',#{memberId},'%')
+			</if>
+			<if test="price != null and price != ''">
+				and b_refund.price like CONCAT('%',#{price},'%')
+			</if>
+			<if test="state != null and state != ''">
+				and b_refund.state like CONCAT('%',#{state},'%')
+			</if>
+			<if test="payCode != null and payCode != ''">
+				and b_refund.pay_code like CONCAT('%',#{payCode},'%')
+			</if>
+			<if test="oldPayMode != null and oldPayMode != ''">
+				and b_refund.old_pay_mode like CONCAT('%',#{oldPayMode},'%')
+			</if>
+			<if test="batchNo != null and batchNo != ''">
+				and b_refund.batch_no like CONCAT('%',#{batchNo},'%')
+			</if>
+			<if test="oldPayCode != null and oldPayCode != ''">
+				and b_refund.old_pay_code like CONCAT('%',#{oldPayCode},'%')
+			</if>
+			<if test="operator != null and operator != ''">
+				and b_refund.operator like CONCAT('%',#{operator},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_refund.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_refund.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_refund(id,refund_sn,order_sn,member_id,price,state,pay_code,old_pay_mode,batch_no,old_pay_code,operator,create_date,modify_date)
+ values(#{id},#{refundSn},#{orderSn},#{memberId},#{price},#{state},#{payCode},#{oldPayMode},#{batchNo},#{oldPayCode},#{operator},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_refund set 
+	<trim  suffixOverrides="," >
+	<if test="refundSn != null  ">
+		refund_sn=#{refundSn},
+	</if>
+	<if test="orderSn != null  ">
+		order_sn=#{orderSn},
+	</if>
+	<if test="memberId != null  ">
+		member_id=#{memberId},
+	</if>
+	<if test="price != null  ">
+		price=#{price},
+	</if>
+	<if test="state != null  ">
+		state=#{state},
+	</if>
+	<if test="payCode != null  ">
+		pay_code=#{payCode},
+	</if>
+	<if test="oldPayMode != null  ">
+		old_pay_mode=#{oldPayMode},
+	</if>
+	<if test="batchNo != null  ">
+		batch_no=#{batchNo},
+	</if>
+	<if test="oldPayCode != null  ">
+		old_pay_code=#{oldPayCode},
+	</if>
+	<if test="operator != null  ">
+		operator=#{operator},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_refund where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_refund where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_refund 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_refund 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_refund 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	<select id="refundList" resultMap="ResultMap1" parameterType="Object">
+	SELECT *,
+	au.username AS user_person from b_refund 
+	left join b_order o ON o.order_sn = b_refund.order_sn 
+	left join auth_user au on au.id = b_refund.operator 
+	left join b_payment on o.order_sn = b_payment.order_sn and b_payment.status=2
+	where 1=1  
+		<trim suffixOverrides=",">
+			<if test="orderSn != null and orderSn != ''">
+				and b_refund.order_sn =#{orderSn}
+			</if>
+			<if test="id != null and id != ''">
+				and b_refund.id =#{id}
+			</if>
+			<if test="license != null and license != ''">
+				and o.license =#{license}
+			</if><if test="phone != null and phone != ''">
+				and o.phone =#{phone}
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and b_refund.create_date >= #{afterDate}
+			</if>
+			<if test="nowDate != null and nowDate != ''">
+				and <![CDATA[ b_refund.create_date < #{nowDate} ]]>
+			</if>
+		</trim>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<select id="findRefundCount" resultType="Integer" parameterType="Object">
+		SELECT count(1) from b_refund r  
+		left JOIN b_order o ON o.order_sn = r.order_sn 
+		left join auth_user au on au.id = r.operator  
+		left join b_payment on o.order_sn = b_payment.order_sn and b_payment.status=2
+		where 1=1  
+		<trim suffixOverrides=",">
+			<if test="orderSn != null and orderSn != ''">
+				and r.order_sn =#{orderSn}
+			</if>
+			<if test="id != null and id != ''">
+				and r.id =#{id}
+			</if>
+			<if test="license != null and license != ''">
+				and o.license =#{license}
+			</if><if test="phone != null and phone != ''">
+				and o.phone =#{phone}
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and  r.create_date >= #{afterDate}
+			</if>
+			<if test="nowDate != null and nowDate != ''">
+				and <![CDATA[ r.create_date < #{nowDate} ]]>
+			</if>
+		</trim>
+	</select>
+</mapper>   

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.MaintenanceMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.MaintenanceEntity">
+		<result column="id" property="id" />
+		<result column="project_id" property="projectId" />
+		<result column="project_name" property="projectName" />
+		<result column="service_id" property="serviceId" />
+		<result column="model_id" property="modelId" />
+		<result column="mileague" property="mileague" />
+		<result column="type" property="type" />
+		<result column="month" property="month" />
+		<result column="mofq" property="mofq" />
+		<result column="baseOilType" property="baseOilType" />
+		<result column="grade" property="grade" />
+		<result column="standard" property="standard" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- t_maintenance 字段 -->
+	<sql id="Column_List">
+		t_maintenance.id,t_maintenance.project_id,t_maintenance.project_name,t_maintenance.service_id,t_maintenance.model_id,t_maintenance.mileague,t_maintenance.type,t_maintenance.month,t_maintenance.mofq,t_maintenance.baseOilType,t_maintenance.grade,t_maintenance.standard,t_maintenance.create_date,t_maintenance.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_maintenance.id = #{id}
+			</if>
+			<if test="projectId != null and projectId != ''">
+				and t_maintenance.project_id = #{projectId}
+			</if>
+			<if test="projectName != null and projectName != ''">
+				and t_maintenance.project_name = #{projectName}
+			</if>
+			<if test="serviceId != null and serviceId != ''">
+				and t_maintenance.service_id = #{serviceId}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and t_maintenance.model_id = #{modelId}
+			</if>
+			<if test="mileague != null and mileague != ''">
+				and t_maintenance.mileague = #{mileague}
+			</if>
+			<if test="type != null and type != ''">
+				and t_maintenance.type = #{type}
+			</if>
+			<if test="month != null and month != ''">
+				and t_maintenance.month = #{month}
+			</if>
+			<if test="mofq != null and mofq != ''">
+				and t_maintenance.mofq = #{mofq}
+			</if>
+			<if test="baseOilType != null and baseOilType != ''">
+				and t_maintenance.baseOilType = #{baseOilType}
+			</if>
+			<if test="grade != null and grade != ''">
+				and t_maintenance.grade = #{grade}
+			</if>
+			<if test="standard != null and standard != ''">
+				and t_maintenance.standard = #{standard}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_maintenance.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and t_maintenance.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_maintenance.id = #{id}
+			</if>
+			<if test="projectId != null and projectId != ''">
+				and t_maintenance.project_id like CONCAT('%',#{projectId},'%')
+			</if>
+			<if test="projectName != null and projectName != ''">
+				and t_maintenance.project_name like CONCAT('%',#{projectName},'%')
+			</if>
+			<if test="serviceId != null and serviceId != ''">
+				and t_maintenance.service_id like CONCAT('%',#{serviceId},'%')
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and t_maintenance.model_id like CONCAT('%',#{modelId},'%')
+			</if>
+			<if test="mileague != null and mileague != ''">
+				and t_maintenance.mileague like CONCAT('%',#{mileague},'%')
+			</if>
+			<if test="type != null and type != ''">
+				and t_maintenance.type like CONCAT('%',#{type},'%')
+			</if>
+			<if test="month != null and month != ''">
+				and t_maintenance.month like CONCAT('%',#{month},'%')
+			</if>
+			<if test="mofq != null and mofq != ''">
+				and t_maintenance.mofq like CONCAT('%',#{mofq},'%')
+			</if>
+			<if test="baseOilType != null and baseOilType != ''">
+				and t_maintenance.baseOilType like CONCAT('%',#{baseOilType},'%')
+			</if>
+			<if test="grade != null and grade != ''">
+				and t_maintenance.grade like CONCAT('%',#{grade},'%')
+			</if>
+			<if test="standard != null and standard != ''">
+				and t_maintenance.standard like CONCAT('%',#{standard},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_maintenance.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and t_maintenance.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into t_maintenance(id,project_id,project_name,service_id,model_id,mileague,type,month,mofq,baseOilType,grade,standard,create_date,modify_date)
+ values(#{id},#{projectId},#{projectName},#{serviceId},#{modelId},#{mileague},#{type},#{month},#{mofq},#{baseOilType},#{grade},#{standard},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update t_maintenance set 
+	<trim  suffixOverrides="," >
+	<if test="projectId != null  ">
+		project_id=#{projectId},
+	</if>
+	<if test="projectName != null  ">
+		project_name=#{projectName},
+	</if>
+	<if test="serviceId != null  ">
+		service_id=#{serviceId},
+	</if>
+	<if test="modelId != null  ">
+		model_id=#{modelId},
+	</if>
+	<if test="mileague != null  ">
+		mileague=#{mileague},
+	</if>
+	<if test="type != null  ">
+		type=#{type},
+	</if>
+	<if test="month != null  ">
+		month=#{month},
+	</if>
+	<if test="mofq != null  ">
+		mofq=#{mofq},
+	</if>
+	<if test="baseOilType != null  ">
+		baseOilType=#{baseOilType},
+	</if>
+	<if test="grade != null  ">
+		grade=#{grade},
+	</if>
+	<if test="standard != null  ">
+		standard=#{standard},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from t_maintenance where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from t_maintenance where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_maintenance 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from t_maintenance 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_maintenance 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.FeedbackMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.FeedbackEntity">
+		<result column="id" property="id" />
+		<result column="member_id" property="memberId" />
+		<result column="content" property="content" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_feedback 字段 -->
+	<sql id="Column_List">
+		b_feedback.id,b_feedback.member_id,b_feedback.content,b_feedback.create_date,b_feedback.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_feedback.id = #{id}
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_feedback.member_id = #{memberId}
+			</if>
+			<if test="content != null and content != ''">
+				and b_feedback.content = #{content}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_feedback.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_feedback.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_feedback.id = #{id}
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_feedback.member_id like CONCAT('%',#{memberId},'%')
+			</if>
+			<if test="content != null and content != ''">
+				and b_feedback.content like CONCAT('%',#{content},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_feedback.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_feedback.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_feedback(id,member_id,content,create_date,modify_date)
+ values(#{id},#{memberId},#{content},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_feedback set 
+	<trim  suffixOverrides="," >
+	<if test="memberId != null  ">
+		member_id=#{memberId},
+	</if>
+	<if test="content != null  ">
+		content=#{content},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_feedback where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_feedback where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_feedback 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_feedback 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_feedback 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

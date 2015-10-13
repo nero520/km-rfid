@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.baseinfo.mapper.MenuCtrMapper">
+  <resultMap type="com.msds.baseinfo.entity.Permission" id="pd">
+    <result property ="id" column="id"/>
+    <result property ="name" column="name"/>
+    <result property ="codename" column="codename"/>
+    <result property ="parentNode" column="parent_node"/>
+    <result property ="isMenu" column="is_menu"/>
+    <result property ="sequence" column="num_of_char"/>
+    <result property ="permission" column="permission"/>
+    <result property="parentIds" column="parentIds"/>
+    </resultMap>
+  <select id="getMaxValueByParentId" parameterType="int" resultType="Integer">
+  	select max(node) from auth_permission_cs where parent_node = #{parentNode}
+  </select>
+  <select id="getMaxId" parameterType="int" resultType="Integer">
+  	select max(id) from auth_permission_cs
+  </select>
+  <insert id="savePermission" parameterType="com.msds.baseinfo.entity.Permission" useGeneratedKeys="true" keyProperty="id">
+   insert into auth_permission_cs (name,codename,parent_node,is_menu,num_of_char,permission,parentIds) values(#{name},#{codename},#{parentNode},#{isMenu},#{sequence},#{permission},#{parentIds})
+  </insert>
+  <select id="getAuthPermission" parameterType="int" resultMap="pd">
+   select * from auth_permission_cs where id = #{node_id}
+  </select>
+  <update id="updateAuthPermission" parameterType="com.msds.baseinfo.entity.Permission">
+   update auth_permission_cs set name=#{name},codename=#{codename},parent_node=#{parentNode},parentIds=#{parentIds},is_menu=#{isMenu},permission=#{permission} where id=#{id}
+  </update>
+  <delete id="deleteAuthPermission" parameterType="int">
+  delete from auth_permission_cs where id = #{id}
+  </delete>
+  <delete id="deleteAuthPermissionAssociate" parameterType="int">
+  delete from auth_group_permissions_cs where permission_id =#{id}
+  </delete>
+  <select id="getCountByPermissionId" parameterType="int" resultType="int">
+      select count(1) from auth_permission_cs where parent_node = #{id}
+  </select>
+  <select id="getMaxNumOfChar" parameterType="int" resultType="Integer">
+  	select max(num_of_char) from auth_permission_cs where parent_node= #{parentNode}
+  </select>
+  <select id="getParentNodeByNode" parameterType="int" resultType="Integer">
+  	select parent_node from auth_permission_cs where id= #{node}
+  </select>
+   <select id="getAllPermission"  resultMap="pd">
+  	select * from auth_permission_cs
+  </select>
+ 
+</mapper>
+

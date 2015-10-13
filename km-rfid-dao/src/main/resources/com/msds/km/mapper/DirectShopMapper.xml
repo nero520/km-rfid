@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.DirectShopMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.DirectShopEntity">
+		<result column="id" property="id" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="area" property="area" />
+		<result column="name" property="name" />
+		<result column="sort" property="sort" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="parent_id" property="parentId" />
+		<result column="direct_shop_id" property="directShopId" />
+		<result column="type" property="type" />
+		<result column="employee_id" property="employeeId" />
+		<result column="build_date" property="buildDate" />
+		<result column="address" property="address" />
+		<result column="phone" property="phone" />
+		<result column="fax" property="fax" />
+		<result column="inner_coefficient" property="innerCoefficient" />
+		<result column="allocate_coefficient" property="allocateCoefficient" />
+		<result column="real_coefficient" property="realCoefficient" />
+		<result column="store_level" property="storeLevel" />
+		<result column="store_sn" property="storeSn" />
+		<result column="parent_storage_id" property="parentStorageId" />
+		<result column="bank" property="bank" />
+		<result column="bank_account" property="bankAccount" />
+		<result column="remark" property="remark" />
+		<result column="department_printname" property="departmentPrintname" />
+		<result column="store_type" property="storeType" />
+		<result column="is_show" property="isShow" />
+		<result column="manager_name" property="managerName" />
+		<result column="manager_phone" property="managerPhone" />
+	</resultMap>
+
+	<!-- g_direct_shop 字段 -->
+	<sql id="Column_List">
+		g_direct_shop.id,g_direct_shop.province,g_direct_shop.city,g_direct_shop.area,g_direct_shop.name,g_direct_shop.sort,g_direct_shop.create_date,g_direct_shop.modify_date,g_direct_shop.parent_id,g_direct_shop.direct_shop_id,g_direct_shop.type,g_direct_shop.employee_id,g_direct_shop.build_date,g_direct_shop.address,g_direct_shop.phone,g_direct_shop.fax,g_direct_shop.inner_coefficient,g_direct_shop.allocate_coefficient,g_direct_shop.real_coefficient,g_direct_shop.store_level,g_direct_shop.store_sn,g_direct_shop.parent_storage_id,g_direct_shop.bank,g_direct_shop.bank_account,g_direct_shop.remark,g_direct_shop.department_printname,g_direct_shop.store_type,g_direct_shop.is_show,g_direct_shop.manager_name,g_direct_shop.manager_phone
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_direct_shop.id = #{id}
+			</if>
+			<if test="province != null and province != ''">
+				and g_direct_shop.province = #{province}
+			</if>
+			<if test="city != null and city != ''">
+				and g_direct_shop.city = #{city}
+			</if>
+			<if test="area != null and area != ''">
+				and g_direct_shop.area = #{area}
+			</if>
+			<if test="name != null and name != ''">
+				and g_direct_shop.name = #{name}
+			</if>
+			<if test="sort != null and sort != ''">
+				and g_direct_shop.sort = #{sort}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_direct_shop.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_direct_shop.modify_date = #{modifyDate}
+			</if>
+			<if test="parentId != null and parentId != ''">
+				and g_direct_shop.parent_id = #{parentId}
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and g_direct_shop.direct_shop_id = #{directShopId}
+			</if>
+			<if test="type != null and type != ''">
+				and g_direct_shop.type = #{type}
+			</if>
+			<if test="employeeId != null and employeeId != ''">
+				and g_direct_shop.employee_id = #{employeeId}
+			</if>
+			<if test="buildDate != null and buildDate != ''">
+				and g_direct_shop.build_date = #{buildDate}
+			</if>
+			<if test="address != null and address != ''">
+				and g_direct_shop.address = #{address}
+			</if>
+			<if test="phone != null and phone != ''">
+				and g_direct_shop.phone = #{phone}
+			</if>
+			<if test="fax != null and fax != ''">
+				and g_direct_shop.fax = #{fax}
+			</if>
+			<if test="innerCoefficient != null and innerCoefficient != ''">
+				and g_direct_shop.inner_coefficient = #{innerCoefficient}
+			</if>
+			<if test="allocateCoefficient != null and allocateCoefficient != ''">
+				and g_direct_shop.allocate_coefficient = #{allocateCoefficient}
+			</if>
+			<if test="realCoefficient != null and realCoefficient != ''">
+				and g_direct_shop.real_coefficient = #{realCoefficient}
+			</if>
+			<if test="storeLevel != null and storeLevel != ''">
+				and g_direct_shop.store_level = #{storeLevel}
+			</if>
+			<if test="storeSn != null and storeSn != ''">
+				and g_direct_shop.store_sn = #{storeSn}
+			</if>
+			<if test="parentStorageId != null and parentStorageId != ''">
+				and g_direct_shop.parent_storage_id = #{parentStorageId}
+			</if>
+			<if test="bank != null and bank != ''">
+				and g_direct_shop.bank = #{bank}
+			</if>
+			<if test="bankAccount != null and bankAccount != ''">
+				and g_direct_shop.bank_account = #{bankAccount}
+			</if>
+			<if test="remark != null and remark != ''">
+				and g_direct_shop.remark = #{remark}
+			</if>
+			<if test="departmentPrintname != null and departmentPrintname != ''">
+				and g_direct_shop.department_printname = #{departmentPrintname}
+			</if>
+			<if test="storeType != null and storeType != ''">
+				and g_direct_shop.store_type = #{storeType}
+			</if>
+			<if test="isShow != null and isShow != ''">
+				and g_direct_shop.is_show = #{isShow}
+			</if>
+			<if test="managerName != null and managerName != ''">
+				and g_direct_shop.manager_name = #{managerName}
+			</if>
+			<if test="managerPhone != null and managerPhone != ''">
+				and g_direct_shop.manager_phone = #{managerPhone}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_direct_shop.id = #{id}
+			</if>
+			<if test="province != null and province != ''">
+				and g_direct_shop.province like CONCAT('%',#{province},'%')
+			</if>
+			<if test="city != null and city != ''">
+				and g_direct_shop.city like CONCAT('%',#{city},'%')
+			</if>
+			<if test="area != null and area != ''">
+				and g_direct_shop.area like CONCAT('%',#{area},'%')
+			</if>
+			<if test="name != null and name != ''">
+				and g_direct_shop.name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="sort != null and sort != ''">
+				and g_direct_shop.sort like CONCAT('%',#{sort},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_direct_shop.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_direct_shop.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="parentId != null and parentId != ''">
+				and g_direct_shop.parent_id like CONCAT('%',#{parentId},'%')
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and g_direct_shop.direct_shop_id like CONCAT('%',#{directShopId},'%')
+			</if>
+			<if test="type != null and type != ''">
+				and g_direct_shop.type like CONCAT('%',#{type},'%')
+			</if>
+			<if test="employeeId != null and employeeId != ''">
+				and g_direct_shop.employee_id like CONCAT('%',#{employeeId},'%')
+			</if>
+			<if test="buildDate != null and buildDate != ''">
+				and g_direct_shop.build_date like CONCAT('%',#{buildDate},'%')
+			</if>
+			<if test="address != null and address != ''">
+				and g_direct_shop.address like CONCAT('%',#{address},'%')
+			</if>
+			<if test="phone != null and phone != ''">
+				and g_direct_shop.phone like CONCAT('%',#{phone},'%')
+			</if>
+			<if test="fax != null and fax != ''">
+				and g_direct_shop.fax like CONCAT('%',#{fax},'%')
+			</if>
+			<if test="innerCoefficient != null and innerCoefficient != ''">
+				and g_direct_shop.inner_coefficient like CONCAT('%',#{innerCoefficient},'%')
+			</if>
+			<if test="allocateCoefficient != null and allocateCoefficient != ''">
+				and g_direct_shop.allocate_coefficient like CONCAT('%',#{allocateCoefficient},'%')
+			</if>
+			<if test="realCoefficient != null and realCoefficient != ''">
+				and g_direct_shop.real_coefficient like CONCAT('%',#{realCoefficient},'%')
+			</if>
+			<if test="storeLevel != null and storeLevel != ''">
+				and g_direct_shop.store_level like CONCAT('%',#{storeLevel},'%')
+			</if>
+			<if test="storeSn != null and storeSn != ''">
+				and g_direct_shop.store_sn like CONCAT('%',#{storeSn},'%')
+			</if>
+			<if test="parentStorageId != null and parentStorageId != ''">
+				and g_direct_shop.parent_storage_id like CONCAT('%',#{parentStorageId},'%')
+			</if>
+			<if test="bank != null and bank != ''">
+				and g_direct_shop.bank like CONCAT('%',#{bank},'%')
+			</if>
+			<if test="bankAccount != null and bankAccount != ''">
+				and g_direct_shop.bank_account like CONCAT('%',#{bankAccount},'%')
+			</if>
+			<if test="remark != null and remark != ''">
+				and g_direct_shop.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="departmentPrintname != null and departmentPrintname != ''">
+				and g_direct_shop.department_printname like CONCAT('%',#{departmentPrintname},'%')
+			</if>
+			<if test="storeType != null and storeType != ''">
+				and g_direct_shop.store_type like CONCAT('%',#{storeType},'%')
+			</if>
+			<if test="isShow != null and isShow != ''">
+				and g_direct_shop.is_show like CONCAT('%',#{isShow},'%')
+			</if>
+			<if test="managerName != null and managerName != ''">
+				and g_direct_shop.manager_name like CONCAT('%',#{managerName},'%')
+			</if>
+			<if test="managerPhone != null and managerPhone != ''">
+				and g_direct_shop.manager_phone like CONCAT('%',#{managerPhone},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into g_direct_shop(id,province,city,area,name,sort,create_date,modify_date,parent_id,direct_shop_id,type,employee_id,build_date,address,phone,fax,inner_coefficient,allocate_coefficient,real_coefficient,store_level,store_sn,parent_storage_id,bank,bank_account,remark,department_printname,store_type,is_show,manager_name,manager_phone)
+ values(#{id},#{province},#{city},#{area},#{name},#{sort},#{createDate},#{modifyDate},#{parentId},#{directShopId},#{type},#{employeeId},#{buildDate},#{address},#{phone},#{fax},#{innerCoefficient},#{allocateCoefficient},#{realCoefficient},#{storeLevel},#{storeSn},#{parentStorageId},#{bank},#{bankAccount},#{remark},#{departmentPrintname},#{storeType},#{isShow},#{managerName},#{managerPhone})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_direct_shop set 
+	<trim  suffixOverrides="," >
+	<if test="province != null  ">
+		province=#{province},
+	</if>
+	<if test="city != null  ">
+		city=#{city},
+	</if>
+	<if test="area != null  ">
+		area=#{area},
+	</if>
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="sort != null  ">
+		sort=#{sort},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	<if test="parentId != null  ">
+		parent_id=#{parentId},
+	</if>
+	<if test="directShopId != null  ">
+		direct_shop_id=#{directShopId},
+	</if>
+	<if test="type != null  ">
+		type=#{type},
+	</if>
+	<if test="employeeId != null  ">
+		employee_id=#{employeeId},
+	</if>
+	<if test="buildDate != null  ">
+		build_date=#{buildDate},
+	</if>
+	<if test="address != null  ">
+		address=#{address},
+	</if>
+	<if test="phone != null  ">
+		phone=#{phone},
+	</if>
+	<if test="fax != null  ">
+		fax=#{fax},
+	</if>
+	<if test="innerCoefficient != null  ">
+		inner_coefficient=#{innerCoefficient},
+	</if>
+	<if test="allocateCoefficient != null  ">
+		allocate_coefficient=#{allocateCoefficient},
+	</if>
+	<if test="realCoefficient != null  ">
+		real_coefficient=#{realCoefficient},
+	</if>
+	<if test="storeLevel != null  ">
+		store_level=#{storeLevel},
+	</if>
+	<if test="storeSn != null  ">
+		store_sn=#{storeSn},
+	</if>
+	<if test="parentStorageId != null  ">
+		parent_storage_id=#{parentStorageId},
+	</if>
+	<if test="bank != null  ">
+		bank=#{bank},
+	</if>
+	<if test="bankAccount != null  ">
+		bank_account=#{bankAccount},
+	</if>
+	<if test="remark != null  ">
+		remark=#{remark},
+	</if>
+	<if test="departmentPrintname != null  ">
+		department_printname=#{departmentPrintname},
+	</if>
+	<if test="storeType != null  ">
+		store_type=#{storeType},
+	</if>
+	<if test="isShow != null  ">
+		is_show=#{isShow},
+	</if>
+	<if test="managerName != null  ">
+		manager_name=#{managerName},
+	</if>
+	<if test="managerPhone != null  ">
+		manager_phone=#{managerPhone},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from g_direct_shop where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from g_direct_shop where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_direct_shop 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_direct_shop 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_direct_shop 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

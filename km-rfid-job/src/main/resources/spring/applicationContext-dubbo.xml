@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 引入dubbo接口 -->
+<!-- 	<import resource="classpath*:com/msds/car/user-reference.xml"/> -->
+<!-- 	<import resource="classpath*:com/msds/car/product-reference.xml"/> -->
+<!-- 	<import resource="classpath*:com/msds/car/order-reference.xml"/> -->
+	
+<!-- 	<dubbo:application name="carzone-consumer" owner="lizhe" /> -->
+	<!--{dev.start}-->
+<!-- 	<dubbo:registry address="zookeeper://172.30.1.77:2181"/> -->
+<!-- 	<dubbo:consumer check="false" mock="return null"/> -->
+	<!--{dev.end}-->
+	
+	<!-- <dubbo:monitor protocol="registry"/> -->
+	
+</beans>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.SettleAccountMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.SettleAccountEntity">
+		<result column="id" property="id" />
+		<result column="company_id" property="companyId" />
+		<result column="settle_sn" property="settleSn" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="settle_all_amount" property="settleAllAmount" />
+		<result column="actual_amount" property="actualAmount" />
+		<result column="settle_state" property="settleState" />
+		<result column="billing_type" property="billingType" />
+		<result column="account_name" property="accountName" />
+		<result column="account_bank_name" property="accountBankName" />
+		<result column="account_number" property="accountNumber" />
+		<result column="remark" property="remark" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="companyName" property="companyName" />
+		<result column="companyAddress" property="companyAddress" />
+	</resultMap>
+
+	<!-- b_settle_account 字段 -->
+	<sql id="Column_List">
+		b_settle_account.id,b_settle_account.company_id,b_settle_account.settle_sn,b_settle_account.start_date,b_settle_account.end_date,b_settle_account.settle_all_amount,b_settle_account.actual_amount,b_settle_account.settle_state,b_settle_account.billing_type,b_settle_account.account_name,b_settle_account.account_bank_name,b_settle_account.account_number,b_settle_account.remark,b_settle_account.create_date,b_settle_account.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account.company_id = #{companyId}
+			</if>
+			<if test="settleSn != null and settleSn != ''">
+				and b_settle_account.settle_sn = #{settleSn}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				and b_settle_account.start_date = #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and b_settle_account.end_date = #{endDate}
+			</if>
+			<if test="settleAllAmount != null and settleAllAmount != ''">
+				and b_settle_account.settle_all_amount = #{settleAllAmount}
+			</if>
+			<if test="actualAmount != null and actualAmount != ''">
+				and b_settle_account.actual_amount = #{actualAmount}
+			</if>
+			<if test="settleState != null and settleState != ''">
+				and b_settle_account.settle_state = #{settleState}
+			</if>
+			<if test="billingType != null and billingType != ''">
+				and b_settle_account.billing_type = #{billingType}
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_settle_account.account_name = #{accountName}
+			</if>
+			<if test="accountBankName != null and accountBankName != ''">
+				and b_settle_account.account_bank_name = #{accountBankName}
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_settle_account.account_number = #{accountNumber}
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_settle_account.remark = #{remark}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account.modify_date = #{modifyDate}
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and b_settle_account.start_date >= #{beforeDate}
+			</if>
+			<if test="beforeDate != null and beforeDate != ''">
+				and <![CDATA[ b_settle_account.end_date <= #{afterDate}]]>
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="settleSn != null and settleSn != ''">
+				and b_settle_account.settle_sn like CONCAT('%',#{settleSn},'%')
+			</if>
+			<if test="startDate != null and startDate != ''">
+				and b_settle_account.start_date like CONCAT('%',#{startDate},'%')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and b_settle_account.end_date like CONCAT('%',#{endDate},'%')
+			</if>
+			<if test="settleAllAmount != null and settleAllAmount != ''">
+				and b_settle_account.settle_all_amount like CONCAT('%',#{settleAllAmount},'%')
+			</if>
+			<if test="actualAmount != null and actualAmount != ''">
+				and b_settle_account.actual_amount like CONCAT('%',#{actualAmount},'%')
+			</if>
+			<if test="settleState != null and settleState != ''">
+				and b_settle_account.settle_state like CONCAT('%',#{settleState},'%')
+			</if>
+			<if test="billingType != null and billingType != ''">
+				and b_settle_account.billing_type like CONCAT('%',#{billingType},'%')
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_settle_account.account_name like CONCAT('%',#{accountName},'%')
+			</if>
+			<if test="accountBankName != null and accountBankName != ''">
+				and b_settle_account.account_bank_name like CONCAT('%',#{accountBankName},'%')
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_settle_account.account_number like CONCAT('%',#{accountNumber},'%')
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_settle_account.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_settle_account(id,company_id,settle_sn,start_date,end_date,settle_all_amount,actual_amount,settle_state,billing_type,account_name,account_bank_name,account_number,remark,create_date,modify_date)
+ values(#{id},#{companyId},#{settleSn},#{startDate},#{endDate},#{settleAllAmount},#{actualAmount},#{settleState},#{billingType},#{accountName},#{accountBankName},#{accountNumber},#{remark},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_settle_account set 
+	<trim  suffixOverrides="," >
+	<!-- <if test="companyId != null  ">
+		company_id=#{companyId},
+	</if> -->
+	<if test="settleSn != null  ">
+		settle_sn=#{settleSn},
+	</if>
+	<if test="startDate != null  ">
+		start_date=#{startDate},
+	</if>
+	<if test="endDate != null  ">
+		end_date=#{endDate},
+	</if>
+	<if test="settleAllAmount != null  ">
+		settle_all_amount=#{settleAllAmount},
+	</if>
+	<if test="actualAmount != null  ">
+		actual_amount=#{actualAmount},
+	</if>
+	<if test="settleState != null  ">
+		settle_state=#{settleState},
+	</if>
+	<if test="billingType != null  ">
+		billing_type=#{billingType},
+	</if>
+	<if test="accountName != null  ">
+		account_name=#{accountName},
+	</if>
+	<if test="accountBankName != null  ">
+		account_bank_name=#{accountBankName},
+	</if>
+	<if test="accountNumber != null  ">
+		account_number=#{accountNumber},
+	</if>
+	<if test="remark != null  ">
+		remark=#{remark},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	<if test="companyId != null">
+		and b_settle_account.company_id =#{companyId}
+	</if>
+	
+	
+	</update>
+	
+	
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_settle_account where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_settle_account where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_settle_account 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />,
+		b_company.name companyName,
+		b_company.full_address companyAddress
+		from b_settle_account 
+		left join b_company on b_company.id=b_settle_account.company_id
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<select id="findBySnAndCompanyId" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account where settle_sn=#{settleSn} and company_id=#{companyId}
+	</select>
+	
+	<select id="findBySn" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account where settle_sn=#{settleSn}
+	</select>
+</mapper>   

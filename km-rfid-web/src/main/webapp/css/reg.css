@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+
+.reg-title{ width:157px; height:36px; overflow:hidden;}
+.bgc-faf{ padding-top:20px; padding-bottom:43px;}
+.reg-form,.reg-big-ico{ float:left;}
+.reg-form{ width:633px; padding:42px 0 0 90px;}
+.reg-form ul{ padding-bottom:24px;}
+.reg-form li{ height:38px; padding-bottom:20px; overflow:hidden;}
+.reg-form label{ font-family:\5b8b\4f53;}
+.reg-form label em{ margin-right:4px; color:#d90000; font-size:14px;}
+.reg-form input{ vertical-align:middle;}
+.reg-form .reg-txt{ width:230px; height:16px; line-height:16px; padding:10px 4px; border:1px solid #e3e3e3; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius:3px;}
+.reg-form .w106{ width:106px; margin-right:4px;}
+.reg-form .h40{ height:40px; line-height:40px;}
+.mess-tip{ margin-left:13px;}
+.reg-form .pl72{ padding-left:72px;}
+.reg-form .reg-agreement{ height:26px; line-height:26px;}
+.reg-agreement a{ color:#0096d4;}
+.reg-agreement input{ margin-right:5px;}
+.reg-form .button{ margin-left:0;}
+.reg-big-ico{ width:159px; margin-top:51px; border-left:1px solid #e8e8e8; overflow:hidden;}
+.reg-big-ico div{ padding:105px 0 70px 19px; border-left:1px solid #fff;}
+.reg-big-ico p{ width:159px; height:142px; overflow:hidden;}
+.reg-big-ico p img{ margin-left:-157px;}

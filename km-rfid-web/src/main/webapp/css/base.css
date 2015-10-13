@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+html,body,div,span,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,address,big,cite,code,del,em,font,img,ins,small,strong,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,th {margin:0;padding:0;}
+ol,ul{list-style:none;}:focus{outline:0;}a img{border:0;}table{empty-cells:show;}ins{text-decoration:none;}
+img{display:block;}
+del{text-decoration:line-through;}em{font-style:normal;}
+a{outline: none;}a:active {star:expression(this.onFocus=this.blur());}:focus { outline:0; }
+.fl{float:left;}.fr{float:right;}.fn{float:none;}.al{text-align:left;}.ac{text-align:center;}.ar{text-align:right;}
+.clr{overflow:hidden;clear:both;height:0;line-height:0;font-size:0;}
+.clearfix:after {content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix {display:inline-table;}/* Hides from IE-mac \*/
+*html .clearfix {height:1%;}
+.clearfix {display:block;}/* End hide from IE-mac */
+*+html .clearfix {min-height:1%;}
+input{padding-top:0; padding-bottom:0; font-family: "SimSun","宋体";}
+input::-moz-focus-inner { border:none; padding:0; }
+select,input{vertical-align:middle; }
+select,input,textarea { font-size:12px; margin:0; }
+input[type="text"], input[type="password"], textarea{outline-style:none;-webkit-appearance:none;}
+.overflow {overflow:hidden;}
+.form label,.form input,.form select,.form textarea,.form button,.form .label {float:left;font-size:12px;}
+.block{display:block;overflow:hidden;cursor:pointer;}
+.hide{display:none;}.show{display:block}
+body{font-family:"宋体", Arial, Lucida, Verdana, Helvetica, sans-serif;font-size:12px;color:#333;background:#fff;}
+* html,* html body{background-image:url(about:blank);background-attachment:fixed}
+a{text-decoration:none;}a:hover,a:focus{text-decoration:underline;}
+.mt10{margin-top:10px;}

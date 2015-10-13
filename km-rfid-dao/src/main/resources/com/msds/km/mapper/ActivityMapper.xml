@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.ActivityMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.ActivityEntity">
+		<result column="id" property="id" />
+		<result column="sn" property="sn" />
+		<result column="title" property="title" />
+		<result column="description" property="description" />
+		<result column="prize" property="prize" />
+		<result column="count" property="count" />
+		<result column="quantity" property="quantity" />
+		<result column="state" property="state" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="operator" property="operator" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- s_activity 字段 -->
+	<sql id="Column_List">
+		s_activity.id,s_activity.sn,s_activity.title,s_activity.description,s_activity.prize,s_activity.count,s_activity.quantity,s_activity.state,s_activity.start_time,s_activity.end_time,s_activity.operator,s_activity.create_date,s_activity.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_activity.id = #{id}
+			</if>
+			<if test="sn != null and sn != ''">
+				and s_activity.sn = #{sn}
+			</if>
+			<if test="title != null and title != ''">
+				and s_activity.title = #{title}
+			</if>
+			<if test="description != null and description != ''">
+				and s_activity.description = #{description}
+			</if>
+			<if test="prize != null and prize != ''">
+				and s_activity.prize = #{prize}
+			</if>
+			<if test="count != null and count != ''">
+				and s_activity.count = #{count}
+			</if>
+			<if test="quantity != null and quantity != ''">
+				and s_activity.quantity = #{quantity}
+			</if>
+			<if test="state != null and state != ''">
+				and s_activity.state = #{state}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				and s_activity.start_time = #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				and s_activity.end_time = #{endTime}
+			</if>
+			<if test="operator != null and operator != ''">
+				and s_activity.operator = #{operator}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and s_activity.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_activity.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_activity.id = #{id}
+			</if>
+			<if test="sn != null and sn != ''">
+				and s_activity.sn like CONCAT('%',#{sn},'%')
+			</if>
+			<if test="title != null and title != ''">
+				and s_activity.title like CONCAT('%',#{title},'%')
+			</if>
+			<if test="description != null and description != ''">
+				and s_activity.description like
+				CONCAT('%',#{description},'%')
+			</if>
+			<if test="prize != null and prize != ''">
+				and s_activity.prize like CONCAT('%',#{prize},'%')
+			</if>
+			<if test="count != null and count != ''">
+				and s_activity.count like CONCAT('%',#{count},'%')
+			</if>
+			<if test="quantity != null and quantity != ''">
+				and s_activity.quantity like CONCAT('%',#{quantity},'%')
+			</if>
+			<if test="state != null and state != ''">
+				and s_activity.state like CONCAT('%',#{state},'%')
+			</if>
+			<if test="startTime != null and startTime != ''">
+				and s_activity.start_time like
+				CONCAT('%',#{startTime},'%')
+			</if>
+			<if test="endTime != null and endTime != ''">
+				and s_activity.end_time like CONCAT('%',#{endTime},'%')
+			</if>
+			<if test="operator != null and operator != ''">
+				and s_activity.operator like CONCAT('%',#{operator},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and s_activity.create_date like
+				CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_activity.modify_date like
+				CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		s_activity(id,sn,title,description,prize,count,quantity,state,start_time,end_time,operator,create_date,modify_date)
+		values(#{id},#{sn},#{title},#{description},#{prize},#{count},#{quantity},#{state},#{startTime},#{endTime},#{operator},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update s_activity set
+		<trim suffixOverrides=",">
+			<if test="sn != null  ">
+				sn=#{sn},
+			</if>
+			<if test="title != null  ">
+				title=#{title},
+			</if>
+			<if test="description != null  ">
+				description=#{description},
+			</if>
+			<if test="prize != null  ">
+				prize=#{prize},
+			</if>
+			<if test="count != null  ">
+				count=#{count},
+			</if>
+			<if test="quantity != null  ">
+				quantity=#{quantity},
+			</if>
+			<if test="state != null  ">
+				state=#{state},
+			</if>
+			<if test="startTime != null  ">
+				start_time=#{startTime},
+			</if>
+			<if test="endTime != null  ">
+				end_time=#{endTime},
+			</if>
+			<if test="operator != null  ">
+				operator=#{operator},
+			</if>
+			<if test="createDate != null  ">
+				create_date=#{createDate},
+			</if>
+			<if test="modifyDate != null  ">
+				modify_date=#{modifyDate},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from s_activity where
+		id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_activity where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_activity
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from s_activity
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_activity
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<select id="findBySn" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_activity where sn = #{sn}
+	</select>
+
+	<select id="lockBySn" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_activity where sn = #{sn} for update
+	</select>
+
+	<update id="quantityIncr" parameterType="Object">
+		update s_activity set
+		quantity=quantity+1
+		where sn=#{sn}
+	</update>
+
+</mapper>   

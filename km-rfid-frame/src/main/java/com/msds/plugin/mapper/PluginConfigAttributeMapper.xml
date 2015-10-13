@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.plugin.mapper.PluginConfigAttributeMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap"
+		type="com.msds.plugin.entity.PluginConfigAttributeEntity">
+		<result column="plugin_config" property="pluginConfig" />
+		<result column="attributes" property="attributes" />
+		<result column="name" property="name" />
+	</resultMap>
+
+	<!-- s_plugin_config_attribute 字段 -->
+	<sql id="Column_List">
+		plugin_config,attributes,name
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="pluginConfig != null and pluginConfig != ''">
+				and plugin_config = #{pluginConfig}
+			</if>
+			<if test="attributes != null and attributes != ''">
+				and attributes = #{attributes}
+			</if>
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="pluginConfig != null and pluginConfig != ''">
+				and plugin_config like CONCAT('%',#{pluginConfig},'%')
+			</if>
+			<if test="attributes != null and attributes != ''">
+				and attributes like CONCAT('%',#{attributes},'%')
+			</if>
+			<if test="name != null and name != ''">
+				and name like CONCAT('%',#{name},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into s_plugin_config_attribute(plugin_config,attributes,name)
+		values(#{pluginConfig},#{attributes},#{name})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update s_plugin_config_attribute set
+		<trim suffixOverrides=",">
+			<if test="attributes != null  ">
+				attributes=#{attributes},
+			</if>
+			<if test="name != null  ">
+				name=#{name},
+			</if>
+		</trim>
+		where pluginConfig=#{pluginConfig}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from
+		s_plugin_config_attribute where pluginConfig = #{pluginConfig}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_plugin_config_attribute where pluginConfig = #{pluginConfig}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_plugin_config_attribute
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from s_plugin_config_attribute
+		<include refid="Like_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_plugin_config_attribute
+		<include refid="Like_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<select id="findMapByPluginConfigId" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_plugin_config_attribute where plugin_config = #{id}
+	</select>
+</mapper>   

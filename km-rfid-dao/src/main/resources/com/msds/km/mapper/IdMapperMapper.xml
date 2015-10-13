@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.IdMapperMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.IdMapperEntity">
+		<result column="id" property="id" />
+		<result column="local_id" property="localId" />
+		<result column="carzone_id" property="carzoneId" />
+		<result column="id_type" property="idType" />
+	</resultMap>
+
+	<!-- c_id_mapper 字段 -->
+	<sql id="Column_List">
+		c_id_mapper.id,c_id_mapper.local_id,c_id_mapper.carzone_id,c_id_mapper.id_type
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and c_id_mapper.id = #{id}
+			</if>
+			<if test="localId != null and localId != ''">
+				and c_id_mapper.local_id = #{localId}
+			</if>
+			<if test="carzoneId != null and carzoneId != ''">
+				and c_id_mapper.carzone_id = #{carzoneId}
+			</if>
+			<if test="idType != null and idType != ''">
+				and c_id_mapper.id_type = #{idType}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and c_id_mapper.id = #{id}
+			</if>
+			<if test="localId != null and localId != ''">
+				and c_id_mapper.local_id like CONCAT('%',#{localId},'%')
+			</if>
+			<if test="carzoneId != null and carzoneId != ''">
+				and c_id_mapper.carzone_id like CONCAT('%',#{carzoneId},'%')
+			</if>
+			<if test="idType != null and idType != ''">
+				and c_id_mapper.id_type like CONCAT('%',#{idType},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into c_id_mapper(id,local_id,carzone_id,id_type)
+ values(#{id},#{localId},#{carzoneId},#{idType})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update c_id_mapper set 
+	<trim  suffixOverrides="," >
+	<if test="localId != null  ">
+		local_id=#{localId},
+	</if>
+	<if test="carzoneId != null  ">
+		carzone_id=#{carzoneId},
+	</if>
+	<if test="idType != null  ">
+		id_type=#{idType},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from c_id_mapper where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from c_id_mapper where id = #{id}
+	</select>
+	
+	<!-- 根据导入康众库Id查询 -->
+	<select id="findByIdMapperEntity" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from c_id_mapper 
+	<include refid="Example_Where_Clause" />
+	</select>
+	
+	
+	<select id="findListBySeriesIds" resultMap="ResultMap"
+		>
+		select 
+		<include refid="Column_List" />
+		from c_id_mapper 
+		
+         <where>
+             <if test="type!=null">
+                c_id_mapper.id_type=#{type}
+             </if>
+             <if test="carzoneids!=null">
+                and c_id_mapper.carzone_id in
+                 <foreach collection="carzoneids" item="carzoneid"
+                     index="index" open="(" close=")" separator=",">
+                     #{carzoneid}
+                 </foreach>
+             </if>
+         </where>
+         
+
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from c_id_mapper 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from c_id_mapper 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from c_id_mapper 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

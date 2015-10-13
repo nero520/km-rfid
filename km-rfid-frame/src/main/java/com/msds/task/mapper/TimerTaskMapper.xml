@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.msds.task.mapper.TimerTaskMapper">
+	<resultMap id="BaseResultMap" type="com.msds.task.entity.TimerTask">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="task_id" property="taskId" jdbcType="VARCHAR" />
+		<result column="task_name" property="taskName" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="task_type" property="taskType" jdbcType="VARCHAR" />
+		<result column="task_class" property="taskClass" jdbcType="VARCHAR" />
+		<result column="task_method" property="taskMethod" jdbcType="VARCHAR" />
+		<result column="run_time" property="runTime" jdbcType="TIMESTAMP" />
+		<result column="real_run_time" property="realRunTime" jdbcType="TIMESTAMP" />
+		<result column="complete_time" property="completeTime"
+			jdbcType="TIMESTAMP" />
+		<result column="delay" property="delay" jdbcType="INTEGER" />
+		<result column="intervers" property="intervers" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="task_content" property="taskContent" jdbcType="VARCHAR" />
+		<result column="mobiles" property="mobiles" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="subject" property="subject" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, task_id, task_name, type, task_type, task_class,
+		task_method,
+		run_time, real_run_time,
+		complete_time, delay, intervers,
+		status, task_content, mobiles, address, subject
+	</sql>
+	<sql id="Example_Where_Clause">
+		<where>
+			1=1
+			<if test="taskId != null">
+			and	task_id = #{taskId,jdbcType=VARCHAR}
+			</if>
+			<if test="taskName != null">
+			and	task_name = #{taskName,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null">
+			and	type = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="taskType != null">
+			and	task_type = #{taskType,jdbcType=VARCHAR}
+			</if>
+			<if test="taskClass != null">
+			and	task_class = #{taskClass,jdbcType=VARCHAR}
+			</if>
+			<if test="taskMethod != null">
+			and	task_method = #{taskMethod,jdbcType=VARCHAR}
+			</if>
+			<if test="runTime != null">
+			and	run_time = #{runTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="realRunTime != null">
+			and	real_run_time = #{realRunTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="completeTime != null">
+			and	complete_time = #{completeTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="delay != null">
+			and	delay = #{delay,jdbcType=INTEGER}
+			</if>
+			<if test="intervers != null">
+			and	intervers = #{intervers,jdbcType=INTEGER}
+			</if>
+			<if test="status != null">
+			and	status = #{status,jdbcType=VARCHAR}
+			</if>
+			<if test="taskContent != null">
+			and	task_content = #{taskContent,jdbcType=VARCHAR}
+			</if>
+			<if test="mobiles != null">
+			and	mobiles = #{mobiles,jdbcType=VARCHAR}
+			</if>
+			<if test="address != null">
+			and	address = #{address,jdbcType=VARCHAR}
+			</if>
+			<if test="subject != null">
+			and	subject = #{subject,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.msds.task.entity.TimerTask">
+		select
+		<include refid="Base_Column_List" />
+		from timer_task
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from timer_task
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		timer_task
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.msds.task.entity.TimerTask">
+		delete from timer_task
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.msds.task.entity.TimerTask">
+		insert into timer_task
+		(id, task_id, task_name,
+		type, task_type, task_class,
+		task_method,
+		run_time, real_run_time,
+		complete_time, delay, intervers,
+		status,
+		task_content, mobiles,
+		address, subject)
+		values (#{id,jdbcType=INTEGER},
+		#{taskId,jdbcType=VARCHAR},
+		#{taskName,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR}, #{taskType,jdbcType=VARCHAR},
+		#{taskClass,jdbcType=VARCHAR},
+		#{taskMethod,jdbcType=VARCHAR},
+		#{runTime,jdbcType=TIMESTAMP},
+		#{realRunTime,jdbcType=TIMESTAMP},
+		#{completeTime,jdbcType=TIMESTAMP}, #{delay,jdbcType=INTEGER},
+		#{intervers,jdbcType=INTEGER},
+		#{status,jdbcType=VARCHAR},
+		#{taskContent,jdbcType=VARCHAR},
+		#{mobiles,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.msds.task.entity.TimerTask">
+		insert into timer_task
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="taskId != null">
+				task_id,
+			</if>
+			<if test="taskName != null">
+				task_name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="taskType != null">
+				task_type,
+			</if>
+			<if test="taskClass != null">
+				task_class,
+			</if>
+			<if test="taskMethod != null">
+				task_method,
+			</if>
+			<if test="runTime != null">
+				run_time,
+			</if>
+			<if test="realRunTime != null">
+				real_run_time,
+			</if>
+			<if test="completeTime != null">
+				complete_time,
+			</if>
+			<if test="delay != null">
+				delay,
+			</if>
+			<if test="intervers != null">
+				intervers,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="taskContent != null">
+				task_content,
+			</if>
+			<if test="mobiles != null">
+				mobiles,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="subject != null">
+				subject,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="taskId != null">
+				#{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="taskName != null">
+				#{taskName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="taskType != null">
+				#{taskType,jdbcType=VARCHAR},
+			</if>
+			<if test="taskClass != null">
+				#{taskClass,jdbcType=VARCHAR},
+			</if>
+			<if test="taskMethod != null">
+				#{taskMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="runTime != null">
+				#{runTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realRunTime != null">
+				#{realRunTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="completeTime != null">
+				#{completeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delay != null">
+				#{delay,jdbcType=INTEGER},
+			</if>
+			<if test="intervers != null">
+				#{intervers,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="taskContent != null">
+				#{taskContent,jdbcType=VARCHAR},
+			</if>
+			<if test="mobiles != null">
+				#{mobiles,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="subject != null">
+				#{subject,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.msds.task.entity.TimerTask"
+		resultType="java.lang.Integer">
+		select count(*) from timer_task
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update timer_task
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.taskId != null">
+				task_id = #{record.taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.taskName != null">
+				task_name = #{record.taskName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type,jdbcType=VARCHAR},
+			</if>
+			<if test="record.taskType != null">
+				task_type = #{record.taskType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.taskClass != null">
+				task_class = #{record.taskClass,jdbcType=VARCHAR},
+			</if>
+			<if test="record.taskMethod != null">
+				task_method = #{record.taskMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="record.runTime != null">
+				run_time = #{record.runTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.realRunTime != null">
+				real_run_time = #{record.realRunTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.completeTime != null">
+				complete_time =
+				#{record.completeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.delay != null">
+				delay = #{record.delay,jdbcType=INTEGER},
+			</if>
+			<if test="record.intervers != null">
+				intervers = #{record.intervers,jdbcType=INTEGER},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=VARCHAR},
+			</if>
+			<if test="record.taskContent != null">
+				task_content = #{record.taskContent,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mobiles != null">
+				mobiles = #{record.mobiles,jdbcType=VARCHAR},
+			</if>
+			<if test="record.address != null">
+				address = #{record.address,jdbcType=VARCHAR},
+			</if>
+			<if test="record.subject != null">
+				subject = #{record.subject,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update timer_task
+		set id = #{record.id,jdbcType=INTEGER},
+		task_id =
+		#{record.taskId,jdbcType=VARCHAR},
+		task_name =
+		#{record.taskName,jdbcType=VARCHAR},
+		type =
+		#{record.type,jdbcType=VARCHAR},
+		task_type =
+		#{record.taskType,jdbcType=VARCHAR},
+		task_class =
+		#{record.taskClass,jdbcType=VARCHAR},
+		task_method =
+		#{record.taskMethod,jdbcType=VARCHAR},
+		run_time =
+		#{record.runTime,jdbcType=TIMESTAMP},
+		real_run_time =
+		#{record.realRunTime,jdbcType=TIMESTAMP},
+		complete_time =
+		#{record.completeTime,jdbcType=TIMESTAMP},
+		delay =
+		#{record.delay,jdbcType=INTEGER},
+		intervers =
+		#{record.intervers,jdbcType=INTEGER},
+		status =
+		#{record.status,jdbcType=VARCHAR},
+		task_content =
+		#{record.taskContent,jdbcType=VARCHAR},
+		mobiles =
+		#{record.mobiles,jdbcType=VARCHAR},
+		address =
+		#{record.address,jdbcType=VARCHAR},
+		subject =
+		#{record.subject,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.msds.task.entity.TimerTask">
+		update timer_task
+		<set>
+			<if test="taskId != null">
+				task_id = #{taskId,jdbcType=VARCHAR},
+			</if>
+			<if test="taskName != null">
+				task_name = #{taskName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="taskType != null">
+				task_type = #{taskType,jdbcType=VARCHAR},
+			</if>
+			<if test="taskClass != null">
+				task_class = #{taskClass,jdbcType=VARCHAR},
+			</if>
+			<if test="taskMethod != null">
+				task_method = #{taskMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="runTime != null">
+				run_time = #{runTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realRunTime != null">
+				real_run_time = #{realRunTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="completeTime != null">
+				complete_time = #{completeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delay != null">
+				delay = #{delay,jdbcType=INTEGER},
+			</if>
+			<if test="intervers != null">
+				intervers = #{intervers,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="taskContent != null">
+				task_content = #{taskContent,jdbcType=VARCHAR},
+			</if>
+			<if test="mobiles != null">
+				mobiles = #{mobiles,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="subject != null">
+				subject = #{subject,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.msds.task.entity.TimerTask">
+		update
+		timer_task
+		set task_id = #{taskId,jdbcType=VARCHAR},
+		task_name =
+		#{taskName,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		task_type = #{taskType,jdbcType=VARCHAR},
+		task_class =
+		#{taskClass,jdbcType=VARCHAR},
+		task_method =
+		#{taskMethod,jdbcType=VARCHAR},
+		run_time =
+		#{runTime,jdbcType=TIMESTAMP},
+		real_run_time =
+		#{realRunTime,jdbcType=TIMESTAMP},
+		complete_time =
+		#{completeTime,jdbcType=TIMESTAMP},
+		delay = #{delay,jdbcType=INTEGER},
+		intervers = #{intervers,jdbcType=INTEGER},
+		status =
+		#{status,jdbcType=VARCHAR},
+		task_content =
+		#{taskContent,jdbcType=VARCHAR},
+		mobiles = #{mobiles,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		subject =
+		#{subject,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryTaskIdAndType" parameterType="com.msds.task.entity.TimerTask">
+		update timer_task
+		<set>
+			<if test="taskName != null">
+				task_name = #{taskName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="taskType != null">
+				task_type = #{taskType,jdbcType=VARCHAR},
+			</if>
+			<if test="taskClass != null">
+				task_class = #{taskClass,jdbcType=VARCHAR},
+			</if>
+			<if test="taskMethod != null">
+				task_method = #{taskMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="runTime != null">
+				run_time = #{runTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="realRunTime != null">
+				real_run_time = #{realRunTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="completeTime != null">
+				complete_time = #{completeTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="delay != null">
+				delay = #{delay,jdbcType=INTEGER},
+			</if>
+			<if test="intervers != null">
+				intervers = #{intervers,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="taskContent != null">
+				task_content = #{taskContent,jdbcType=VARCHAR},
+			</if>
+			<if test="mobiles != null">
+				mobiles = #{mobiles,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="subject != null">
+				subject = #{subject,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where task_id = #{taskId,jdbcType=VARCHAR}
+		<if test="type != null">
+			and	type = #{type,jdbcType=VARCHAR}
+		</if>
+	</update>
+</mapper>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.ServiceModelMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.ServiceModelEntity">
+		<result column="id" property="id" />
+		<result column="service_model_code" property="serviceModelCode" />
+		<result column="service_code" property="serviceCode" />
+		<result column="model_id" property="modelId" />
+		<result column="mileage" property="mileage" />
+		<result column="laborcost_json" property="laborcostJson" />
+		<result column="price" property="price" />
+		<result column="operator" property="operator" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+	
+	<resultMap id="rsServiceModelVo" type="com.msds.km.vo.ServiceModelVo">
+		<result column="id" property="id" />
+		<result column="service_model_code" property="serviceModelCode" />
+		<result column="service_code" property="serviceCode" />
+		<result column="model_id" property="modelId" />
+		<result column="mileage" property="mileage" />
+		<result column="laborcost_json" property="laborcostJson" />
+		<result column="price" property="price" />
+		<result column="username" property="userName" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="service_name" property="serviceName"/>
+		<result column="name" property="modelName"/>
+	</resultMap>
+
+	<!-- g_service_model 字段 -->
+	<sql id="Column_List">
+		g_service_model.id,g_service_model.service_code,g_service_model.service_model_code,g_service_model.model_id,g_service_model.mileage,g_service_model.laborcost_json,g_service_model.price,g_service_model.operator,g_service_model.create_date,g_service_model.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_service_model.id = #{id}
+			</if>
+			<if test="serviceModelCode != null and serviceModelCode != ''">
+				and g_service_model.service_model_code = #{serviceModelCode}
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and g_service_model.service_code = #{serviceCode}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and g_service_model.model_id = #{modelId}
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and g_service_model.mileage = #{mileage}
+			</if>
+			<if test="laborcostJson != null and laborcostJson != ''">
+				and g_service_model.laborcost_json = #{laborcostJson}
+			</if>
+			<if test="price != null and price != ''">
+				and g_service_model.price = #{price}
+			</if>
+			<if test="operator != null and operator != ''">
+				and g_service_model.operator = #{operator}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_service_model.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_service_model.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_service_model.id = #{id}
+			</if>
+			<if test="serviceModelCode != null and serviceModelCode != ''">
+				and g_service_model.service_model_code like CONCAT('%',#{serviceModelCode},'%')
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and g_service_model.service_code like CONCAT('%',#{serviceCode},'%')
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and g_service_model.model_id like CONCAT('%',#{modelId},'%')
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and g_service_model.mileage like CONCAT('%',#{mileage},'%')
+			</if>
+			<if test="laborcostJson != null and laborcostJson != ''">
+				and g_service_model.laborcost_json like CONCAT('%',#{laborcostJson},'%')
+			</if>
+			<if test="price != null and price != ''">
+				and g_service_model.price like CONCAT('%',#{price},'%')
+			</if>
+			<if test="operator != null and operator != ''">
+				and g_service_model.operator like CONCAT('%',#{operator},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_service_model.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_service_model.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into g_service_model(id,service_model_code,service_code,model_id,mileage,laborcost_json,price,operator,create_date,modify_date)
+ values(#{id},#{serviceModelCode},#{serviceCode},#{modelId},#{mileage},#{laborcostJson},#{price},#{operator},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_service_model set 
+	<trim  suffixOverrides="," >
+	<if test="serviceModelCode != null  ">
+		service_model_code=#{serviceModelCode},
+	</if>
+	<if test="serviceCode != null  ">
+		service_code=#{serviceCode},
+	</if>
+	<if test="modelId != null  ">
+		model_id=#{modelId},
+	</if>
+	<if test="mileage != null  ">
+		mileage=#{mileage},
+	</if>
+	<if test="laborcostJson != null  ">
+		laborcost_json=#{laborcostJson},
+	</if>
+	<if test="price != null  ">
+		price=#{price},
+	</if>
+	<if test="operator != null  ">
+		operator=#{operator},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from g_service_model where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from g_service_model where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_service_model 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_service_model 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_service_model 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<select id="queryServiceModelByList" resultMap="rsServiceModelVo" parameterType="Object">
+	    SELECT g_service_model.id,g_service_model.service_code,g_service.service_name,auth_user.username,case  when  g_service_model.model_id =-1 then '全部'  when  g_service_model.model_id >-1 then g_model.`name`  end as name,g_service_model.service_model_code,g_service_model.model_id,g_service_model.mileage,g_service_model.laborcost_json,g_service_model.price,g_service_model.create_date,g_service_model.modify_date 
+			from g_service_model LEFT JOIN g_service on g_service_model.service_code= g_service.service_code
+			left join auth_user on g_service_model.operator=auth_user.id
+			left join g_model on g_service_model.model_id=g_model.id
+        <include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+
+	</select>
+
+	<select id="findByCodeMId" resultMap="ResultMap" parameterType="Object">
+		SELECT sm.* from g_service_model sm , g_model m1, g_model m2, g_model
+		m3
+		where 1=1
+		and m1.id = m2.pid
+		and m2.id = m3.pid
+		and (sm.model_id = m1.id or sm.model_id = m2.id or sm.model_id = m3.id or sm.model_id = -1 )
+		and m3.id = #{modeId} and sm.service_code=#{serviceCode}
+	</select>
+</mapper>   

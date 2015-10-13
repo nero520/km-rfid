@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task.xsd"
+	default-lazy-init="false">
+	<!-- bean定义 -->
+	<bean id="rfidJob" class="com.msds.km.job.RfidJob" />
+	
+	<!-- scheduler定义 -->
+	<bean id="scheduler" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="autoInventory_G2Trigger" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- autoInventory_G2Trigger -->
+	<bean id="autoInventory_G2Trigger"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="autoInventory_G2Detail" />
+		</property>
+		<property name="cronExpression">
+			<value>${job.cron.rfid.autoInventory_G2}</value>
+		</property>
+	</bean>
+
+	<bean id="autoInventory_G2Detail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="rfidJob" />
+		<property name="targetMethod" value="autoInventory_G2" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+
+</beans>

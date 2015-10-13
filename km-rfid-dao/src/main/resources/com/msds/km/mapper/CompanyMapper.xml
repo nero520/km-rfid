@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.CompanyMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.CompanyEntity">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="telephone" property="telephone" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="area" property="area" />
+		<result column="address" property="address" />
+		<result column="full_address" property="fullAddress" />
+		<result column="contacts" property="contacts" />
+		<result column="contacts_phone" property="contactsPhone" />
+		<result column="customer_phone" property="customerPhone" />
+		<result column="office_hours" property="officeHours" />
+		<result column="account_name" property="accountName" />
+		<result column="account_number" property="accountNumber" />
+		<result column="location" property="location" />
+		<result column="describe" property="describe" />
+		<result column="license_pic" property="licensePic" />
+		<result column="door_pic" property="doorPic" />
+		<result column="direct_shop_id" property="directShopId" />
+		<result column="sign_date" property="signDate" />
+		<result column="sign_state" property="signState" />
+		<result column="out_id" property="outId" />
+		<result column="reg_type" property="regType" />
+		<result column="source" property="source" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		
+		<result column="create_date" property="nowDate" />
+		<result column="create_date" property="afterDate" />
+		
+		<result column="lock_state" property="lockState" />
+		
+		
+	</resultMap>
+
+	<!-- b_company 字段 -->
+	<sql id="Column_List">
+		b_company.id,b_company.username,b_company.password,b_company.name,b_company.telephone,b_company.province,b_company.city,b_company.area,b_company.address,b_company.full_address,b_company.contacts,b_company.contacts_phone,b_company.customer_phone,b_company.office_hours,b_company.account_name,b_company.account_number,b_company.location,b_company.describe,b_company.license_pic,b_company.door_pic,b_company.direct_shop_id,b_company.sign_date,b_company.sign_state,b_company.out_id,b_company.reg_type,b_company.source,b_company.create_date,b_company.modify_date,b_company.lock_state
+	</sql>
+	
+	<sql id="RepairColumn_List">
+		b_company.id,b_company.name,b_company.telephone,b_company.full_address,b_company.contacts,b_company.contacts_phone,b_company.customer_phone,b_company.office_hours,b_company.describe,b_company.license_pic,b_company.door_pic
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1 
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_company.id = #{id}
+			</if>
+			<if test="username != null and username != ''">
+				and b_company.username = #{username}
+			</if>
+			<if test="password != null and password != ''">
+				and b_company.password = #{password}
+			</if>
+			<if test="name != null and name != ''">
+				and b_company.name = #{name}
+			</if>
+			<if test="telephone != null and telephone != ''">
+				and b_company.telephone = #{telephone}
+			</if>
+			<if test="province != null and province != ''">
+				and b_company.province = #{province}
+			</if>
+			<if test="city != null and city != ''">
+				and b_company.city = #{city}
+			</if>
+			<if test="area != null and area != ''">
+				and b_company.area = #{area}
+			</if>
+			<if test="address != null and address != ''">
+				and b_company.address = #{address}
+			</if>
+			<if test="fullAddress != null and fullAddress != ''">
+				and b_company.full_address = #{fullAddress}
+			</if>
+			<if test="contacts != null and contacts != ''">
+				and b_company.contacts = #{contacts}
+			</if>
+			<if test="contactsPhone != null and contactsPhone != ''">
+				and b_company.contacts_phone = #{contactsPhone}
+			</if>
+			<if test="customerPhone != null and customerPhone != ''">
+				and b_company.customer_phone = #{customerPhone}
+			</if>
+			<if test="officeHours != null and officeHours != ''">
+				and b_company.office_hours = #{officeHours}
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_company.account_name = #{accountName}
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_company.account_number = #{accountNumber}
+			</if>
+			<if test="location != null and location != ''">
+				and b_company.location = #{location}
+			</if>
+			<if test="describe != null and describe != ''">
+				and b_company.describe = #{describe}
+			</if>
+			<if test="licensePic != null and licensePic != ''">
+				and b_company.license_pic = #{licensePic}
+			</if>
+			<if test="doorPic != null and doorPic != ''">
+				and b_company.door_pic = #{doorPic}
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and b_company.direct_shop_id = #{directShopId}
+			</if>
+			<if test="signDate != null and signDate != ''">
+				and b_company.sign_date = #{signDate}
+			</if>
+			<if test="signState != null and signState != ''">
+				and b_company.sign_state = #{signState}
+			</if>
+			<if test="outId != null and outId != ''">
+				and b_company.out_id = #{outId}
+			</if>
+			<if test="regType != null and regType != ''">
+				and b_company.reg_type = #{regType}
+			</if>
+			<if test="source != null and source != ''">
+				and b_company.source = #{source}
+			</if>
+			
+			<if test="afterDate != null and afterDate != ''">
+				and b_company.create_date >= #{afterDate}
+			</if>
+			<if test="nowDate != null and nowDate != ''">
+				and <![CDATA[ b_company.create_date <= #{nowDate}]]>
+			</if>
+			<if test="lockState != null and lockState != ''">
+				and b_company.lock_state = #{lockState}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_company.id = #{id}
+			</if>
+			<if test="username != null and username != ''">
+				and b_company.username like CONCAT(#{username},'%')
+			</if>
+			<if test="name != null and name != ''">
+				and b_company.name like CONCAT(#{name},'%')
+			</if>
+			<if test="telephone != null and telephone != ''">
+				and b_company.telephone like CONCAT(#{telephone},'%')
+			</if>
+			<if test="province != null and province != ''">
+				and b_company.province like CONCAT('%',#{province},'%')
+			</if>
+			<if test="city != null and city != ''">
+				and b_company.city like CONCAT('%',#{city},'%')
+			</if>
+			<if test="area != null and area != ''">
+				and b_company.area like CONCAT('%',#{area},'%')
+			</if>
+			<if test="address != null and address != ''">
+				and b_company.address like CONCAT('%',#{address},'%')
+			</if>
+			<if test="fullAddress != null and fullAddress != ''">
+				and b_company.full_address like CONCAT('%',#{fullAddress},'%')
+			</if>
+			<if test="contacts != null and contacts != ''">
+				and b_company.contacts like CONCAT('%',#{contacts},'%')
+			</if>
+			<if test="contactsPhone != null and contactsPhone != ''">
+				and b_company.contacts_phone like CONCAT(#{contactsPhone},'%')
+			</if>
+			<if test="customerPhone != null and customerPhone != ''">
+				and b_company.customer_phone like CONCAT('%',#{customerPhone},'%')
+			</if>
+			<if test="officeHours != null and officeHours != ''">
+				and b_company.office_hours like CONCAT('%',#{officeHours},'%')
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_company.account_name like CONCAT('%',#{accountName},'%')
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_company.account_number like CONCAT('%',#{accountNumber},'%')
+			</if>
+			<if test="location != null and location != ''">
+				and b_company.location like CONCAT('%',#{location},'%')
+			</if>
+			<if test="describe != null and describe != ''">
+				and b_company.describe like CONCAT('%',#{describe},'%')
+			</if>
+			<if test="licensePic != null and licensePic != ''">
+				and b_company.license_pic like CONCAT('%',#{licensePic},'%')
+			</if>
+			<if test="doorPic != null and doorPic != ''">
+				and b_company.door_pic like CONCAT('%',#{doorPic},'%')
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and b_company.direct_shop_id like CONCAT('%',#{directShopId},'%')
+			</if>
+			<if test="signDate != null and signDate != ''">
+				and b_company.sign_date like CONCAT('%',#{signDate},'%')
+			</if>
+			<if test="signState != null and signState != ''">
+				and b_company.sign_state like CONCAT('%',#{signState},'%')
+			</if>
+			<if test="outId != null and outId != ''">
+				and b_company.out_id like CONCAT('%',#{outId},'%')
+			</if>
+			<if test="regType != null and regType != ''">
+				and b_company.reg_type like CONCAT('%',#{regType},'%')
+			</if>
+			<if test="source != null and source != ''">
+				and b_company.source like CONCAT('%',#{source},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_company.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and b_company.create_date >= #{afterDate}
+			</if>
+			<if test="nowDate != null and nowDate != ''">
+				and <![CDATA[ b_company.create_date <= #{nowDate}]]>
+			</if>
+			<if test="lockState != null and lockState != ''">
+				and b_company.lock_state like CONCAT('%',#{lockState},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_company(id,username,password,name,telephone,province,city,area,address,full_address,contacts,contacts_phone,customer_phone,office_hours,account_name,account_number,location,b_company.describe,license_pic,door_pic,direct_shop_id,sign_date,sign_state,out_id,reg_type,source,create_date,modify_date,lock_state)
+ values(#{id},#{username},#{password},#{name},#{telephone},#{province},#{city},#{area},#{address},#{fullAddress},#{contacts},#{contactsPhone},#{customerPhone},#{officeHours},#{accountName},#{accountNumber},#{location},#{describe},#{licensePic},#{doorPic},#{directShopId},#{signDate},#{signState},#{outId},#{regType},#{source},#{createDate},#{modifyDate},#{lockState})
+	</insert>
+	
+	<update id="updatePs" parameterType="Object">
+	update b_company set password = #{newps}
+    where id=#{id} and `password`= #{oldps}
+	</update>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_company bc set 
+	<trim  suffixOverrides="," >
+	<if test="username != null  ">
+		username=#{username},
+	</if>
+	<if test="password != null  ">
+		password=#{password},
+	</if>
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="telephone != null  ">
+		telephone=#{telephone},
+	</if>
+	<if test="province != null  ">
+		province=#{province},
+	</if>
+	<if test="city != null  ">
+		city=#{city},
+	</if>
+	<if test="area != null  ">
+		area=#{area},
+	</if>
+	<if test="address != null  ">
+		address=#{address},
+	</if>
+	<if test="fullAddress != null  ">
+		full_address=#{fullAddress},
+	</if>
+	<if test="contacts != null  ">
+		contacts=#{contacts},
+	</if>
+	<if test="contactsPhone != null  ">
+		contacts_phone=#{contactsPhone},
+	</if>
+	<if test="customerPhone != null  ">
+		customer_phone=#{customerPhone},
+	</if>
+	<if test="officeHours != null  ">
+		office_hours=#{officeHours},
+	</if>
+	<if test="accountName != null  ">
+		account_name=#{accountName},
+	</if>
+	<if test="accountNumber != null  ">
+		account_number=#{accountNumber},
+	</if>
+	<if test="location != null  ">
+		location=#{location},
+	</if>
+	<if test="describe != null  ">
+		bc.describe=#{describe},
+	</if>
+	<if test="licensePic != null  ">
+		license_pic=#{licensePic},
+	</if>
+	<if test="doorPic != null  ">
+		door_pic=#{doorPic},
+	</if>
+	<if test="directShopId != null  ">
+		direct_shop_id=#{directShopId},
+	</if>
+	<if test="signDate != null  ">
+		sign_date=#{signDate},
+	</if>
+	<if test="signState != null  ">
+		sign_state=#{signState},
+	</if>
+	<if test="outId != null  ">
+		out_id=#{outId},
+	</if>
+	<if test="regType != null  ">
+		reg_type=#{regType},
+	</if>
+	<if test="source != null  ">
+		source=#{source},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	
+	<if test="lockState != null  ">
+		lock_state=#{lockState},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_company where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_company where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_company 
+		<include refid="Example_Where_Clause" />
+	</select>
+	
+	<!-- 根据服务code查询相关维修厂信息 -->
+	<select id="findListByserviceCode" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="RepairColumn_List" />
+		from b_company left JOIN  g_service_company on  g_service_company.company_id=b_company.id 
+		where g_service_company.service_code=#{serviceCode} and b_company.lock_state=2 order by b_company.create_date desc
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_company 
+		<include refid="Example_Where_Clause" />
+	</select>
+	
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_company 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<!-- 查询分页列表 -->
+	<select id="findCompanyList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_company 
+		<include refid="Like_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<!-- 列表总数 -->
+	<select id="queryCompanyCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_company 
+		<include refid="Like_Where_Clause" />
+	</select>
+	
+	<select id="queryByUserName" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_company 
+		where b_company.username=#{username}
+	</select>
+	
+</mapper>   

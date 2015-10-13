@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.MemberModelMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.MemberModelEntity">
+		<result column="id" property="id" />
+		<result column="member_id" property="memberId" />
+		<result column="model_id" property="modelId" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="default_flag" property="defaultFlag" />
+		<result column="region" property="region" />
+		<result column="license" property="license" />
+		<result column="mileage" property="mileage" />
+		<result column="buy_date" property="buyDate" />
+		<result column="vin" property="vin" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<!-- 新增by hebiao 20150714 -->
+		<result column="name" property="name" />
+		<result column="address" property="address" />
+		<result column="register_date" property="registerDate" />
+		<result column="issue_date" property="issueDate" />
+		<result column="vehicle_type" property="vehicleType" />
+		<result column="use_characte" property="useCharacte" />
+		<result column="model" property="model" />
+		<result column="engine_no" property="engineNO" />
+	</resultMap>
+
+	<!-- b_member_model 字段 -->
+	<sql id="Column_List">
+		b_member_model.id,b_member_model.member_id,b_member_model.model_id,b_member_model.model_group_name,b_member_model.default_flag,b_member_model.region,b_member_model.license,b_member_model.mileage,b_member_model.buy_date,b_member_model.vin,b_member_model.create_date,b_member_model.modify_date
+		,b_member_model.name,b_member_model.address,b_member_model.register_date,b_member_model.issue_date,b_member_model.vehicle_type,b_member_model.use_characte,b_member_model.model,b_member_model.engine_no
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_member_model.id = #{id}
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_member_model.member_id = #{memberId}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and b_member_model.model_id = #{modelId}
+			</if>
+			<if test="modelGroupName != null and modelGroupName != ''">
+				and b_member_model.model_group_name = #{modelGroupName}
+			</if>
+			<if test="defaultFlag != null and defaultFlag != ''">
+				and b_member_model.default_flag = #{defaultFlag}
+			</if>
+			<if test="region != null and region != ''">
+				and b_member_model.region = #{region}
+			</if>
+			<if test="license != null and license != ''">
+				and b_member_model.license = #{license}
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and b_member_model.mileage = #{mileage}
+			</if>
+			<if test="buyDate != null and buyDate != ''">
+				and b_member_model.buy_date = #{buyDate}
+			</if>
+			<if test="vin != null and vin != ''">
+				and b_member_model.vin = #{vin}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_member_model.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_member_model.modify_date = #{modifyDate}
+			</if>
+			
+			<if test="name != null and name != ''">
+				and b_member_model.name = #{name}
+			</if>
+			<if test="address != null and address != ''">
+				and b_member_model.address = #{address}
+			</if>
+			<if test="registerDate != null and registerDate != ''">
+				and b_member_model.register_date = #{registerDate}
+			</if>
+			<if test="issueDate != null and issueDate != ''">
+				and b_member_model.issue_date = #{issueDate}
+			</if>
+			<if test="vehicleType != null and vehicleType != ''">
+				and b_member_model.vehicle_type = #{vehicleType}
+			</if>
+			<if test="useCharacte != null and useCharacte != ''">
+				and b_member_model.use_characte = #{useCharacte}
+			</if>
+			<if test="model != null and model != ''">
+				and b_member_model.model = #{model}
+			</if>
+			<if test="engineNO != null and engineNO != ''">
+				and b_member_model.engine_no = #{engineNO}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_member_model.id = #{id}
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_member_model.member_id like CONCAT('%',#{memberId},'%')
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and b_member_model.model_id like CONCAT('%',#{modelId},'%')
+			</if>
+			<if test="modelGroupName != null and modelGroupName != ''">
+				and b_member_model.model_group_name like CONCAT('%',#{modelGroupName},'%')
+			</if>
+			<if test="defaultFlag != null and defaultFlag != ''">
+				and b_member_model.default_flag like CONCAT('%',#{defaultFlag},'%')
+			</if>
+			<if test="region != null and region != ''">
+				and b_member_model.region like CONCAT('%',#{region},'%')
+			</if>
+			<if test="license != null and license != ''">
+				and b_member_model.license like CONCAT('%',#{license},'%')
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and b_member_model.mileage like CONCAT('%',#{mileage},'%')
+			</if>
+			<if test="buyDate != null and buyDate != ''">
+				and b_member_model.buy_date like CONCAT('%',#{buyDate},'%')
+			</if>
+			<if test="vin != null and vin != ''">
+				and b_member_model.vin like CONCAT('%',#{vin},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_member_model.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_member_model.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+			
+			<if test="name != null and name != ''">
+				and b_member_model.name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="address != null and address != ''">
+				and b_member_model.address like CONCAT('%',#{address},'%')
+			</if>
+			<if test="registerDate != null and registerDate != ''">
+				and b_member_model.register_date like CONCAT('%',#{registerDate},'%')
+			</if>
+			<if test="issueDate != null and issueDate != ''">
+				and b_member_model.issue_date like CONCAT('%',#{issueDate},'%')
+			</if>
+			<if test="vehicleType != null and vehicleType != ''">
+				and b_member_model.vehicle_type like CONCAT('%',#{vehicleType},'%')
+			</if>
+			<if test="useCharacte != null and useCharacte != ''">
+				and b_member_model.use_characte like CONCAT('%',#{useCharacte},'%')
+			</if>
+			<if test="model != null and model != ''">
+				and b_member_model.model like CONCAT('%',#{model},'%')
+			</if>
+			<if test="engineNO != null and engineNO != ''">
+				and b_member_model.engine_no like CONCAT('%',#{engineNO},'%')
+			</if>
+			
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_member_model(
+		id,member_id,model_id,model_group_name,default_flag,region,license,mileage,buy_date,vin,create_date,modify_date,
+		name,address,register_date,issue_date,vehicle_type,use_characte,model,engine_no,engine_type,gear_box_type,gear_box_no,last_service_date,last_service_man,
+		check_date,safe_date,chassis
+		)
+		 values(
+			 #{id},
+			 #{memberId},
+			 #{modelId},
+			 #{modelGroupName},
+			 #{defaultFlag},
+			 #{region},
+			 #{license},
+			 #{mileage},
+			 #{buyDate},
+			 #{vin},
+			 #{createDate},
+			 #{modifyDate},
+			 #{name},
+			 #{address},
+			 #{registerDate},
+			 #{issueDate},
+			 #{vehicleType},
+			 #{useCharacte},
+			 #{model},
+			 #{engineNO},
+			 #{engineType},
+			 #{gearBoxType},
+			 #{gearBoxNO},
+			 #{lastServiceDate},
+			 #{lastServiceMan},
+			 #{checkDate},
+			 #{safeDate},
+			 #{chassis}
+			 
+			 
+		 )
+	
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_member_model set 
+	<trim  suffixOverrides="," >
+	<if test="memberId != null  ">
+		member_id=#{memberId},
+	</if>
+	<if test="modelId != null  ">
+		model_id=#{modelId},
+	</if>
+	<if test="modelGroupName != null  ">
+		model_group_name=#{modelGroupName},
+	</if>
+	<if test="defaultFlag != null  ">
+		default_flag=#{defaultFlag},
+	</if>
+	<if test="region != null  ">
+		region=#{region},
+	</if>
+	<if test="license != null  ">
+		license=#{license},
+	</if>
+	<if test="mileage != null  ">
+		mileage=#{mileage},
+	</if>
+	<if test="buyDate != null  ">
+		buy_date=#{buyDate},
+	</if> 
+		<!-- buy_date=#{buyDate}, -->
+	<if test="vin != null  ">
+		vin=#{vin},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="address != null  ">
+		address=#{address},
+	</if>
+	<if test="registerDate != null  ">
+		register_date=#{registerDate},
+	</if>
+	<if test="issueDate != null  ">
+		issue_date=#{issueDate},
+	</if>
+	<if test="vehicleType != null  ">
+		vehicle_type=#{vehicleType},
+	</if>
+	<if test="useCharacte != null  ">
+		use_characte=#{useCharacte},
+	</if>
+	<if test="model != null  ">
+		model=#{model},
+	</if>
+	<if test="engineNO != null  ">
+		engine_no=#{engineNO},
+	</if>
+	<if test="chassis != null  ">
+		chassis=#{chassis},
+	</if>
+	<if test="lastServiceDate != null  ">
+		last_service_date=#{lastServiceDate}
+	</if>
+	
+	</trim> where id=#{id}
+	</update>
+	
+	<!-- 根据id，修改记录 -->
+	<update id="updateByMemberId" parameterType="Object">
+		update b_member_model set 
+	<trim  suffixOverrides="," >
+	
+	<if test="modelId != null  ">
+		model_id=#{modelId},
+	</if>
+	<if test="modelGroupName != null  ">
+		model_group_name=#{modelGroupName},
+	</if>
+	<if test="defaultFlag != null  ">
+		default_flag=#{defaultFlag},
+	</if>
+	<if test="region != null  ">
+		region=#{region},
+	</if>
+	<if test="license != null  ">
+		license=#{license},
+	</if>
+	<if test="mileage != null  ">
+		mileage=#{mileage},
+	</if>
+	<if test="buyDate != null  ">
+		buy_date=#{buyDate},
+	</if>
+	<if test="vin != null  ">
+		vin=#{vin},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="address != null  ">
+		address=#{address},
+	</if>
+	<if test="registerDate != null  ">
+		register_date=#{registerDate},
+	</if>
+	<if test="issueDate != null  ">
+		issue_date=#{issueDate},
+	</if>
+	<if test="vehicleType != null  ">
+		vehicle_type=#{vehicleType},
+	</if>
+	<if test="useCharacte != null  ">
+		use_characte=#{useCharacte},
+	</if>
+	<if test="model != null  ">
+		model=#{model},
+	</if>
+	<if test="engineNO != null  ">
+		engine_no=#{engineNO}
+	</if>
+	</trim> where member_id=#{memberId}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_member_model where id = #{id}
+	</delete>
+	
+	<!-- 删除通过id和memberId -->
+	<delete id="delByIdAndMemberId" parameterType="Object">
+		delete 	 from b_member_model where id = #{id} and member_id = #{memberId}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_member_model where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_member_model 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_member_model 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_member_model 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<select id="findByMemberIdModelId" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_member_model where member_id=#{memberId} and model_id=#{modelId}
+	</select>
+	
+	<!-- 除了本人以外能有重复牌照 -->
+	<select id="isExists" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_member_model 
+		where  b_member_model.member_id = #{memberId} 
+		<if test="id != null">
+		  and b_member_model.region = #{region} and b_member_model.license = #{license} and b_member_model.id !=#{id}
+		</if>
+		<if test="id == null">
+		and b_member_model.region = #{region} and b_member_model.license = #{license}
+		</if>
+		
+	</select>
+	
+	<!-- 根据用户Id查询默认爱车 -->
+	<select id="queryDefaultById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_member_model where member_id = #{memberId} and default_flag=1
+	</select>
+</mapper>   

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.MaintenanceDetailMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.MaintenanceDetailEntity">
+		<result column="id" property="id" />
+		<result column="maintenance_id" property="maintenanceId" />
+		<result column="acc_id" property="accId" />
+		<result column="brand_name" property="brandName" />
+		<result column="name" property="name" />
+		<result column="genaral_price" property="genaralPrice" />
+		<result column="retail_price" property="retailPrice" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- t_maintenance_detail 字段 -->
+	<sql id="Column_List">
+		t_maintenance_detail.id,t_maintenance_detail.maintenance_id,t_maintenance_detail.acc_id,t_maintenance_detail.brand_name,t_maintenance_detail.name,t_maintenance_detail.genaral_price,t_maintenance_detail.retail_price,t_maintenance_detail.create_date,t_maintenance_detail.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_maintenance_detail.id = #{id}
+			</if>
+			<if test="maintenanceId != null and maintenanceId != ''">
+				and t_maintenance_detail.maintenance_id = #{maintenanceId}
+			</if>
+			<if test="accId != null and accId != ''">
+				and t_maintenance_detail.acc_id = #{accId}
+			</if>
+			<if test="brandName != null and brandName != ''">
+				and t_maintenance_detail.brand_name = #{brandName}
+			</if>
+			<if test="name != null and name != ''">
+				and t_maintenance_detail.name = #{name}
+			</if>
+			<if test="genaralPrice != null and genaralPrice != ''">
+				and t_maintenance_detail.genaral_price = #{genaralPrice}
+			</if>
+			<if test="retailPrice != null and retailPrice != ''">
+				and t_maintenance_detail.retail_price = #{retailPrice}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_maintenance_detail.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and t_maintenance_detail.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_maintenance_detail.id = #{id}
+			</if>
+			<if test="maintenanceId != null and maintenanceId != ''">
+				and t_maintenance_detail.maintenance_id like CONCAT('%',#{maintenanceId},'%')
+			</if>
+			<if test="accId != null and accId != ''">
+				and t_maintenance_detail.acc_id like CONCAT('%',#{accId},'%')
+			</if>
+			<if test="brandName != null and brandName != ''">
+				and t_maintenance_detail.brand_name like CONCAT('%',#{brandName},'%')
+			</if>
+			<if test="name != null and name != ''">
+				and t_maintenance_detail.name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="genaralPrice != null and genaralPrice != ''">
+				and t_maintenance_detail.genaral_price like CONCAT('%',#{genaralPrice},'%')
+			</if>
+			<if test="retailPrice != null and retailPrice != ''">
+				and t_maintenance_detail.retail_price like CONCAT('%',#{retailPrice},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_maintenance_detail.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and t_maintenance_detail.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into t_maintenance_detail(id,maintenance_id,acc_id,brand_name,name,genaral_price,retail_price,create_date,modify_date)
+ values(#{id},#{maintenanceId},#{accId},#{brandName},#{name},#{genaralPrice},#{retailPrice},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update t_maintenance_detail set 
+	<trim  suffixOverrides="," >
+	<if test="maintenanceId != null  ">
+		maintenance_id=#{maintenanceId},
+	</if>
+	<if test="accId != null  ">
+		acc_id=#{accId},
+	</if>
+	<if test="brandName != null  ">
+		brand_name=#{brandName},
+	</if>
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="genaralPrice != null  ">
+		genaral_price=#{genaralPrice},
+	</if>
+	<if test="retailPrice != null  ">
+		retail_price=#{retailPrice},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from t_maintenance_detail where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from t_maintenance_detail where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_maintenance_detail 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from t_maintenance_detail 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_maintenance_detail 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

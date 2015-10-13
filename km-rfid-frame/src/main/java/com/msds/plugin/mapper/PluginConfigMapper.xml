@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.plugin.mapper.PluginConfigMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.plugin.entity.PluginConfigEntity">
+		<result column="id" property="id" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="orders" property="orders" />
+		<result column="is_enabled" property="isEnabled" />
+		<result column="plugin_id" property="pluginId" />
+	</resultMap>
+
+	<!-- s_plugin_config 字段 -->
+	<sql id="Column_List">
+		id,create_date,modify_date,orders,is_enabled,plugin_id
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and modify_date = #{modifyDate}
+			</if>
+			<if test="orders != null and orders != ''">
+				and orders = #{orders}
+			</if>
+			<if test="isEnabled != null and isEnabled != ''">
+				and is_enabled = #{isEnabled}
+			</if>
+			<if test="pluginId != null and pluginId != ''">
+				and plugin_id = #{pluginId}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="orders != null and orders != ''">
+				and orders like CONCAT('%',#{orders},'%')
+			</if>
+			<if test="isEnabled != null and isEnabled != ''">
+				and is_enabled like CONCAT('%',#{isEnabled},'%')
+			</if>
+			<if test="pluginId != null and pluginId != ''">
+				and plugin_id like CONCAT('%',#{pluginId},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into s_plugin_config(id,create_date,modify_date,orders,is_enabled,plugin_id)
+ values(#{id},#{createDate},#{modifyDate},#{orders},#{isEnabled},#{pluginId})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update s_plugin_config set 
+	<trim  suffixOverrides="," >
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	<if test="orders != null  ">
+		orders=#{orders},
+	</if>
+	<if test="isEnabled != null  ">
+		isEnabled=#{isEnabled},
+	</if>
+	<if test="pluginId != null  ">
+		pluginId=#{pluginId},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from s_plugin_config where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from s_plugin_config where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from s_plugin_config 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from s_plugin_config 
+		<include refid="Like_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from s_plugin_config 
+		<include refid="Like_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<!-- 根据findByPluginId查询 -->
+	<select id="findByPluginId" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from s_plugin_config where plugin_id = #{pluginId}
+	</select>
+
+</mapper>   

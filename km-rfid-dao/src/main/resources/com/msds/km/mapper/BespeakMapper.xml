@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.BespeakMapper">
+	<!-- Result Map -->
+	<resultMap id="bkList" type="com.msds.km.entity.BespeakEntity">
+		<result column="id" property="id" />
+		<result column="bespeak_sn" property="bespeakSn" />
+		<result column="problem" property="problem" />
+		<result column="answer" property="answer" />
+		<result column="laborcost" property="laborcost" />
+		<result column="total_price" property="totalPrice" />
+		<result column="bespeak_date" property="bespeakDate" />
+		<result column="company_id" property="companyId" />
+		<result column="state" property="state" />
+		<result column="create_time" property="createTime" />
+		<result column="phone" property="phone" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="mileage" property="mileage" />
+		<result column="name" property="name" />
+		<result column="region" property="region"/>
+		<result column="license"  property="license"/>
+	</resultMap>
+	
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.BespeakEntity">
+		<result column="id" property="id" />
+		<result column="bespeak_sn" property="bespeakSn" />
+		<result column="problem" property="problem" />
+		<result column="answer" property="answer" />
+		<result column="laborcost" property="laborcost" />
+		<result column="total_price" property="totalPrice" />
+		<result column="bespeak_date" property="bespeakDate" />
+		<result column="company_id" property="companyId" />
+		<result column="member_id" property="memberId" />
+		<result column="member_model_id" property="memberModelId" />
+		<result column="user_id" property="userId" />
+		<result column="state" property="state" />
+		<result column="phone" property="phone" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="mileage" property="mileage" />
+		<result column="companyName" property="companyName" />
+		<result column="companyAddress" property="companyAddress" />
+		<result column="companyTel" property="companyTel" />
+		<result column="buy_date" property="buyDate" />
+		<result column="last_service_date" property="lastServiceDate" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+	
+	<!-- 预约单详情 -->
+	<resultMap id="ResultMapDetail" type="com.msds.km.entity.BespeakEntity" extends="ResultMap">
+		<result column="companyName" property="companyName" />
+		<result column="companyAddress" property="companyAddress" />
+		<result column="companyTel" property="companyTel" />
+		<result column="phone" property="phone" />
+		<result column="memberName" property="memberName" />
+		<result column="modelGroupName" property="modelGroupName" />
+		<result column="vin" property="vin" />
+		<result column="mileage" property="mileage" />	
+		<result column="license" property="license" />
+	</resultMap>
+	
+		<resultMap id="bespeakdetail" type="com.msds.km.vo.BespeakOrderDetailVo">
+		<result column="bespeak_sn" property="bespeakSn" />
+		<result column="state" property="state" />
+		<result column="problem" property="problem" />
+		<result column="answer" property="answer" />
+		<result column="laborcost" property="laborcost" />
+		<result column="total_price" property="totalPrice" />
+		<result column="bespeak_date" property="bespeakDate" />
+		<result column="name" property="name" />
+		<result column="full_address" property="fullAddress" />
+		<result column="telephone" property="telephone" />
+		<result column="memberPhone" property="memberPhone" />
+		<result column="membername" property="membername" />
+		<result column="memberfullAddress" property="memberfullAddress" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="buy_date" property="buyDate" />
+		<result column="mileage" property="mileage" />
+		<result column="last_service_date" property="lastServiceDate" />
+	</resultMap>
+	
+	<select id="findBespeakOrderInfo"  resultMap="bespeakdetail" parameterType="Object">
+			SELECT 
+		g_bespeak.bespeak_sn,
+		g_bespeak.state,
+		g_bespeak.problem,
+		g_bespeak.answer,
+		g_bespeak.laborcost,
+		g_bespeak.total_price,
+		g_bespeak.bespeak_date,
+		b_company.`name`,
+		b_company.full_address,
+		b_company.telephone,
+		 b_member.phone as memberPhone,
+		b_member.`name` as membername,
+		b_member.full_address as memberfullAddress,
+		b_member_model.model_group_name,
+		b_member_model.buy_date,
+		b_member_model.mileage,
+		b_member_model.last_service_date
+		FROM
+			g_bespeak,
+		  b_company,
+			b_member,
+			b_member_model
+		WHERE
+			g_bespeak.member_id = b_member.id and g_bespeak.company_id=b_company.id
+		AND g_bespeak.member_model_id = b_member_model.id
+		AND g_bespeak.bespeak_sn = #{bespeakSn} and g_bespeak.company_id=#{id}
+	</select>
+	
+	
+	<!-- g_bespeak 字段 -->
+	<sql id="Column_List">
+		g_bespeak.id,g_bespeak.bespeak_sn,g_bespeak.problem,g_bespeak.answer,g_bespeak.laborcost,g_bespeak.total_price,g_bespeak.bespeak_date,g_bespeak.company_id,g_bespeak.member_id,g_bespeak.member_model_id,g_bespeak.user_id,g_bespeak.state,g_bespeak.create_date,g_bespeak.modify_date
+	</sql>
+	
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_bespeak.id = #{id}
+			</if>
+			<if test="bespeakSn != null and bespeakSn != ''">
+				and g_bespeak.bespeak_sn = #{bespeakSn}
+			</if>
+			<if test="problem != null and problem != ''">
+				and g_bespeak.problem = #{problem}
+			</if>
+			<if test="answer != null and answer != ''">
+				and g_bespeak.answer = #{answer}
+			</if>
+			<if test="laborcost != null and laborcost != ''">
+				and g_bespeak.laborcost = #{laborcost}
+			</if>
+			<if test="totalPrice != null and totalPrice != ''">
+				and g_bespeak.total_price = #{totalPrice}
+			</if>
+			<if test="bespeakDate != null and bespeakDate != ''">
+				and g_bespeak.bespeak_date = #{bespeakDate}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and g_bespeak.company_id = #{companyId}
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and g_bespeak.member_id = #{memberId}
+			</if>
+			<if test="memberModelId != null and memberModelId != ''">
+				and g_bespeak.member_model_id = #{memberModelId}
+			</if>
+			<if test="userId != null and userId != ''">
+				and g_bespeak.user_id = #{userId}
+			</if>
+			<if test="state != null and state != ''">
+				and g_bespeak.state = #{state}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_bespeak.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_bespeak.modify_date = #{modifyDate}
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and <![CDATA[ g_bespeak.bespeak_date <= #{afterDate}]]>
+			</if>
+			<if test="beforeDate != null and beforeDate != ''">
+				and g_bespeak.bespeak_date >= #{beforeDate}
+			</if>
+			<if test="phone != null and phone != ''">
+				and b_member.phone = #{phone}
+			</if>
+		</trim>
+	</sql>
+	
+	<!-- 根据id查询 -->
+	<select id="findByBespeakId" resultMap="bkList" parameterType="Object">
+		select 
+			id,bespeak_sn,problem,answer,laborcost,total_price,bespeak_date,company_id,member_id,member_model_id,state
+		from g_bespeak 
+	 	where  id = #{id}
+	</select>
+	
+	
+	<select id="getBespeakList" resultMap="bkList" parameterType="Object">
+		
+		select b.id,b.bespeak_sn,b.bespeak_date,b.state,b.laborcost,b.total_price,m.phone,m.name,mm.model_group_name,mm.mileage,mm.region,mm.license
+			from g_bespeak b 
+			left join b_member m on b.member_id = m.id 
+			left join b_member_model mm on b.member_model_id = mm.id where 1=1
+			
+		<include refid="bespeakListWhere" />
+		
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	
+	<select id="getBespeakListCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1)
+			from g_bespeak b 
+			left join b_member m on b.user_id = m.id 
+			left join b_member_model mm on b.member_model_id = mm.id where 1=1
+		<include refid="bespeakListWhere" />
+	</select>
+	
+	<sql id="bespeakListWhere">
+		
+		<trim suffixOverrides=",">
+			<if test="memberId != null and memberId != ''">
+				and b.member_id = #{memberId} and b.bespeak_date > now()
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b.company_id = #{companyId}
+			</if>
+			<if test="phone != null and phone != ''">
+				and m.phone like  CONCAT('%',#{phone},'%')
+			</if>
+			<if test="bespeakSn != null and bespeakSn != ''">
+				and b.bespeak_sn like CONCAT('%',#{bespeakSn},'%')
+			</if>
+			<if test="startDate != null and startDate != ''">
+				and b.bespeak_date BETWEEN #{startDate} and #{endDate}
+			</if>
+			
+		</trim>
+	</sql>
+	
+	<!-- 用户列表开始 -->
+	<resultMap id="memberList" type="com.msds.km.entity.MemberEntity">
+		<result column="id" property="id" />
+		<result column="phone" property="phone" />
+		<result column="name" property="name" />
+		<result column="full_address" property="fullAddress" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="license" property="license" />
+		<result column="mileage" property="mileage" />
+		<result column="vin" property="vin" />
+		<result column="create_date" property="createDate" />
+		<result column="sex" property="sex" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="area" property="area" />
+		<result column="address" property="address" />
+		<result column="model_id" property="modelId" />
+		<result column="buy_date" property="buyDate" />
+		<result column="last_service_date" property="lastServiceDate" />
+		<result column="chassis" property="chassis" />
+		<result column="memberModelId" property="memberModelId" />
+		<result column="shop_id" property="shopId" />
+		<result column="series_id" property="seriesId" />
+		<result column="year" property="year" />
+		<result column="exhaust_volume" property="exhaustVolume" />
+	</resultMap>
+	
+	<!-- 修理厂前台预约订单列表 -->
+	<resultMap id="FactoryBespeakMap" type="com.msds.km.entity.BespeakEntity">
+		<result column="bespeak_sn" property="bespeakSn" />
+		<result column="bespeak_date" property="bespeakDate" />
+		<result column="state" property="state" />
+		<result column="phone" property="phone" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="license" property="license" />
+		
+	</resultMap>
+	
+	<select id="getMemberList" resultMap="memberList" parameterType="Object">
+	select * from (
+		select concat(mm.region,mm.license) aa,m.id,m.name,m.full_address,m.phone,m.create_date,mm.model_group_name,CONCAT(mm.region,mm.license) license ,
+		mm.vin,mm.mileage,m.sex,m.province,m.city,m.area,m.address,mm.model_id,mm.buy_date,mm.last_service_date,mm.chassis,mm.id as memberModelId,
+		md.brand_id as shop_id,md.series_id,md.model_id as year,mm.engine_type,mm.engine_no,gear_box_type,gear_box_no,check_date,safe_date 
+		from b_member m 
+		left join b_member_model mm
+		on m.id = mm.member_id and mm.default_flag = 1 
+		
+		left join v_model_detail md on md.model_id = mm.model_id
+		where 1=1 
+		) m
+		<include refid="memberListWhere" />
+		
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from  (
+		
+		select concat(mm.region,mm.license) aa, m.phone,mm.vin,mm.region,mm.license  from b_member m left join  b_member_model mm
+		on m.id = mm.member_id and mm.default_flag = 1 where 1=1
+		) m
+		<include refid="memberListWhere" />
+		
+	</select>
+	
+	<sql id="memberListWhere">
+		where 1=1 
+		<trim suffixOverrides=",">
+			<if test="phone != null and phone != ''">
+				and m.phone like  CONCAT('%',#{phone},'%')
+			</if>
+			<if test="license != null and license != ''">
+				and m.aa like CONCAT('%',#{license},'%') 
+			</if>
+			<if test="vin != null and vin != ''">
+				and m.vin = #{vin}
+			</if>
+			<if test="id != null and id != ''">
+				and m.id = #{id}
+			</if>
+			
+		</trim>
+	</sql>
+	<!-- 用户列表结束 -->
+	
+	<resultMap id="processList" type="com.msds.km.entity.ProcessEntity">
+		<result column="id" property="id" />
+		<result column="process_name" property="processName" />
+		<result column="pid" property="pid" />
+	</resultMap>
+
+
+	<!-- 插入记录 -->
+	<insert id="addBespeak" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into g_bespeak(id,bespeak_sn,problem,answer,laborcost,total_price,bespeak_date,company_id,member_id,member_model_id,user_id,state,create_date,modify_date)
+ values(#{id},#{bespeakSn},#{problem},#{answer},#{laborcost},#{totalPrice},#{bespeakDate},#{companyId},#{memberId},#{memberModelId},#{userId},#{state},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_bespeak set 
+	<trim  suffixOverrides="," >
+	<if test="problem != null  ">
+		problem=#{problem},
+	</if>
+	
+	<if test="answer != null  ">
+		answer=#{answer},
+	</if>
+	
+	<if test="totalPrice != null  ">
+		total_price=#{totalPrice},
+	</if>
+	
+	<if test="bespeakDate != null  ">
+		bespeak_date=#{bespeakDate},
+	</if>
+	
+	<if test="laborcost != null  ">
+		laborcost=#{laborcost},
+	</if>
+	
+	<if test="companyId != null  ">
+		company_id=#{companyId},
+	</if>
+	
+	<if test="state != null  ">
+		state=#{state},
+	</if>
+	
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	
+	</trim> where id=#{id}
+	</update>
+
+
+	<!-- 根据id查询 -->
+	<select id="getFirstLevel" resultMap="processList" parameterType="Object">
+		select id,process_name,pid 
+	 from g_process where level = 1
+	</select>
+
+	<select id="getSecondById" resultMap="processList" parameterType="Object">
+		select id,process_name,pid 
+	 from g_process where level = 2 and pid = #{id}
+	</select>
+
+	<!-- 查询条件 -->
+	<sql id="Bespeak_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="companyId != null and companyId != ''">
+				and g_bespeak.company_id=#{companyId}
+			</if>
+			<if test="nowDate != null and nowDate != ''">
+				<![CDATA[
+					and g_bespeak.bespeak_date > #{nowDate}
+				]]>
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="getBespeakModelList" resultMap="FactoryBespeakMap" parameterType="Object">
+		SELECT
+			g_bespeak.bespeak_sn,
+			g_bespeak.bespeak_date,
+			g_bespeak.state,
+			b_member.phone,
+			b_member_model.model_group_name,
+			CONCAT(
+				b_member_model.region,
+				b_member_model.license
+			) license
+		FROM
+			g_bespeak 
+		left join b_member on g_bespeak.member_id = b_member.id
+		left join b_member_model on g_bespeak.member_model_id = b_member_model.id	
+				
+		WHERE
+			1=1
+		AND g_bespeak.company_id = #{companyId}
+		<if test="nowDate != null and nowDate != ''">
+			<![CDATA[
+				and g_bespeak.bespeak_date > #{nowDate}
+			]]>
+		</if>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	<select id="findDetailedBySnAndCompanyId" resultMap="ResultMapDetail" parameterType="Object">
+		SELECT
+			<include refid="Column_List" />,
+			b_company.name companyName,
+			b_company.full_address companyAddress,
+			b_company.telephone companyTel,
+			b_member.name memberName,
+			b_member.phone phone,
+			b_member_model.model_group_name modelGroupName,
+			b_member_model.vin vin,
+			b_member_model.mileage mileage,
+			CONCAT(
+				b_member_model.region,
+				b_member_model.license
+			) license
+		FROM
+			g_bespeak
+		LEFT JOIN b_member ON g_bespeak.member_id = b_member.id
+		LEFT JOIN b_member_model ON g_bespeak.member_model_id = b_member_model.id
+		LEFT JOIN b_company ON g_bespeak.company_id = b_company.id
+		WHERE
+			1=1
+		AND g_bespeak.bespeak_sn = #{bespeakSn}
+		<if test="companyId != null and companyId != ''">
+			AND g_bespeak.company_id=#{companyId}
+		</if>
+	</select>
+	
+		
+	<sql id="MemberBespeakWhere">
+		<trim suffixOverrides=",">
+			<if test="memberId != null and memberId != ''">
+				AND g_bespeak.member_id=#{memberId}
+			</if>
+		</trim>
+	</sql>
+	<select id="getMemberBespeakList" resultMap="ResultMapDetail" parameterType="Object">
+		SELECT
+			g_bespeak.bespeak_sn,
+			g_bespeak.answer,
+			g_bespeak.bespeak_date,
+			g_bespeak.create_date,
+			b_company.name companyName
+		FROM
+			g_bespeak left join  b_company on g_bespeak.company_id = b_company.id
+		WHERE
+			1=1
+		<include refid="MemberBespeakWhere" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	
+	<select id="queryMemberBespeakCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		SELECT
+			count(1)
+		FROM
+			g_bespeak left join  b_company on g_bespeak.company_id = b_company.id
+		WHERE
+			1=1
+		<include refid="MemberBespeakWhere" />
+	</select>
+
+	<select id="queryBespeakCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_bespeak
+		left join b_member on g_bespeak.member_id=b_member.id 
+		left join b_member_model on g_bespeak.member_model_id=b_member_model.id
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryBespeakList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />,
+		b_member.phone,
+		b_member_model.model_group_name,
+		b_member_model.mileage
+		from g_bespeak 
+		left join b_member on g_bespeak.member_id=b_member.id 
+		left join b_member_model on g_bespeak.member_model_id=b_member_model.id
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<!-- 根据id查询 -->
+	<select id="findDetailByBespeak" resultMap="ResultMap" parameterType="Object">
+		select 
+			<include refid="Column_List" />,
+			b_member.name,
+			b_member.phone,
+			CONCAT(
+				b_member_model.region,
+				b_member_model.license
+			) license,
+			b_member_model.buy_date,
+			b_member_model.mileage,
+			b_member_model.last_service_date,
+			b_member_model.model_group_name modelGroupName,
+			b_company.name companyName,
+			b_company.full_address companyAddress,
+			b_company.telephone companyTel
+		from g_bespeak 
+		left join b_member on g_bespeak.member_id=b_member.id 
+		left join b_member_model on g_bespeak.member_model_id=b_member_model.id
+		left join b_company on g_bespeak.company_id = b_company.id
+	 	<include refid="Example_Where_Clause" />
+	</select>
+	
+	<!-- 列表总数 -->
+	<select id="queryByBespeakCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_bespeak 
+		left join b_member on g_bespeak.member_id=b_member.id 
+		left join b_member_model on g_bespeak.member_model_id=b_member_model.id
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="findBespeakList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />,
+		b_member.phone,
+		b_member_model.mileage,
+		b_member_model.model_group_name modelGroupName
+		from g_bespeak 
+		left join b_member on g_bespeak.member_id=b_member.id 
+		left join b_member_model on g_bespeak.member_model_id=b_member_model.id
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+</mapper>   

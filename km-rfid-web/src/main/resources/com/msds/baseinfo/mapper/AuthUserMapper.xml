@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.baseinfo.mapper.AuthUserMapper">
+	<resultMap type="com.msds.baseinfo.entity.AuthUser" id="auth_group">
+		<result property="id" column="id" />
+		<result property="userName" column="username" />
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="email" column="email" />
+		<result property="directShopId" column="direct_shop_id" />
+		<result property="password" column="password" />
+		<result property="isStaff" column="is_staff" />
+		<result property="isActive" column="is_active" />
+		<result property="isSuperuser" column="is_superuser" />
+		<result property="lastLogin" column="last_login" />
+		<result property="dateJoined" column="date_joined" />
+		<result property="salt" column="salt" />
+		<result property="roleId" column="roleId" />
+		<result property="roleName" column="roleName" />
+	</resultMap>
+
+	<resultMap type="com.msds.baseinfo.entity.AuthGroup" id="auth_group_Map">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+	<select id="getUserList" parameterType="map" resultMap="auth_group">
+		select
+		u.id,u.username,u.first_name,u.last_name,u.email,u.direct_shop_id,u.is_staff,u.is_active,u.is_superuser,u.last_login,u.date_joined,u.salt,
+		c.id as roleId,c.name as roleName
+		from auth_user u inner join auth_user_groups_cs g on g.user_id = u.id inner join auth_group_cs c on g.group_id = c.id
+		<where>
+			<if test="id!=null">
+				and u.id = #{id}
+			</if>
+			<if test="userName !=null">
+				and u.username like CONCAT(CONCAT('%',#{userName}),'%')
+			</if>
+			<if test="firstName !=null">
+				and u.first_name like CONCAT(CONCAT('%',#{firstName}),'%')
+			</if>
+			<if test="roleId!=null">
+				and g.group_id = #{roleId}
+			</if>
+		</where>
+		group by u.id order by u.id desc limit #{startRow},#{endRow}
+	</select>
+	<select id="getGroupJson" resultMap="auth_group_Map">
+		select * from auth_group_cs
+	</select>
+	<select id="getCountSql" parameterType="map" resultType="int">
+		select count(1) from auth_user u
+		<where>
+			<if test="id!=null">
+				and u.id = #{id}
+			</if>
+			<if test="userName !=null">
+				and u.username like CONCAT(CONCAT('%',#{userName}),'%')
+			</if>
+			<if test="firstName !=null">
+				and u.first_name like CONCAT(CONCAT('%',#{firstName}),'%')
+			</if>
+
+		</where>
+	</select>
+	<insert id="insertUser" parameterType="com.msds.baseinfo.entity.AuthUser"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into
+		auth_user(username,password,first_name,last_name,email,direct_shop_id,is_staff,is_active,is_superuser,last_login,date_joined,salt)
+		values(#{userName},#{password},#{firstName},#{lastName},#{email},#{directShopId},#{isStaff},#{isActive},#{isSuperuser},#{lastLogin},#{dateJoined},#{salt})
+	</insert>
+	<insert id="insertGroupUser" parameterType="map">
+		insert into auth_user_groups_cs(user_id,group_id)
+		values(#{userId},#{groupId});
+	</insert>
+	<select id="getUserById" parameterType="int" resultMap="auth_group">
+		select
+		u.id,u.username,u.password,u.first_name,u.last_name,u.email,u.direct_shop_id,u.is_staff,u.is_active,u.is_superuser,u.last_login,u.date_joined,u.salt,
+		
+		c.id as roleId,c.name as roleName
+		from auth_user u inner join auth_user_groups_cs g on g.user_id = u.id inner join auth_group_cs c on g.group_id = c.id
+		where u.id=#{id}
+	</select>
+	<update id="updateUser" parameterType="com.msds.baseinfo.entity.AuthUser">
+		update auth_user set username =#{userName},first_name=#{firstName},last_name
+		=#{lastName},email=#{email},direct_shop_id=#{directShopId},is_staff
+		=#{isStaff},is_active=#{isActive},is_superuser
+		=#{isSuperuser},last_login=#{lastLogin},date_joined =#{dateJoined}
+		where id =#{id}
+	</update>
+<!-- 	<update id="updateUserPassword" parameterType="com.msds.user.entity.AuthUser"> -->
+<!-- 		update auth_user set password=#{password} , salt=#{salt} where id =#{id} -->
+<!-- 	</update> -->
+	<update id="updateUserGroup" parameterType="map">
+		update auth_user_groups_cs set group_id = #{groupId} where user_id =
+		#{userId}
+	</update>
+	<delete id="deleteUser" parameterType="int">
+		delete from auth_user where id = #{id}
+	</delete>
+	<delete id="deleteAuthUserGroup" parameterType="int">
+		delete from auth_user_groups_cs where user_id =#{id}
+	</delete>
+	<select id="findRoles" parameterType="String" resultType="String">
+		SELECT distinct auth_group_cs.name
+		FROM
+		auth_user ,
+		auth_user_groups_cs ,
+		auth_group_cs
+		WHERE
+		auth_user.id = auth_user_groups_cs.user_id AND
+		auth_user_groups_cs.group_id = auth_group_cs.id AND
+		auth_user.username =#{username}
+	</select>
+	<select id="findPermissions" parameterType="String" resultType="String">
+		SELECT distinct
+		auth_permission_cs.permission
+		FROM
+		auth_user ,
+		auth_user_groups_cs ,
+		auth_group_permissions_cs ,
+		auth_permission_cs
+		WHERE
+		auth_user.id = auth_user_groups_cs.user_id AND
+		auth_user_groups_cs.group_id = auth_group_permissions_cs.group_id AND
+		auth_group_permissions_cs.permission_id = auth_permission_cs.id AND
+		auth_user.username = #{username}
+	</select>
+	<select id="findByUsername" parameterType="String" resultMap="auth_group">
+		select
+		u.id,u.username,u.password,u.first_name,u.last_name,u.email,u.direct_shop_id,u.is_staff,u.is_active,u.is_superuser,u.last_login,u.date_joined,u.salt
+		from auth_user u where u.username=#{username}
+	</select>
+
+	<select id="getGroupIdByUserId" parameterType="int" resultType="int">
+		select c.group_id from auth_user_groups_cs c where
+		c.user_id=#{user_id}
+	</select>
+	<insert id="insertUserGroup" parameterType="map"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into auth_user_groups_cs(user_id,group_id)
+		values(#{userId},#{groupId})
+	</insert>
+	<update id="updateUserPassword" parameterType="com.msds.baseinfo.entity.AuthUser">
+		update auth_user set password =#{password},salt=#{salt},last_login=#{lastLogin} 
+		where id =#{id}
+	</update>
+</mapper>
+

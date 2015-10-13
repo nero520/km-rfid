@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.baseinfo.mapper.LoginMapper">
+    <resultMap type="com.msds.baseinfo.entity.AuthUser" id="user">
+    <result property ="id" column="id"/>
+    <result property ="userName" column="username"/>
+    <result property ="firstName" column="first_name"/>
+    <result property ="lastName" column="last_name"/>
+    <result property ="email" column="email"/>
+    <result property ="password" column="password"/>
+    <result property ="isStaff" column="is_staff"/>
+    <result property ="isActive" column="is_active"/>
+    <result property ="isSuperuser" column="is_superuser"/>
+    <result property ="lastLogin" column="last_login"/>
+    <result property ="dateJoined" column="date_joined"/>
+    </resultMap>
+    <resultMap type="com.msds.baseinfo.entity.AuthGroup" id="group">
+     <result property ="id" column="id"/>
+    <result property ="name" column="name"/>
+    </resultMap>
+	<select id="getUserInfo" parameterType="string"  resultMap="user">
+	<![CDATA[
+       	select * from  auth_user where username =#{userName} 
+    ]]>
+  </select>
+  <select id="getGroupIdByUserId" parameterType="int"  resultMap="group">
+	<![CDATA[
+       	select * from auth_group_cs where id = (select p.group_id from auth_user_groups_cs p,auth_user u where u.id = p.user_id and u.id=#{id})
+    ]]>
+  </select>  		
+</mapper>
+

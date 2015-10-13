@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.ProcessMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.ProcessEntity">
+		<result column="id" property="id" />
+		<result column="process_name" property="processName" />
+		<result column="price" property="price" />
+		<result column="pid" property="pid" />
+		<result column="level" property="level" />
+	</resultMap>
+
+	<!-- g_process 字段 -->
+	<sql id="Column_List">
+		g_process.id,g_process.process_name,g_process.price,g_process.pid,g_process.level
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_process.id = #{id}
+			</if>
+			<if test="processName != null and processName != ''">
+				and g_process.process_name = #{processName}
+			</if>
+			<if test="price != null and price != ''">
+				and g_process.price = #{price}
+			</if>
+			<if test="pid != null and pid != ''">
+				and g_process.pid = #{pid}
+			</if>
+			<if test="level != null and level != ''">
+				and g_process.level = #{level}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_process.id = #{id}
+			</if>
+			<if test="processName != null and processName != ''">
+				and g_process.process_name like CONCAT('%',#{processName},'%')
+			</if>
+			<if test="price != null and price != ''">
+				and g_process.price like CONCAT('%',#{price},'%')
+			</if>
+			<if test="pid != null and pid != ''">
+				and g_process.pid like CONCAT('%',#{pid},'%')
+			</if>
+			<if test="level != null and level != ''">
+				and g_process.level like CONCAT('%',#{level},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into g_process(id,process_name,price,pid,level)
+ values(#{id},#{processName},#{price},#{pid},#{level})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_process set 
+	<trim  suffixOverrides="," >
+	<if test="processName != null  ">
+		process_name=#{processName},
+	</if>
+	<if test="price != null  ">
+		price=#{price},
+	</if>
+	<if test="pid != null  ">
+		pid=#{pid},
+	</if>
+	<if test="level != null  ">
+		level=#{level},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from g_process where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from g_process where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_process 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_process 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_process 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

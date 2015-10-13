@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.baseinfo.mapper.InitMapper">
+
+    
+    <resultMap type="com.msds.baseinfo.entity.ProductDetail" id="product">
+		<result property="id" column="id" />
+		<result property="productCode" column="product_code" />
+		<result property="productName" column="product_name" />
+		<result property="productInfo" column="product_info" />
+		<result property="parameter" column="parameter" />
+	</resultMap>
+    
+	<resultMap type="com.msds.baseinfo.entity.InitForm" id="productCategory">
+		<result property="categoryId" column="category_id" />
+		<result property="productId" column="product_id" />
+		<result property="id" column="id" />
+		<result property="ids" column="ids" />
+		<result property="brand" column="name1" />
+		<result property="factory" column="name2" />
+		<result property="carType" column="name3" />
+		<result property="makeYear" column="name4" />
+		<result property="output" column="name5" />
+		
+	</resultMap>
+	
+	<resultMap type="com.msds.baseinfo.entity.InitForm" id="init">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="pid" column="pid" />
+		<result property="level" column="level" />
+	</resultMap>
+	
+	
+	<select id="getCategoryList" resultMap="init" parameterType="com.msds.baseinfo.entity.InitForm">
+		<![CDATA[
+	       	select  * from c_category p where pid = #{id}
+	    ]]>
+	</select>
+	
+	<select id="getCategoryAllList" resultMap="init" >
+		<![CDATA[
+	       	select * from c_category p
+	    ]]>
+	</select>
+	
+	<select id="getProductList" resultMap="product" >
+		<![CDATA[
+	       	select * from c_product p
+	    ]]>
+	     <where>
+		 <if test="productCode != null">
+		  and product_code  like concat(concat('%',#{productCode}),'%')
+		 </if>
+		 <if test="status != null">
+		  and status =#{status}
+		 </if>
+		 </where>
+	</select>
+	
+	 <update id="updateStatus" parameterType="com.msds.baseinfo.entity.ProductDetail">
+	    update c_product set status = #{status}  where id =#{id}
+	 </update>
+	
+	
+	<select id="getProductDetailList" resultMap="product" >
+		<![CDATA[
+	       	select * from c_product_detail p where id = #{id}
+	    ]]>
+	</select>
+
+	<select id="getProductCategoryList" parameterType="com.msds.baseinfo.entity.InitForm" resultMap="productCategory">
+    	select * from c_product_category m where m.product_id =#{productId} 
+    </select>
+    
+    
+    <delete id="deleteCategoryByProductId" parameterType="com.msds.baseinfo.entity.InitForm" >
+    	delete from c_product_category  where product_id = #{productId} 
+    </delete>
+    
+    <select id="getCategoryIds" parameterType="com.msds.baseinfo.entity.InitForm" resultMap="productCategory">
+    	select * from c_category_all m where m.ids like concat(concat('%,',#{categoryId}),',%')
+    </select>
+    
+    <insert id="saveProductCategory" parameterType="com.msds.baseinfo.entity.InitForm" useGeneratedKeys="true" keyProperty="id">
+    	insert into  c_product_category (product_id,category_id) values(#{productId},#{ids});  
+  	</insert>
+  	
+  	<select id="getProductJoinList" parameterType="com.msds.baseinfo.entity.InitForm" resultMap="productCategory">
+    	select distinct name1,name2,name3,name4,name5 from c_category_all a, c_product_category b where a.ids = b.category_id and b.product_id = #{productId}
+    </select>
+
+
+</mapper>

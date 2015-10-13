@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+	    http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd"
+	default-lazy-init="false">
+
+	<!-- 只扫描Controller 注解 -->
+	<context:component-scan base-package="com.msds"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd'T'HH:mm:ss" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<mvc:interceptors>
+		<bean class="com.msds.interceptor.ExceptionInterceptor" />
+	</mvc:interceptors>
+
+	<!-- <mvc:resources mapping="/images/**" location="/images/" /> -->
+	<!-- <mvc:resources mapping="/js/**" location="/js/" /> -->
+	<!-- <mvc:resources mapping="/css/**" location="/css/" /> -->
+
+	<!-- 全局异常配置 start -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Exception">/common/error</prop>
+				<prop key="java.lang.Throwable">/common/error</prop>
+				<prop
+					key="org.springframework.web.multipart.MaxUploadSizeExceededException">/common/upload_error</prop>
+			</props>
+		</property>
+		<!-- <property name="statusCodes"> <props> <prop key="errors/error">500</prop> 
+			<prop key="errors/404">404</prop> </props> </property> -->
+		<!--定义异常处理页面用来获取异常信息的变量名，默认名value为exception -->
+		<property name="exceptionAttribute" value="ex"></property>
+		<!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+		<property name="warnLogCategory" value="WARN"></property>
+		<!-- 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 -->
+		<property name="defaultErrorView" value="/common/error"></property>
+		<!-- 默认HTTP状态码 -->
+		<property name="defaultStatusCode" value="500"></property>
+	</bean>
+	<!-- 全局异常配置 end -->
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/page/msds" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="0" />
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" /> <!-- 默认编码 (ISO-8859-1) -->
+		<property name="maxInMemorySize" value="4096" /> <!-- 最大内存大小 (10240) -->
+		<property name="uploadTempDir" value="/upload/" /> <!-- 上传后的目录名 (WebUtils#TEMP_DIR_CONTEXT_ATTRIBUTE) -->
+		<property name="maxUploadSize" value="10485760" /> <!-- 最大文件大小，-1为无限止(-1) -->
+	</bean>
+
+</beans>

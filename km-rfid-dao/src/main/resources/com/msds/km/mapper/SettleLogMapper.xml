@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.SettleLogMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.SettleLogEntity">
+		<result column="id" property="id" />
+		<result column="settle_account_id" property="settleAccountId" />
+		<result column="oper_person" property="operPerson" />
+		<result column="remark" property="remark" />
+		<result column="create_time" property="createTime" />
+	</resultMap>
+
+	<!-- b_settle_log 字段 -->
+	<sql id="Column_List">
+		b_settle_log.id,b_settle_log.settle_account_id,b_settle_log.oper_person,b_settle_log.remark,b_settle_log.create_time
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_log.id = #{id}
+			</if>
+			<if test="settleAccountId != null and settleAccountId != ''">
+				and b_settle_log.settle_account_id = #{settleAccountId}
+			</if>
+			<if test="operPerson != null and operPerson != ''">
+				and b_settle_log.oper_person = #{operPerson}
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_settle_log.remark = #{remark}
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and b_settle_log.create_time = #{createTime}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_log.id = #{id}
+			</if>
+			<if test="settleAccountId != null and settleAccountId != ''">
+				and b_settle_log.settle_account_id like CONCAT('%',#{settleAccountId},'%')
+			</if>
+			<if test="operPerson != null and operPerson != ''">
+				and b_settle_log.oper_person like CONCAT('%',#{operPerson},'%')
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_settle_log.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="createTime != null and createTime != ''">
+				and b_settle_log.create_time like CONCAT('%',#{createTime},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_settle_log(id,settle_account_id,oper_person,remark,create_time)
+ values(#{id},#{settleAccountId},#{operPerson},#{remark},#{createTime})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_settle_log set 
+	<trim  suffixOverrides="," >
+	<if test="settleAccountId != null  ">
+		settle_account_id=#{settleAccountId},
+	</if>
+	<if test="operPerson != null  ">
+		oper_person=#{operPerson},
+	</if>
+	<if test="remark != null  ">
+		remark=#{remark},
+	</if>
+	<if test="createTime != null  ">
+		create_time=#{createTime},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_settle_log where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_settle_log where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_log 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_settle_log 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_log 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.PublishMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.PublishEntity">
+		<result column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="display" property="display" />
+		<result column="link" property="link" />
+		<result column="img" property="img" />
+		<result column="os" property="os" />
+		<result column="sort" property="sort" />
+		<result column="enabled" property="enabled" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- s_publish 字段 -->
+	<sql id="Column_List">
+		s_publish.id,s_publish.type,s_publish.display,s_publish.link,s_publish.img,s_publish.os,s_publish.sort,s_publish.enabled,s_publish.create_date,s_publish.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_publish.id = #{id}
+			</if>
+			<if test="type != null and type != ''">
+				and s_publish.type = #{type}
+			</if>
+			<if test="display != null and display != ''">
+				and s_publish.display = #{display}
+			</if>
+			<if test="link != null and link != ''">
+				and s_publish.link = #{link}
+			</if>
+			<if test="img != null and img != ''">
+				and s_publish.img = #{img}
+			</if>
+			<if test="os != null and os != ''">
+				and s_publish.os = #{os}
+			</if>
+			<if test="sort != null and sort != ''">
+				and s_publish.sort = #{sort}
+			</if>
+			<if test="enabled != null and enabled != ''">
+				and s_publish.enabled = #{enabled}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and s_publish.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_publish.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_publish.id = #{id}
+			</if>
+			<if test="type != null and type != ''">
+				and s_publish.type like CONCAT('%',#{type},'%')
+			</if>
+			<if test="display != null and display != ''">
+				and s_publish.display like CONCAT('%',#{display},'%')
+			</if>
+			<if test="link != null and link != ''">
+				and s_publish.link like CONCAT('%',#{link},'%')
+			</if>
+			<if test="img != null and img != ''">
+				and s_publish.img like CONCAT('%',#{img},'%')
+			</if>
+			<if test="os != null and os != ''">
+				and s_publish.os like CONCAT('%',#{os},'%')
+			</if>
+			<if test="sort != null and sort != ''">
+				and s_publish.sort like CONCAT('%',#{sort},'%')
+			</if>
+			<if test="enabled != null and enabled != ''">
+				and s_publish.enabled like CONCAT('%',#{enabled},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and s_publish.create_date like
+				CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_publish.modify_date like
+				CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		s_publish(id,type,display,link,img,os,sort,enabled,create_date,modify_date)
+		values(#{id},#{type},#{display},#{link},#{img},#{os},#{sort},#{enabled},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update s_publish set
+		<trim suffixOverrides=",">
+			<if test="type != null  ">
+				type=#{type},
+			</if>
+			<if test="display != null  ">
+				display=#{display},
+			</if>
+			<if test="link != null  ">
+				link=#{link},
+			</if>
+			<if test="img != null  ">
+				img=#{img},
+			</if>
+			<if test="os != null  ">
+				os=#{os},
+			</if>
+			<if test="sort != null  ">
+				sort=#{sort},
+			</if>
+			<if test="enabled != null  ">
+				enabled=#{enabled},
+			</if>
+			<if test="createDate != null  ">
+				create_date=#{createDate},
+			</if>
+			<if test="modifyDate != null  ">
+				modify_date=#{modifyDate},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from s_publish where id
+		= #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_publish where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_publish
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from s_publish
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_publish
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<!-- 查询页面配置(包括平台通用) -->
+	<select id="findListByTypeOs" resultMap="ResultMap"
+		parameterType="Object">
+		select type,display,link,img
+		from s_publish where
+		enabled = 1 and type =
+		#{type} and (os = 1
+		<if test="os != null  ">
+			or os=#{os}
+		</if>
+		)
+		order by sort
+	</select>
+
+</mapper>   

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.MaintenanceLogMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.MaintenanceLogEntity">
+		<result column="id" property="id" />
+		<result column="model_id" property="modelId" />
+		<result column="msg" property="msg" />
+		<result column="create_date" property="createDate" />
+	</resultMap>
+
+	<!-- t_maintenance_log 字段 -->
+	<sql id="Column_List">
+		t_maintenance_log.id,t_maintenance_log.model_id,t_maintenance_log.msg,t_maintenance_log.create_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_maintenance_log.id = #{id}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and t_maintenance_log.model_id = #{modelId}
+			</if>
+			<if test="msg != null and msg != ''">
+				and t_maintenance_log.msg = #{msg}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_maintenance_log.create_date = #{createDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_maintenance_log.id = #{id}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and t_maintenance_log.model_id like CONCAT('%',#{modelId},'%')
+			</if>
+			<if test="msg != null and msg != ''">
+				and t_maintenance_log.msg like CONCAT('%',#{msg},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_maintenance_log.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into t_maintenance_log(id,model_id,msg,create_date)
+ values(#{id},#{modelId},#{msg},#{createDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update t_maintenance_log set 
+	<trim  suffixOverrides="," >
+	<if test="modelId != null  ">
+		model_id=#{modelId},
+	</if>
+	<if test="msg != null  ">
+		msg=#{msg},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from t_maintenance_log where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from t_maintenance_log where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_maintenance_log 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from t_maintenance_log 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_maintenance_log 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

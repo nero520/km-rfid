@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.OrderMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.OrderEntity">
+		<result column="id" property="id" />
+		<result column="order_sn" property="orderSn" />
+		<result column="member_id" property="memberId" />
+		<result column="price" property="price" />
+		<result column="discount" property="discount" />
+		<result column="amount" property="amount" />
+		<result column="order_type" property="orderType" />
+		<result column="order_state" property="orderState" />
+		<result column="payment_state" property="paymentState" />
+		<result column="payment_type" property="paymentType" />
+		<result column="payment_method" property="paymentMethod" />
+		<result column="payment_date" property="paymentDate" />
+		<result column="contact" property="contact" />
+		<result column="phone" property="phone" />
+		<result column="service_code" property="serviceCode" />
+		<result column="service_name" property="serviceName" />
+		<result column="service_method" property="serviceMethod" />
+		<result column="service_address" property="serviceAddress" />
+		<result column="model_id" property="modelId" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="license" property="license" />
+		<result column="mileage" property="mileage" />
+		<result column="vin" property="vin" />
+		<result column="buy_date" property="buyDate" />
+		<result column="products_json" property="productsJson" />
+		<result column="product_price" property="productPrice" />
+		<result column="laborcost_json" property="laborcostJson" />
+		<result column="service_time" property="serviceTime" />
+		<result column="company_id" property="companyId" />
+		<result column="company_name" property="companyName" />
+		<result column="company_address" property="companyAddress" />
+		<result column="company_phone" property="companyPhone" />
+		<result column="remark" property="remark" />
+		<result column="invalid_date" property="invalidDate" />
+		<result column="source" property="source" />
+		<result column="parts_sn" property="partsSn" />
+		<result column="parts_state" property="partsState" />
+		<result column="direct_shop_id" property="directShopId" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="serivce_finish_date" property="serivceFinishDate" />
+	</resultMap>
+
+	<!-- b_order 字段 -->
+	<sql id="Column_List">
+		b_order.id,b_order.order_sn,b_order.member_id,b_order.price,b_order.discount,b_order.amount,b_order.order_type,b_order.order_state,b_order.payment_state,b_order.payment_type,b_order.payment_method,b_order.payment_date,b_order.contact,b_order.phone,b_order.service_code,b_order.service_name,b_order.model_id,b_order.model_group_name,b_order.license,b_order.mileage,b_order.vin,b_order.buy_date,b_order.products_json,b_order.product_price,b_order.laborcost_json,b_order.service_time,b_order.company_id,b_order.company_name,b_order.company_address,b_order.company_phone,b_order.remark,b_order.invalid_date,b_order.source,b_order.parts_sn,b_order.parts_state,b_order.direct_shop_id,b_order.create_date,b_order.modify_date,b_order.serivce_finish_date	
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_order.id = #{id}
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_order.order_sn = #{orderSn}
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_order.member_id = #{memberId}
+			</if>
+			<if test="price != null and price != ''">
+				and b_order.price = #{price}
+			</if>
+			<if test="discount != null and discount != ''">
+				and b_order.discount = #{discount}
+			</if>
+			<if test="amount != null and amount != ''">
+				and b_order.amount = #{amount}
+			</if>
+			<if test="orderType != null and orderType != ''">
+				and b_order.order_type = #{orderType}
+			</if>
+			<if test="orderState != null and orderState != ''">
+				and b_order.order_state = #{orderState}
+			</if>
+			<if test="paymentState != null and paymentState != ''">
+				and b_order.payment_state = #{paymentState}
+			</if>
+			<if test="paymentType != null and paymentType != ''">
+				and b_order.payment_type = #{paymentType}
+			</if>
+			<if test="contact != null and contact != ''">
+				and b_order.contact = #{contact}
+			</if>
+			<if test="phone != null and phone != ''">
+				and b_order.phone = #{phone}
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and b_order.service_code = #{serviceCode}
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and b_order.service_name = #{serviceName}
+			</if>
+			<if test="serviceMethod != null and serviceMethod != ''">
+				and b_order.service_method = #{serviceMethod}
+			</if>
+			<if test="serviceAddress != null and serviceAddress != ''">
+				and b_order.service_address = #{serviceAddress}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and b_order.model_id = #{modelId}
+			</if>
+			<if test="modelGroupName != null and modelGroupName != ''">
+				and b_order.model_group_name = #{modelGroupName}
+			</if>
+			<if test="license != null and license != ''">
+				and b_order.license = #{license}
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and b_order.mileage = #{mileage}
+			</if>
+			<if test="vin != null and vin != ''">
+				and b_order.vin = #{vin}
+			</if>
+			<if test="buyDate != null and buyDate != ''">
+				and b_order.buy_date = #{buyDate}
+			</if>
+			<if test="productsJson != null and productsJson != ''">
+				and b_order.products_json = #{productsJson}
+			</if>
+			<if test="productPrice != null and productPrice != ''">
+				and b_order.product_price = #{productPrice}
+			</if>
+			<if test="laborcostJson != null and laborcostJson != ''">
+				and b_order.laborcost_json = #{laborcostJson}
+			</if>
+			<if test="serviceTime != null and serviceTime != ''">
+				and b_order.service_time = #{serviceTime}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_order.company_id = #{companyId}
+			</if>
+			<if test="companyName != null and companyName != ''">
+				and b_order.company_name = #{companyName}
+			</if>
+			<if test="companyAddress != null and companyAddress != ''">
+				and b_order.company_address = #{companyAddress}
+			</if>
+			<if test="companyPhone != null and companyPhone != ''">
+				and b_order.company_phone = #{companyPhone}
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_order.remark = #{remark}
+			</if>
+			<if test="invalidDate != null and invalidDate != ''">
+				and b_order.invalid_date = #{invalidDate}
+			</if>
+			<if test="source != null and source != ''">
+				and b_order.source = #{source}
+			</if>
+			<if test="partsSn != null and partsSn != ''">
+				and b_order.parts_sn = #{partsSn}
+			</if>
+			<if test="partsState != null and partsState != ''">
+				and b_order.parts_state = #{partsState}
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and b_order.direct_shop_id = #{directShopId}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_order.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_order.modify_date = #{modifyDate}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				<![CDATA[
+					and b_order.serivce_finish_date >= #{startDate}
+				]]> 
+			</if>
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+					and b_order.serivce_finish_date < #{endDate}
+				]]>
+			</if>
+			<if test="serivceFinishDate != null and serivceFinishDate != ''">
+				and b_order.serivce_finish_date = #{serivceFinishDate}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_order.id = #{id}
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_order.order_sn like CONCAT('%',#{orderSn},'%')
+			</if>
+			<if test="memberId != null and memberId != ''">
+				and b_order.member_id like CONCAT('%',#{memberId},'%')
+			</if>
+			<if test="price != null and price != ''">
+				and b_order.price like CONCAT('%',#{price},'%')
+			</if>
+			<if test="discount != null and discount != ''">
+				and b_order.discount like CONCAT('%',#{discount},'%')
+			</if>
+			<if test="amount != null and amount != ''">
+				and b_order.amount like CONCAT('%',#{amount},'%')
+			</if>
+			<if test="orderType != null and orderType != ''">
+				and b_order.order_type like CONCAT('%',#{orderType},'%')
+			</if>
+			<if test="orderState != null and orderState != ''">
+				and b_order.order_state like
+				CONCAT('%',#{orderState},'%')
+			</if>
+			<if test="paymentState != null and paymentState != ''">
+				and b_order.payment_state like
+				CONCAT('%',#{paymentState},'%')
+			</if>
+			<if test="paymentType != null and paymentType != ''">
+				and b_order.payment_type like
+				CONCAT('%',#{paymentType},'%')
+			</if>
+			<if test="contact != null and contact != ''">
+				and b_order.contact like CONCAT('%',#{contact},'%')
+			</if>
+			<if test="phone != null and phone != ''">
+				and b_order.phone like CONCAT('%',#{phone},'%')
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and b_order.service_code like CONCAT('%',#{serviceCode},'%')
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and b_order.service_name like
+				CONCAT('%',#{serviceName},'%')
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and b_order.model_id like CONCAT('%',#{modelId},'%')
+			</if>
+			<if test="modelGroupName != null and modelGroupName != ''">
+				and b_order.model_group_name like CONCAT('%',#{modelGroupName},'%')
+			</if>
+			<if test="license != null and license != ''">
+				and b_order.license like CONCAT('%',#{license},'%')
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and b_order.mileage like CONCAT('%',#{mileage},'%')
+			</if>
+			<if test="vin != null and vin != ''">
+				and b_order.vin like CONCAT('%',#{vin},'%')
+			</if>
+			<if test="buyDate != null and buyDate != ''">
+				and b_order.buy_date like CONCAT('%',#{buyDate},'%')
+			</if>
+			<if test="productsJson != null and productsJson != ''">
+				and b_order.products_json like
+				CONCAT('%',#{productsJson},'%')
+			</if>
+			<if test="productPrice != null and productPrice != ''">
+				and b_order.product_price like
+				CONCAT('%',#{productPrice},'%')
+			</if>
+			<if test="laborcostJson != null and laborcostJson != ''">
+				and b_order.laborcost_json like
+				CONCAT('%',#{laborcostJson},'%')
+			</if>
+			<if test="serviceTime != null and serviceTime != ''">
+				and b_order.service_time like
+				CONCAT('%',#{serviceTime},'%')
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_order.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="companyName != null and companyName != ''">
+				and b_order.company_name like CONCAT('%',#{companyName},'%')
+			</if>
+			<if test="companyAddress != null and companyAddress != ''">
+				and b_order.company_address like CONCAT('%',#{companyAddress},'%')
+			</if>
+			<if test="companyPhone != null and companyPhone != ''">
+				and b_order.company_phone like CONCAT('%',#{companyPhone},'%')
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_order.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="invalidDate != null and invalidDate != ''">
+				and b_order.invalid_date like
+				CONCAT('%',#{invalidDate},'%')
+			</if>
+			<if test="source != null and source != ''">
+				and b_order.source like CONCAT('%',#{source},'%')
+			</if>
+			<if test="partsSn != null and partsSn != ''">
+				and b_order.parts_sn like CONCAT('%',#{partsSn},'%')
+			</if>
+			<if test="partsState != null and partsState != ''">
+				and b_order.parts_state like
+				CONCAT('%',#{partsState},'%')
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and b_order.direct_shop_id like
+				CONCAT('%',#{directShopId},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_order.create_date like
+				CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_order.modify_date like
+				CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="serivceFinishDate != null and serivceFinishDate != ''">
+				and b_order.serivce_finish_date = #{serivceFinishDate}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into b_order(id,order_sn,member_id,price,discount,amount,order_type,order_state,payment_state,payment_type,payment_method,payment_date,contact,phone,service_code,service_name,model_id,model_group_name,license,mileage,vin,buy_date,products_json,product_price,laborcost_json,service_time,company_id,company_name,company_address,company_phone,remark,invalid_date,source,parts_sn,parts_state,direct_shop_id,create_date,modify_date,serivce_finish_date)
+		values(#{id},#{orderSn},#{memberId},#{price},#{discount},#{amount},#{orderType},#{orderState},#{paymentState},#{paymentType},#{paymentMethod},#{paymentDate},#{contact},#{phone},#{serviceCode},#{serviceName},#{modelId},#{modelGroupName},#{license},#{mileage},#{vin},#{buyDate},#{productsJson},#{productPrice},#{laborcostJson},#{serviceTime},#{companyId},#{companyName},#{companyAddress},#{companyPhone},#{remark},#{invalidDate},#{source},#{partsSn},#{partsState},#{directShopId},#{createDate},#{modifyDate},#{serivceFinishDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_order set
+		<trim suffixOverrides=",">
+			<if test="orderSn != null  ">
+				order_sn=#{orderSn},
+			</if>
+			<if test="memberId != null  ">
+				member_id=#{memberId},
+			</if>
+			<if test="price != null  ">
+				price=#{price},
+			</if>
+			<if test="discount != null  ">
+				discount=#{discount},
+			</if>
+			<if test="amount != null  ">
+				amount=#{amount},
+			</if>
+			<if test="orderType != null  ">
+				order_type=#{orderType},
+			</if>
+			<if test="orderState != null  ">
+				order_state=#{orderState},
+			</if>
+			<if test="paymentState != null  ">
+				payment_state=#{paymentState},
+			</if>
+			<if test="paymentType != null  ">
+				payment_type=#{paymentType},
+			</if>
+			<if test="contact != null  ">
+				contact=#{contact},
+			</if>
+			<if test="phone != null  ">
+				phone=#{phone},
+			</if>
+			<if test="serviceCode != null  ">
+				service_code=#{serviceCode},
+			</if>
+			<if test="serviceName != null  ">
+				service_name=#{serviceName},
+			</if>
+			<if test="serviceMethod != null  ">
+				service_method=#{serviceMethod},
+			</if>
+			<if test="serviceAddress != null  ">
+				service_address=#{serviceAddress},
+			</if>
+			<if test="modelId != null  ">
+				model_id=#{modelId},
+			</if>
+			<if test="modelGroupName != null  ">
+				model_group_name=#{modelGroupName},
+			</if>
+			<if test="license != null  ">
+				license=#{license},
+			</if>
+			<if test="mileage != null  ">
+				mileage=#{mileage},
+			</if>
+			<if test="vin != null  ">
+				vin=#{vin},
+			</if>
+			<if test="buyDate != null  ">
+				buy_date=#{buyDate},
+			</if>
+			<if test="productsJson != null  ">
+				products_json=#{productsJson},
+			</if>
+			<if test="productPrice != null  ">
+				product_price=#{productPrice},
+			</if>
+			<if test="laborcostJson != null  ">
+				laborcost_json=#{laborcostJson},
+			</if>
+			<if test="serviceTime != null  ">
+				service_time=#{serviceTime},
+			</if>
+			<if test="companyId != null  ">
+				company_id=#{companyId},
+			</if>
+			<if test="companyName != null  ">
+				company_name=#{companyName},
+			</if>
+			<if test="companyAddress != null  ">
+				company_address=#{companyAddress},
+			</if>
+			<if test="companyPhone != null  ">
+				company_phone=#{companyPhone},
+			</if>
+			<if test="remark != null  ">
+				remark=#{remark},
+			</if>
+			<if test="invalidDate != null  ">
+				invalid_date=#{invalidDate},
+			</if>
+			<if test="source != null  ">
+				source=#{source},
+			</if>
+			<if test="partsSn != null  ">
+				parts_sn=#{partsSn},
+			</if>
+			<if test="partsState != null  ">
+				parts_state=#{partsState},
+			</if>
+			<if test="directShopId != null  ">
+				direct_shop_id=#{directShopId},
+			</if>
+			<if test="createDate != null  ">
+				create_date=#{createDate},
+			</if>
+			<if test="modifyDate != null  ">
+				modify_date=#{modifyDate},
+			</if>
+			<if test="serivceFinishDate != null  ">
+				serivce_finish_date=#{serivceFinishDate},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from b_order where id =
+		#{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from b_order where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from b_order
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_order
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from b_order
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<select id="findBySnMemberId" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from b_order where order_sn = #{orderSn} and member_id = #{memberId}
+	</select>
+	
+	<select id="findByOrderSnOrCompanyId" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from b_order where order_sn = #{orderSn} and company_id = #{companyId}
+	</select>
+	
+	<select id="findBySn" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from b_order where order_sn = #{orderSn}
+	</select>
+	
+	<select id="lockBySn" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_order where order_sn=#{orderSn} for update
+	</select>
+	
+	<update id="paymentConfirm" parameterType="Object">
+		update b_order set order_state=#{orderState},payment_state=#{paymentState},invalid_date=#{invalidDate},payment_date=#{paymentDate},payment_method=#{paymentMethod} where order_sn=#{orderSn}
+	</update>
+	
+	<update id="updateStateAndPartsSn" parameterType="Object">
+		update b_order set order_state=#{orderState},parts_sn = #{partsSn} where order_sn=#{orderSn}
+	</update>
+	<resultMap id="ResultMap1" type="com.msds.km.vo.OrderlistEntity">
+		<result column="id" property="id" />
+		<result column="member_id" property="memberId" />
+		<result column="order_sn" property="orderSn" />
+		<result column="price" property="price" />
+		<result column="order_state" property="orderState" />
+		<result column="phone" property="phone" />
+		<result column="service_name" property="serviceName" />
+		<result column="license" property="license" />
+		<result column="service_time" property="serviceTime" />
+		<result column="parts_sn" property="partsSn" />
+		<result column="create_date" property="nowDate" />
+		<result column="create_date" property="afterDate" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="product_price" property="productPrice" />
+		<result column="amount" property="amount" />
+		<result column="contact" property="contact" />
+		<result column="payment_type" property="paymentType" />
+		<result column="payment_method" property="paymentMethod" />
+		<!-- 车的型号 -->
+		<result column="series_name" property="seriesName" />
+		<result column="brand_name" property="brandName" />
+		<!-- <result column="made_year" property="madeYear" /> -->
+		<!-- 修理厂信息 -->
+		<result column="username" property="username" />
+		<result column="customer_phone" property="customerPhone" />
+		<result column="office_hours" property="officeHours" />
+		<result column="full_address" property="fullAddress" />
+		<!-- 直营店信息 -->
+		<!-- <result column="name" property="name" />
+		<result column="shop_phone" property="shopPhone" /> -->
+		
+	</resultMap>
+	
+	<!-- 条件查询查询分页列表 -->
+	<select id="findOrderList" resultMap="ResultMap1" parameterType="Object">
+		select o.contact,o.license,o.amount,o.product_price,o.modify_date,o.model_group_name,o.payment_type,o.payment_method,o.id,o.member_id,o.order_sn, o.phone, o.service_time,o.service_name, o.create_date, o.order_state, o.parts_sn,o.price,md.series_name,md.brand_name,c.name as username,c.customer_phone,c.office_hours,c.full_address from b_order o left join v_model_detail md on o.model_id=md.model_id left join b_company c on o.company_id=c.id 
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="orderSn != null and orderSn != ''">
+				and o.order_sn = #{orderSn}
+			</if>
+			<if test="orderState != null and orderState != ''">
+				and o.order_state = #{orderState}
+			</if>
+			<if test="phone != null and phone != ''">
+				and o.phone = #{phone}
+			</if>
+			<if test="license != null and license != ''">
+				and o.license = #{license}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and o.company_id = #{companyId}
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and o.create_date >= #{afterDate}
+			</if>
+			<if test="nowDate != null and nowDate != ''">
+				and <![CDATA[ o.create_date < #{nowDate}]]>
+			</if>
+		</trim>
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<select id="findOrderCount" resultType="Integer" parameterType="Object">
+		select COUNT(*) from b_order o left join v_model_detail md on o.model_id=md.model_id left join b_company c on o.company_id=c.id 
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="orderSn != null and orderSn != ''">
+				and o.order_sn = #{orderSn}
+			</if>
+			<if test="orderState != null and orderState != ''">
+				and o.order_state = #{orderState}
+			</if>
+			<if test="phone != null and phone != ''">
+				and o.phone = #{phone}
+			</if>
+			<if test="license != null and license != ''">
+				and o.license = #{license}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and o.company_id = #{companyId}
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and o.create_date >= #{afterDate}
+			</if>
+			<if test="nowDate != null and nowDate != ''">
+				and <![CDATA[ o.create_date < #{nowDate}]]>
+			</if>
+		</trim>
+	</select>
+	
+	
+	<update id="updateStateBySn" parameterType="Object">
+		update b_order set
+		<trim suffixOverrides=",">
+			<if test="orderState != null  ">
+				order_state=#{orderState},
+			</if>
+			<if test="paymentState != null  ">
+				payment_state=#{paymentState},
+			</if>
+		</trim>
+		where order_sn=#{orderSn}
+	</update>
+	
+	<select id="findListByStateLtDate" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from b_order where order_state = #{orderStateId} and <![CDATA[ create_date < #{date} ]]>
+	</select>
+</mapper>   

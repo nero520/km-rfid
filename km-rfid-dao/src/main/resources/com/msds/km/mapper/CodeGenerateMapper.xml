@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.CodeGenerateMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.CodeGenerateEntity">
+		<result column="id" property="id" />
+		<result column="code_type" property="codeType" />
+		<result column="prefix" property="prefix" />
+		<result column="suffix" property="suffix" />
+		<result column="date_str" property="dateStr" />
+		<result column="code" property="code" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- s_code_generate 字段 -->
+	<sql id="Column_List">
+		s_code_generate.id,s_code_generate.code_type,s_code_generate.prefix,s_code_generate.suffix,s_code_generate.date_str,s_code_generate.code,s_code_generate.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_code_generate.id = #{id}
+			</if>
+			<if test="codeType != null and codeType != ''">
+				and s_code_generate.code_type = #{codeType}
+			</if>
+			<if test="prefix != null and prefix != ''">
+				and s_code_generate.prefix = #{prefix}
+			</if>
+			<if test="suffix != null and suffix != ''">
+				and s_code_generate.suffix = #{suffix}
+			</if>
+			<if test="dateStr != null and dateStr != ''">
+				and s_code_generate.date_str = #{dateStr}
+			</if>
+			<if test="code != null and code != ''">
+				and s_code_generate.code = #{code}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_code_generate.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_code_generate.id = #{id}
+			</if>
+			<if test="codeType != null and codeType != ''">
+				and s_code_generate.code_type like CONCAT('%',#{codeType},'%')
+			</if>
+			<if test="prefix != null and prefix != ''">
+				and s_code_generate.prefix like CONCAT('%',#{prefix},'%')
+			</if>
+			<if test="suffix != null and suffix != ''">
+				and s_code_generate.suffix like CONCAT('%',#{suffix},'%')
+			</if>
+			<if test="dateStr != null and dateStr != ''">
+				and s_code_generate.date_str like CONCAT('%',#{dateStr},'%')
+			</if>
+			<if test="code != null and code != ''">
+				and s_code_generate.code like CONCAT('%',#{code},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_code_generate.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into s_code_generate(id,code_type,prefix,suffix,date_str,code,modify_date)
+ values(#{id},#{codeType},#{prefix},#{suffix},#{dateStr},#{code},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update s_code_generate set 
+	<trim  suffixOverrides="," >
+	<if test="codeType != null  ">
+		code_type=#{codeType},
+	</if>
+	<if test="prefix != null  ">
+		prefix=#{prefix},
+	</if>
+	<if test="suffix != null  ">
+		suffix=#{suffix},
+	</if>
+	<if test="dateStr != null  ">
+		date_str=#{dateStr},
+	</if>
+	<if test="code != null  ">
+		code=#{code},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from s_code_generate where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from s_code_generate where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from s_code_generate 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from s_code_generate 
+		<include refid="Like_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from s_code_generate 
+		<include refid="Like_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+<!-- 查询列表 -->
+	<select id="getEntity" resultMap="ResultMap" >
+		select 
+		<include refid="Column_List" />
+		from s_code_generate 
+		where code_type=#{codeType} and prefix=#{prefix} and suffix=#{suffix} and date_str=#{dateStr}
+	</select>
+</mapper>   

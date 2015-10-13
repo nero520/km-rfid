@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.ModelMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.ModelEntity">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="pid" property="pid" />
+		<result column="level" property="level" />
+		<result column="first_letter" property="firstLetter" />
+		<result column="logo" property="logo" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="ename" property="ename" />
+		<result column="is_show" property="is_show" />
+	</resultMap>
+
+	<!-- g_model 字段 -->
+	<sql id="Column_List">
+		g_model.id,g_model.name,g_model.pid,g_model.level,g_model.first_letter,g_model.logo,g_model.modify_date,g_model.ename,g_model.is_show
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_model.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and g_model.name = #{name}
+			</if>
+			<if test="pid != null and pid != ''">
+				and g_model.pid = #{pid}
+			</if>
+			<if test="level != null and level != ''">
+				and g_model.level = #{level}
+			</if>
+			<if test="firstLetter != null and firstLetter != ''">
+				and g_model.first_letter = #{firstLetter}
+			</if>
+			<if test="logo != null and logo != ''">
+				and g_model.logo = #{logo}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_model.modify_date = #{modifyDate}
+			</if>
+			<if test="ename != null and ename != ''">
+				and g_model.ename = #{ename}
+			</if>
+			<if test="is_show != null ">
+				and g_model.is_show = #{is_show}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_model.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and g_model.name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="pid != null and pid != ''">
+				and g_model.pid like CONCAT('%',#{pid},'%')
+			</if>
+			<if test="level != null and level != ''">
+				and g_model.level like CONCAT('%',#{level},'%')
+			</if>
+			<if test="firstLetter != null and firstLetter != ''">
+				and g_model.first_letter like
+				CONCAT('%',#{firstLetter},'%')
+			</if>
+			<if test="logo != null and logo != ''">
+				and g_model.logo like CONCAT('%',#{logo},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_model.modify_date like
+				CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="ename != null and ename != ''">
+				and g_model.ename like CONCAT('%',#{ename},'%')
+			</if>
+			<if test="is_show != null and is_show != ''">
+				and g_model.is_show like CONCAT('%',#{is_show},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		g_model(id,name,pid,level,first_letter,logo,modify_date,ename)
+		values(#{id},#{name},#{pid},#{level},#{firstLetter},#{logo},#{modifyDate},#{ename})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_model set
+		<trim suffixOverrides=",">
+			<if test="name != null  ">
+				name=#{name},
+			</if>
+			<if test="pid != null  ">
+				pid=#{pid},
+			</if>
+			<if test="level != null  ">
+				level=#{level},
+			</if>
+			<if test="firstLetter != null  ">
+				first_letter=#{firstLetter},
+			</if>
+			<if test="logo != null  ">
+				logo=#{logo},
+			</if>
+			<if test="modifyDate != null  ">
+				modify_date=#{modifyDate},
+			</if>
+			<if test="ename != null  ">
+				ename=#{ename},
+			</if>
+			<if test="is_show != null  ">
+				is_show=#{is_show},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from g_model where id =
+		#{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_model where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_model
+		<include refid="Example_Where_Clause" />
+		order by g_model.first_letter asc,g_model.`name` asc
+	</select>
+
+	<select id="findLogoById" resultType="String" parameterType="Object">
+		SELECT m1.logo FROM g_model m1,g_model m2,g_model m3 WHERE
+		m2.pid=m1.id AND m3.pid=m2.id AND m3.id=#{id}
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_model
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_model
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+
+.bgc-faf{ padding-bottom:28px;}
+.appobuy-ad img{ display:block; width:980px; height:176px;}
+.appobuy-form{ padding-top:43px; border-top:1px solid #eaeaea; text-align:center;}
+.appobuy-form ul{ display:inline-block; *display:inline; _width:352px; padding-bottom:24px; *zoom:1;}
+.appobuy-form li{ height:38px; padding-bottom:20px; overflow:hidden; text-align:left;}
+.appobuy-form label{ font-family:\5b8b\4f53;}
+.appobuy-form label em{ margin-right:4px; color:#d90000; font-size:14px;}
+.appobuy-form input{ vertical-align:middle;}
+.appobuy-form .appobuy-txt{ width:230px; height:16px; line-height:16px; padding:10px 4px; border:1px solid #e3e3e3; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius:3px;}
+.appobuy-form .h40{ height:40px; line-height:40px;}
+.mess-tip{ margin-left:13px; position:absolute; _position:relative; _right:-340px; _top:-38px;}
+.appobuy-form .pl72{ padding-left:96px;}
+.appobuy-agreement input{ margin-right:5px;}
+.appobuy-form .button{ margin-left:0;}

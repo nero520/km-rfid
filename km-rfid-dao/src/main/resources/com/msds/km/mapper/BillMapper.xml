@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.BillMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.BillEntity">
+		<result column="id" property="id" />
+		<result column="bill_sn" property="billSn" />
+		<result column="settle_sn" property="settleSn" />
+		<result column="serivce_finish_date" property="serivceFinishDate" />
+		<result column="billing_type" property="billingType" />
+		<result column="account_name" property="accountName" />
+		<result column="account_bank_name" property="accountBankName" />
+		<result column="account_number" property="accountNumber" />
+		<result column="settle_all_amount" property="settleAllAmount" />
+		<result column="actual_amount" property="actualAmount" />
+		<result column="bill_state" property="billState" />
+		<result column="remark" property="remark" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_bill 字段 -->
+	<sql id="Column_List">
+		b_bill.id,b_bill.bill_sn,b_bill.settle_sn,b_bill.serivce_finish_date,b_bill.billing_type,b_bill.account_name,b_bill.account_bank_name,b_bill.account_number,b_bill.settle_all_amount,b_bill.actual_amount,b_bill.bill_state,b_bill.remark,b_bill.create_date,b_bill.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_bill.id = #{id}
+			</if>
+			<if test="billSn != null and billSn != ''">
+				and b_bill.bill_sn = #{billSn}
+			</if>
+			<if test="settleSn != null and settleSn != ''">
+				and b_bill.settle_sn = #{settleSn}
+			</if>
+			<if test="serivceFinishDate != null and serivceFinishDate != ''">
+				and b_bill.serivce_finish_date = #{serivceFinishDate}
+			</if>
+			<if test="billingType != null and billingType != ''">
+				and b_bill.billing_type = #{billingType}
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_bill.account_name = #{accountName}
+			</if>
+			<if test="accountBankName != null and accountBankName != ''">
+				and b_bill.account_bank_name = #{accountBankName}
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_bill.account_number = #{accountNumber}
+			</if>
+			<if test="settleAllAmount != null and settleAllAmount != ''">
+				and b_bill.settle_all_amount = #{settleAllAmount}
+			</if>
+			<if test="actualAmount != null and actualAmount != ''">
+				and b_bill.actual_amount = #{actualAmount}
+			</if>
+			<if test="billState != null and billState != ''">
+				and b_bill.bill_state = #{billState}
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_bill.remark = #{remark}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_bill.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_bill.modify_date = #{modifyDate}
+			</if>
+			<if test="afterDate != null and afterDate != ''">
+				and <![CDATA[ b_bill.create_date <= #{afterDate}]]>
+			</if>
+			<if test="beforeDate != null and beforeDate != ''">
+				and b_bill.create_date >= #{beforeDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_bill.id = #{id}
+			</if>
+			<if test="billSn != null and billSn != ''">
+				and b_bill.bill_sn like CONCAT('%',#{billSn},'%')
+			</if>
+			<if test="settleSn != null and settleSn != ''">
+				and b_bill.settle_sn like CONCAT('%',#{settleSn},'%')
+			</if>
+			<if test="serivceFinishDate != null and serivceFinishDate != ''">
+				and b_bill.serivce_finish_date like CONCAT('%',#{serivceFinishDate},'%')
+			</if>
+			<if test="billingType != null and billingType != ''">
+				and b_bill.billing_type like CONCAT('%',#{billingType},'%')
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_bill.account_name like CONCAT('%',#{accountName},'%')
+			</if>
+			<if test="accountBankName != null and accountBankName != ''">
+				and b_bill.account_bank_name like CONCAT('%',#{accountBankName},'%')
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_bill.account_number like CONCAT('%',#{accountNumber},'%')
+			</if>
+			<if test="settleAllAmount != null and settleAllAmount != ''">
+				and b_bill.settle_all_amount like CONCAT('%',#{settleAllAmount},'%')
+			</if>
+			<if test="actualAmount != null and actualAmount != ''">
+				and b_bill.actual_amount like CONCAT('%',#{actualAmount},'%')
+			</if>
+			<if test="billState != null and billState != ''">
+				and b_bill.bill_state like CONCAT('%',#{billState},'%')
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_bill.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_bill.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_bill.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_bill(id,bill_sn,settle_sn,serivce_finish_date,billing_type,account_name,account_bank_name,account_number,settle_all_amount,actual_amount,bill_state,remark,create_date,modify_date)
+ values(#{id},#{billSn},#{settleSn},#{serivceFinishDate},#{billingType},#{accountName},#{accountBankName},#{accountNumber},#{settleAllAmount},#{actualAmount},#{billState},#{remark},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_bill set 
+	<trim  suffixOverrides="," >
+	<if test="billSn != null  ">
+		bill_sn=#{billSn},
+	</if>
+	<if test="settleSn != null  ">
+		settle_sn=#{settleSn},
+	</if>
+	<if test="serivceFinishDate != null  ">
+		serivce_finish_date=#{serivceFinishDate},
+	</if>
+	<if test="billingType != null  ">
+		billing_type=#{billingType},
+	</if>
+	<if test="accountName != null  ">
+		account_name=#{accountName},
+	</if>
+	<if test="accountBankName != null  ">
+		account_bank_name=#{accountBankName},
+	</if>
+	<if test="accountNumber != null  ">
+		account_number=#{accountNumber},
+	</if>
+	<if test="settleAllAmount != null  ">
+		settle_all_amount=#{settleAllAmount},
+	</if>
+	<if test="actualAmount != null  ">
+		actual_amount=#{actualAmount},
+	</if>
+	<if test="billState != null  ">
+		bill_state=#{billState},
+	</if>
+	<if test="remark != null  ">
+		remark=#{remark},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_bill where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_bill where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_bill 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_bill 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_bill 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

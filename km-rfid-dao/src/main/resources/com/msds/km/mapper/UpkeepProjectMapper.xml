@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.UpkeepProjectMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.UpkeepProjectEntity">
+		<result column="id" property="id" />
+		<result column="project_id" property="projectId" />
+		<result column="project_name" property="projectName" />
+		<result column="type" property="type" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- t_upkeep_project 字段 -->
+	<sql id="Column_List">
+		t_upkeep_project.id,t_upkeep_project.project_id,t_upkeep_project.project_name,t_upkeep_project.type,t_upkeep_project.create_date,t_upkeep_project.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_upkeep_project.id = #{id}
+			</if>
+			<if test="projectId != null and projectId != ''">
+				and t_upkeep_project.project_id = #{projectId}
+			</if>
+			<if test="projectName != null and projectName != ''">
+				and t_upkeep_project.project_name = #{projectName}
+			</if>
+			<if test="type != null and type != ''">
+				and t_upkeep_project.type = #{type}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_upkeep_project.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and t_upkeep_project.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and t_upkeep_project.id = #{id}
+			</if>
+			<if test="projectId != null and projectId != ''">
+				and t_upkeep_project.project_id like CONCAT('%',#{projectId},'%')
+			</if>
+			<if test="projectName != null and projectName != ''">
+				and t_upkeep_project.project_name like CONCAT('%',#{projectName},'%')
+			</if>
+			<if test="type != null and type != ''">
+				and t_upkeep_project.type like CONCAT('%',#{type},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and t_upkeep_project.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and t_upkeep_project.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into t_upkeep_project(id,project_id,project_name,type,create_date,modify_date)
+ values(#{id},#{projectId},#{projectName},#{type},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update t_upkeep_project set 
+	<trim  suffixOverrides="," >
+	<if test="projectId != null  ">
+		project_id=#{projectId},
+	</if>
+	<if test="projectName != null  ">
+		project_name=#{projectName},
+	</if>
+	<if test="type != null  ">
+		type=#{type},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from t_upkeep_project where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from t_upkeep_project where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_upkeep_project 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from t_upkeep_project 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from t_upkeep_project 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

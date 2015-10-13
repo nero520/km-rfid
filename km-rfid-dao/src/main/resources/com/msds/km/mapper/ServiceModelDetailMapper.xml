@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.ServiceModelDetailMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.ServiceModelDetailEntity">
+		<result column="id" property="id" />
+		<result column="service_model_code" property="serviceModelCode" />
+		<result column="product_id" property="productId" />
+		<result column="product_name" property="productName" />
+		<result column="model_id" property="modelId" />
+		<result column="factory" property="factory" />
+		<result column="brand_name" property="brandName" />
+		<result column="series_name" property="seriesName" />
+		<result column="cartype_name" property="cartypeName" />
+		<result column="service_name" property="serviceName" />
+		<result column="service_code" property="serviceCode" />
+		<result column="mileage" property="mileage" />
+		<result column="interval_month" property="intervalMonth" />
+	</resultMap>
+	
+	<resultMap id="ProductResultMap" type="com.msds.km.vo.Product">
+		<result column="product_id" property="productId" />
+		<result column="product_name" property="productName" />
+		<result column="market_price" property="marketPrice" />
+		<result column="icon" property="icon" />
+		<result column="quantity" property="quantity" />
+	</resultMap>
+
+	<!-- g_service_model_detail 字段 -->
+	<sql id="Column_List">
+		g_service_model_detail.id,g_service_model_detail.service_model_code,g_service_model_detail.product_id,g_service_model_detail.product_name,g_service_model_detail.model_id,g_service_model_detail.factory,g_service_model_detail.brand_name,g_service_model_detail.series_name,g_service_model_detail.cartype_name,g_service_model_detail.service_name,g_service_model_detail.service_code,g_service_model_detail.mileage,g_service_model_detail.interval_month
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_service_model_detail.id = #{id}
+			</if>
+			<if test="serviceModelCode != null and serviceModelCode != ''">
+				and g_service_model_detail.service_model_code = #{serviceModelCode}
+			</if>
+			<if test="productId != null and productId != ''">
+				and g_service_model_detail.product_id = #{productId}
+			</if>
+			<if test="productName != null and productName != ''">
+				and g_service_model_detail.product_name = #{productName}
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and g_service_model_detail.model_id = #{modelId}
+			</if>
+			<if test="factory != null and factory != ''">
+				and g_service_model_detail.factory = #{factory}
+			</if>
+			<if test="brandName != null and brandName != ''">
+				and g_service_model_detail.brand_name = #{brandName}
+			</if>
+			<if test="seriesName != null and seriesName != ''">
+				and g_service_model_detail.series_name = #{seriesName}
+			</if>
+			<if test="cartypeName != null and cartypeName != ''">
+				and g_service_model_detail.cartype_name = #{cartypeName}
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and g_service_model_detail.service_name = #{serviceName}
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and g_service_model_detail.service_code = #{serviceCode}
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and g_service_model_detail.mileage = #{mileage}
+			</if>
+			<if test="intervalMonth != null and intervalMonth != ''">
+				and g_service_model_detail.interval_month = #{intervalMonth}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_service_model_detail.id = #{id}
+			</if>
+			<if test="serviceModelCode != null and serviceModelCode != ''">
+				and g_service_model_detail.service_model_code like CONCAT('%',#{serviceModelCode},'%')
+			</if>
+			<if test="productId != null and productId != ''">
+				and g_service_model_detail.product_id like CONCAT('%',#{productId},'%')
+			</if>
+			<if test="productName != null and productName != ''">
+				and g_service_model_detail.product_name like CONCAT('%',#{productName},'%')
+			</if>
+			<if test="modelId != null and modelId != ''">
+				and g_service_model_detail.model_id like CONCAT('%',#{modelId},'%')
+			</if>
+			<if test="factory != null and factory != ''">
+				and g_service_model_detail.factory like CONCAT('%',#{factory},'%')
+			</if>
+			<if test="brandName != null and brandName != ''">
+				and g_service_model_detail.brand_name like CONCAT('%',#{brandName},'%')
+			</if>
+			<if test="seriesName != null and seriesName != ''">
+				and g_service_model_detail.series_name like CONCAT('%',#{seriesName},'%')
+			</if>
+			<if test="cartypeName != null and cartypeName != ''">
+				and g_service_model_detail.cartype_name like CONCAT('%',#{cartypeName},'%')
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and g_service_model_detail.service_name like CONCAT('%',#{serviceName},'%')
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and g_service_model_detail.service_code like CONCAT('%',#{serviceCode},'%')
+			</if>
+			<if test="mileage != null and mileage != ''">
+				and g_service_model_detail.mileage like CONCAT('%',#{mileage},'%')
+			</if>
+			<if test="intervalMonth != null and intervalMonth != ''">
+				and g_service_model_detail.interval_month like CONCAT('%',#{intervalMonth},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into g_service_model_detail(id,service_model_code,product_id,product_name,model_id,factory,brand_name,series_name,cartype_name,service_name,service_code,mileage,interval_month)
+ values(#{id},#{serviceModelCode},#{productId},#{productName},#{modelId},#{factory},#{brandName},#{seriesName},#{cartypeName},#{serviceName},#{serviceCode},#{mileage},#{intervalMonth})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_service_model_detail set 
+	<trim  suffixOverrides="," >
+	<if test="serviceModelCode != null  ">
+		service_model_code=#{serviceModelCode},
+	</if>
+	<if test="productId != null  ">
+		product_id=#{productId},
+	</if>
+	<if test="productName != null  ">
+		product_name=#{productName},
+	</if>
+	<if test="modelId != null  ">
+		model_id=#{modelId},
+	</if>
+	<if test="factory != null  ">
+		factory=#{factory},
+	</if>
+	<if test="brandName != null  ">
+		brand_name=#{brandName},
+	</if>
+	<if test="seriesName != null  ">
+		series_name=#{seriesName},
+	</if>
+	<if test="cartypeName != null  ">
+		cartype_name=#{cartypeName},
+	</if>
+	<if test="serviceName != null  ">
+		service_name=#{serviceName},
+	</if>
+	<if test="serviceCode != null  ">
+		service_code=#{serviceCode},
+	</if>
+	<if test="mileage != null  ">
+		mileage=#{mileage},
+	</if>
+	<if test="intervalMonth != null  ">
+		interval_month=#{intervalMonth},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from g_service_model_detail where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from g_service_model_detail where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_service_model_detail 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_service_model_detail 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_service_model_detail 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<select id="findProductListByServiceModelCode" resultMap="ProductResultMap"
+		parameterType="Object">
+		select product_id,product_name,market_price,icon,quantity
+		from g_service_model_detail where service_model_code = #{serviceModelCode}
+	</select>
+	
+	<!-- 查询品牌为显示的车型信息 -->
+	<select id="findByBrandIsShow" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from g_model model,g_model_detail detail where model.id=detail.brand_id and model.is_show=1
+	</select>
+	
+</mapper>   

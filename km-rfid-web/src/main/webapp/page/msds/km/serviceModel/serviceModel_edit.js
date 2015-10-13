@@ -1,0 +1,99 @@
+var form = new mini.Form("#editform");
+function SetData(data) {
+	if (data.action == "edit") {
+		data = mini.clone(data);
+		$.ajax({
+			url : ctx+"/serviceModel/getId.action?id=" + data.id,
+			cache : false,
+			success : function(text) {
+				form.setData(text);
+				form.setChanged(false);
+			}
+		});
+	}
+}
+
+
+function onCloseClick(e) {
+    var obj = e.sender;
+    obj.setText("");
+    obj.setValue("-1");
+}
+
+
+
+function onLaborcostCloseClick(e) {
+    var obj = e.sender;
+    obj.setText("");
+    obj.setValue("1");
+}
+
+
+function cancelRow() {
+	CloseWindow("close");
+}
+
+
+function saveRow() {
+	
+	form.validate();
+	if (form.isValid() == false)
+		return;
+	var o = form.getData(true);
+	$.ajax({
+		url : ctx+"/serviceModel/save.action",
+		type : "post",
+		dataType : "json",
+		contentType : "application/json",
+		data : json,
+		success : function(text) {
+			
+			if(text.type === false){
+				alert(text.content);
+			}else{
+			    CloseWindow("success");
+			}
+		},
+		error : function(text, textStatus, errorThrown) {
+			CloseWindow(text.responseText);
+		}
+	});
+}
+
+function updateRow() {
+	form.validate();
+	if (form.isValid() == false)
+		return;
+	var o = form.getData();
+	var json = mini.encode(o);
+	console.log(json);
+	$.ajax({
+		url : ctx+"/serviceModel/save.action",
+		type : "post",
+		dataType : "json",
+		contentType : "application/json",
+		data : json,
+		success : function(text) {
+			if(text.type === false){
+				mini.alert(text.content);
+			}else{
+			    CloseWindow("success");
+			}
+		},
+		error : function(text, textStatus, errorThrown) {
+			CloseWindow(text.responseText);
+		}
+	});
+}
+function CloseWindow(action) {
+	if (action == "close" && form.isChanged()) {
+		if (confirm("数据被修改了，是否先保存？")) {
+			return false;
+		}
+	}
+	if (window.CloseOwnerWindow) {
+		return window.CloseOwnerWindow(action);
+	} else {
+		window.close();
+	}
+}

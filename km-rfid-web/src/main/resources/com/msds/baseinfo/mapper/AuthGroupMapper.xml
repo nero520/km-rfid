@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.baseinfo.mapper.AuthGroupMapper">
+
+   <resultMap type="com.msds.baseinfo.entity.AuthGroup" id="auth_group">
+     <result property="id" column="id"/>
+     <result property="name" column="name"/>
+    </resultMap>
+ <select id="getGroupList" parameterType="map" resultMap="auth_group">
+ select * from auth_group_cs 
+ <if test="userId!=null">
+  join auth_user_groups_cs cms on cms.group_id=auth_group_cs.id and cms.user_id =#{userId}
+ </if> 
+ <where>
+ <if test="id!=null">
+  and id =#{id}
+ </if>
+ <if test="name!=null">
+  and name like concat(concat('%',#{name}),'%')
+ </if> 
+ 
+ </where>
+ limit #{startRow},#{endRow}
+ </select>
+ 
+ <select id="getAllGroup" resultMap="auth_group">
+  select * from auth_group_cs 
+ </select>
+ 
+ <select id="getCountNum" parameterType="map" resultType="int">
+  select count(1) from auth_group_cs
+ <where>
+ <if test="id!=null">
+  and id =#{id}
+ </if>
+ <if test="name!=null">
+  and name like concat(concat('%',#{name}),'%')
+ </if>
+ </where>
+ </select>
+ <insert id="saveAuthGroup" parameterType="com.msds.baseinfo.entity.AuthGroup" useGeneratedKeys="true" keyProperty="id">
+  	insert into auth_group_cs(name) values(#{name}) 
+ </insert>
+ <select id="loadAuthGroup" parameterType="int" resultMap="auth_group">
+  select * from auth_group_cs where id = #{id}
+ </select>
+ <update id="updateAuthGroup" parameterType="com.msds.baseinfo.entity.AuthGroup">
+    update auth_group_cs set name =#{name}  where id =#{id}
+ </update>
+  <resultMap type="com.msds.baseinfo.entity.Permission" id="ctj">
+    <result property ="id" column="id"/>
+    <result property ="name" column="name"/>
+    <result property ="codename" column="codename"/>
+    <result property ="parentNode" column="parent_node"/>
+    <result property ="isMenu" column="is_menu"/>
+    <result property ="sequence" column="num_of_char"/>
+    <result property ="permission" column="permission"/>
+    </resultMap>
+	<select id="getPerssionList" resultMap="ctj" parameterType="Integer">
+       	select DISTINCT p.*
+       	from auth_permission_cs p 
+       	<if test="userId != null and userId !=0">
+       		join auth_group_permissions_cs agpc on agpc.permission_id = p.id
+       		join auth_user_groups_cs augc on augc.group_id=agpc.group_id and augc.user_id=#{userId}
+       		
+       	</if>
+       	
+  	</select>
+  <select id="getChildPerssionList" parameterType="int" resultMap="ctj">
+     select distinct * from auth_permission_cs p where p.parent_node =#{id}
+  </select>
+  <select id="isChecked" parameterType="map" resultType="int">
+    select count(1) from auth_group_permissions_cs m where m.group_id =#{groupId} and m.permission_id=#{permissionId}
+  </select>
+  <delete id="deletePermissionByGroupId" parameterType="int">
+   delete from auth_group_permissions_cs where group_id =#{group_id}
+  </delete>
+  <insert id="insertPermission" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+    insert into  auth_group_permissions_cs(group_id,permission_id) values(#{groupId},#{permissionId});  
+  </insert>
+  <delete id="deleteGroup" parameterType="int">
+   delete from auth_group_cs where id = #{id}
+  </delete> 
+</mapper>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.SettleAccountItemMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.SettleAccountItemEntity">
+		<result column="id" property="id" />
+		<result column="company_id" property="companyId" />
+		<result column="settle_sn" property="settleSn" />
+		<result column="order_sn" property="orderSn" />
+		<result column="service_name" property="serviceName" />
+		<result column="service_time" property="serviceTime" />
+		<result column="settle_amount" property="settleAmount" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="order_create_date" property="orderCreateDate" />
+		<result column="serivce_finish_date" property="serivceFinishDate" />
+		<result column="order_state" property="orderState" />
+		<result column="price" property="price" />
+		<result column="license" property="license" />
+		<result column="model_group_name" property="modelGroupName" />
+		<result column="contact" property="contact" />
+		<result column="phone" property="phone" />
+		
+	</resultMap>
+
+	<!-- b_settle_account_item 字段 -->
+	<sql id="Column_List">
+		b_settle_account_item.id,b_settle_account_item.company_id,b_settle_account_item.settle_sn,b_settle_account_item.order_sn,b_settle_account_item.service_name,b_settle_account_item.service_time,b_settle_account_item.settle_amount,b_settle_account_item.create_date,b_settle_account_item.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account_item.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account_item.company_id = #{companyId}
+			</if>
+			<if test="settleSn != null and settleSn != ''">
+				and b_settle_account_item.settle_sn = #{settleSn}
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_settle_account_item.order_sn = #{orderSn}
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and b_settle_account_item.service_name = #{serviceName}
+			</if>
+			<if test="serviceTime != null and serviceTime != ''">
+				and b_settle_account_item.service_time = #{serviceTime}
+			</if>
+			<if test="settleAmount != null and settleAmount != ''">
+				and b_settle_account_item.settle_amount = #{settleAmount}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account_item.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account_item.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account_item.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account_item.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="settleSn != null and settleSn != ''">
+				and b_settle_account_item.settle_sn like CONCAT('%',#{settleSn},'%')
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_settle_account_item.order_sn like CONCAT('%',#{orderSn},'%')
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and b_settle_account_item.service_name like CONCAT('%',#{serviceName},'%')
+			</if>
+			<if test="serviceTime != null and serviceTime != ''">
+				and b_settle_account_item.service_time like CONCAT('%',#{serviceTime},'%')
+			</if>
+			<if test="settleAmount != null and settleAmount != ''">
+				and b_settle_account_item.settle_amount like CONCAT('%',#{settleAmount},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account_item.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account_item.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_settle_account_item(id,company_id,settle_sn,order_sn,service_name,service_time,settle_amount,create_date,modify_date)
+ values(#{id},#{companyId},#{settleSn},#{orderSn},#{serviceName},#{serviceTime},#{settleAmount},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_settle_account_item set 
+	<trim  suffixOverrides="," >
+	<if test="companyId != null  ">
+		company_id=#{companyId},
+	</if>
+	<if test="settleSn != null  ">
+		settle_sn=#{settleSn},
+	</if>
+	<if test="orderSn != null  ">
+		order_sn=#{orderSn},
+	</if>
+	<if test="serviceName != null  ">
+		service_name=#{serviceName},
+	</if>
+	<if test="serviceTime != null  ">
+		service_time=#{serviceTime},
+	</if>
+	<if test="settleAmount != null  ">
+		settle_amount=#{settleAmount},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_settle_account_item where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_settle_account_item where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account_item 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_settle_account_item 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account_item 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByListAndOrder" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		,o.create_date as order_create_date,o.serivce_finish_date,o.order_state,o.price
+		,o.license,o.model_group_name,o.contact,o.phone 
+		from b_settle_account_item,b_order o
+		<include refid="Example_Where_Clause" />
+		and b_settle_account_item.order_sn=o.order_sn
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+</mapper>   

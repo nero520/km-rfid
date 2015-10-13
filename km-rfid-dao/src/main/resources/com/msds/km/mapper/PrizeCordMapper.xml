@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.PrizeCordMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.PrizeCordEntity">
+		<result column="id" property="id" />
+		<result column="sn" property="sn" />
+		<result column="activity_sn" property="activitySn" />
+		<result column="expiry_date" property="expiryDate" />
+		<result column="state" property="state" />
+		<result column="phone" property="phone" />
+		<result column="license" property="license" />
+		<result column="model" property="model" />
+		<result column="openid" property="openid" />
+		<result column="operator" property="operator" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- s_prize_cord 字段 -->
+	<sql id="Column_List">
+		s_prize_cord.id,s_prize_cord.sn,s_prize_cord.activity_sn,s_prize_cord.expiry_date,s_prize_cord.state,s_prize_cord.phone,s_prize_cord.license,s_prize_cord.model,s_prize_cord.openid,s_prize_cord.operator,s_prize_cord.create_date,s_prize_cord.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_prize_cord.id = #{id}
+			</if>
+			<if test="sn != null and sn != ''">
+				and s_prize_cord.sn = #{sn}
+			</if>
+			<if test="activitySn != null and activitySn != ''">
+				and s_prize_cord.activity_sn = #{activitySn}
+			</if>
+			<if test="expiryDate != null and expiryDate != ''">
+				and s_prize_cord.expiry_date = #{expiryDate}
+			</if>
+			<if test="state != null and state != ''">
+				and s_prize_cord.state = #{state}
+			</if>
+			<if test="phone != null and phone != ''">
+				and s_prize_cord.phone = #{phone}
+			</if>
+			<if test="license != null and license != ''">
+				and s_prize_cord.license = #{license}
+			</if>
+			<if test="model != null and model != ''">
+				and s_prize_cord.model = #{model}
+			</if>
+			<if test="openid != null and openid != ''">
+				and s_prize_cord.openid = #{openid}
+			</if>
+			<if test="operator != null and operator != ''">
+				and s_prize_cord.operator = #{operator}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and s_prize_cord.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_prize_cord.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and s_prize_cord.id = #{id}
+			</if>
+			<if test="sn != null and sn != ''">
+				and s_prize_cord.sn like CONCAT('%',#{sn},'%')
+			</if>
+			<if test="activitySn != null and activitySn != ''">
+				and s_prize_cord.activity_sn like
+				CONCAT('%',#{activitySn},'%')
+			</if>
+			<if test="expiryDate != null and expiryDate != ''">
+				and s_prize_cord.expiry_date like
+				CONCAT('%',#{expiryDate},'%')
+			</if>
+			<if test="state != null and state != ''">
+				and s_prize_cord.state like CONCAT('%',#{state},'%')
+			</if>
+			<if test="phone != null and phone != ''">
+				and s_prize_cord.phone like CONCAT('%',#{phone},'%')
+			</if>
+			<if test="license != null and license != ''">
+				and s_prize_cord.license like CONCAT('%',#{license},'%')
+			</if>
+			<if test="model != null and model != ''">
+				and s_prize_cord.model like CONCAT('%',#{model},'%')
+			</if>
+			<if test="openid != null and openid != ''">
+				and s_prize_cord.openid like CONCAT('%',#{openid},'%')
+			</if>
+			<if test="operator != null and operator != ''">
+				and s_prize_cord.operator like
+				CONCAT('%',#{operator},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and s_prize_cord.create_date like
+				CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and s_prize_cord.modify_date like
+				CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		s_prize_cord(id,sn,activity_sn,expiry_date,state,phone,license,model,openid,operator,create_date,modify_date)
+		values(#{id},#{sn},#{activitySn},#{expiryDate},#{state},#{phone},#{license},#{model},#{openid},#{operator},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update s_prize_cord set
+		<trim suffixOverrides=",">
+			<if test="sn != null  ">
+				sn=#{sn},
+			</if>
+			<if test="activitySn != null  ">
+				activity_sn=#{activitySn},
+			</if>
+			<if test="expiryDate != null  ">
+				expiry_date=#{expiryDate},
+			</if>
+			<if test="state != null  ">
+				state=#{state},
+			</if>
+			<if test="phone != null  ">
+				phone=#{phone},
+			</if>
+			<if test="license != null  ">
+				license=#{license},
+			</if>
+			<if test="model != null  ">
+				model=#{model},
+			</if>
+			<if test="openid != null  ">
+				openid=#{openid},
+			</if>
+			<if test="operator != null  ">
+				operator=#{operator},
+			</if>
+			<if test="createDate != null  ">
+				create_date=#{createDate},
+			</if>
+			<if test="modifyDate != null  ">
+				modify_date=#{modifyDate},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from s_prize_cord where
+		id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_prize_cord where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_prize_cord
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from s_prize_cord
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_prize_cord
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+
+	<select id="findByActivitySnLicense" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from s_prize_cord where activity_sn = #{activitySn} and license = #{license}
+	</select>
+
+</mapper>   

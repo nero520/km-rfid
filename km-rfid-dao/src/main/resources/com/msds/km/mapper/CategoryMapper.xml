@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.CategoryMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.CategoryEntity">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="parent_id" property="parentId" />
+		<result column="level" property="level" />
+		<result column="orders" property="orders" />
+		<result column="operator" property="operator" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="create_date" property="createDate" />
+	</resultMap>
+
+	<!-- g_category 字段 -->
+	<sql id="Column_List">
+		g_category.id,g_category.name,g_category.parent_id,g_category.level,g_category.orders,g_category.operator,g_category.modify_date,g_category.create_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_category.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and g_category.name = #{name}
+			</if>
+			<if test="parentId != null and parentId != ''">
+				and g_category.parent_id = #{parentId}
+			</if>
+			<if test="level != null and level != ''">
+				and g_category.level = #{level}
+			</if>
+			<if test="orders != null and orders != ''">
+				and g_category.orders = #{orders}
+			</if>
+			<if test="operator != null and operator != ''">
+				and g_category.operator = #{operator}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_category.modify_date = #{modifyDate}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_category.create_date = #{createDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_category.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				and g_category.name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="parentId != null and parentId != ''">
+				and g_category.parent_id like CONCAT('%',#{parentId},'%')
+			</if>
+			<if test="level != null and level != ''">
+				and g_category.level like CONCAT('%',#{level},'%')
+			</if>
+			<if test="orders != null and orders != ''">
+				and g_category.orders like CONCAT('%',#{orders},'%')
+			</if>
+			<if test="operator != null and operator != ''">
+				and g_category.operator like CONCAT('%',#{operator},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_category.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_category.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into g_category(id,name,parent_id,level,orders,operator,modify_date,create_date)
+ values(#{id},#{name},#{parentId},#{level},#{orders},#{operator},#{modifyDate},#{createDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_category set 
+	<trim  suffixOverrides="," >
+	<if test="name != null  ">
+		name=#{name},
+	</if>
+	<if test="parentId != null  ">
+		parent_id=#{parentId},
+	</if>
+	<if test="level != null  ">
+		level=#{level},
+	</if>
+	<if test="orders != null  ">
+		orders=#{orders},
+	</if>
+	<if test="operator != null  ">
+		operator=#{operator},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from g_category where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from g_category where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_category 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_category 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from g_category 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

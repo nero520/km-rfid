@@ -1,0 +1,101 @@
+@charset "utf-8";
+body {
+    margin: 0;
+    padding: 0;
+    background: url(../images/body_bg.jpg) 0 0 repeat;
+    font-family: "微软雅黑", "宋体", "黑体";
+}
+input {
+    border: none;
+}
+.hidden{
+	visibility: hidden;
+}
+.content {
+    width: 100%;
+    height: 185px;
+    margin: 226px 0 415px 0;
+}
+.left, .right {
+    height: 185px;
+    display: inline-block;
+    float: left;
+    position: relative;
+}
+.left {
+    width: 45%;
+    background: url(../images/div_bg.jpg) top center repeat-x;
+}
+.left img.book {
+    position: absolute;
+    right: 15px;
+    top: 5px;
+}
+.right div {
+    width: 100%;
+    height: 155px;
+    background: url(../images/div_bg.jpg) 30px bottom repeat-x;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+.right img.middle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+}
+.right {
+    width: 55%;
+}
+.content img.title {
+    position: relative;
+    top: -202px;
+    left: 48%;
+}
+.right form {
+    height: 126px;
+    position: relative;
+    top: 5px;
+    left: 10px;
+    top:3px\9;
+    _display: inline;
+    _top: 5px;
+}
+.right form img {
+    vertical-align: top;
+    width: 100px;
+    height: 40px;
+    margin-top: 5px;
+}
+.right input {
+    width: 225px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    background: url(../images/input1.jpg) 0 0 no-repeat;
+    margin-top: 5px;
+    _margin-top: 4px;
+}
+.right input.submit {
+    width: 105px;
+    height: 99px;
+    background: url(../images/login.jpg) 0 0 no-repeat;
+    position: absolute;
+    top: 10px;
+    left: 240px;
+    filter:alpha(opacity=90);
+    opacity: 0.9;
+}
+.right input.code {
+    width: 95px;
+    background: url(../images/input2.jpg) 0 0 no-repeat;
+}
+.error {
+    width: 27px;
+    height: 40px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../images/error.jpg) center center no-repeat;
+    background-position-y:top\9;
+}

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.SettleAccountMonthMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.SettleAccountMonthEntity">
+		<result column="id" property="id" />
+		<result column="company_id" property="companyId" />
+		<result column="settle_month_sn" property="settleMonthSn" />
+		<result column="year" property="year" />
+		<result column="month" property="month" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="settling_amount" property="settlingAmount" />
+		<result column="settled_amount" property="settledAmount" />
+		<result column="all_settle_amount" property="allSettleAmount" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_settle_account_month 字段 -->
+	<sql id="Column_List">
+		b_settle_account_month.id,b_settle_account_month.company_id,b_settle_account_month.settle_month_sn,b_settle_account_month.year,b_settle_account_month.month,b_settle_account_month.start_date,b_settle_account_month.end_date,b_settle_account_month.settling_amount,b_settle_account_month.settled_amount,b_settle_account_month.all_settle_amount,b_settle_account_month.create_date,b_settle_account_month.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account_month.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account_month.company_id = #{companyId}
+			</if>
+			<if test="settleMonthSn != null and settleMonthSn != ''">
+				and b_settle_account_month.settle_month_sn = #{settleMonthSn}
+			</if>
+			<if test="year != null and year != ''">
+				and b_settle_account_month.year = #{year}
+			</if>
+			<if test="month != null and month != ''">
+				and b_settle_account_month.month = #{month}
+			</if>
+			<if test="startDate != null and startDate != ''">
+				and b_settle_account_month.start_date = #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and b_settle_account_month.end_date = #{endDate}
+			</if>
+			<if test="settlingAmount != null and settlingAmount != ''">
+				and b_settle_account_month.settling_amount = #{settlingAmount}
+			</if>
+			<if test="settledAmount != null and settledAmount != ''">
+				and b_settle_account_month.settled_amount = #{settledAmount}
+			</if>
+			<if test="allSettleAmount != null and allSettleAmount != ''">
+				and b_settle_account_month.all_settle_amount = #{allSettleAmount}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account_month.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account_month.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account_month.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account_month.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="settleMonthSn != null and settleMonthSn != ''">
+				and b_settle_account_month.settle_month_sn like CONCAT('%',#{settleMonthSn},'%')
+			</if>
+			<if test="year != null and year != ''">
+				and b_settle_account_month.year like CONCAT('%',#{year},'%')
+			</if>
+			<if test="month != null and month != ''">
+				and b_settle_account_month.month like CONCAT('%',#{month},'%')
+			</if>
+			<if test="startDate != null and startDate != ''">
+				and b_settle_account_month.start_date like CONCAT('%',#{startDate},'%')
+			</if>
+			<if test="endDate != null and endDate != ''">
+				and b_settle_account_month.end_date like CONCAT('%',#{endDate},'%')
+			</if>
+			<if test="settlingAmount != null and settlingAmount != ''">
+				and b_settle_account_month.settling_amount like CONCAT('%',#{settlingAmount},'%')
+			</if>
+			<if test="settledAmount != null and settledAmount != ''">
+				and b_settle_account_month.settled_amount like CONCAT('%',#{settledAmount},'%')
+			</if>
+			<if test="allSettleAmount != null and allSettleAmount != ''">
+				and b_settle_account_month.all_settle_amount like CONCAT('%',#{allSettleAmount},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account_month.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account_month.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_settle_account_month(id,company_id,settle_month_sn,year,month,start_date,end_date,settling_amount,settled_amount,all_settle_amount,create_date,modify_date)
+ values(#{id},#{companyId},#{settleMonthSn},#{year},#{month},#{startDate},#{endDate},#{settlingAmount},#{settledAmount},#{allSettleAmount},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_settle_account_month set 
+	<trim  suffixOverrides="," >
+	<if test="companyId != null  ">
+		company_id=#{companyId},
+	</if>
+	<if test="settleMonthSn != null  ">
+		settle_month_sn=#{settleMonthSn},
+	</if>
+	<if test="year != null  ">
+		year=#{year},
+	</if>
+	<if test="month != null  ">
+		month=#{month},
+	</if>
+	<if test="startDate != null  ">
+		start_date=#{startDate},
+	</if>
+	<if test="endDate != null  ">
+		end_date=#{endDate},
+	</if>
+	<if test="settlingAmount != null  ">
+		settling_amount=#{settlingAmount},
+	</if>
+	<if test="settledAmount != null  ">
+		settled_amount=#{settledAmount},
+	</if>
+	<if test="allSettleAmount != null  ">
+		all_settle_amount=#{allSettleAmount},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_settle_account_month where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_settle_account_month where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account_month 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_settle_account_month 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account_month 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

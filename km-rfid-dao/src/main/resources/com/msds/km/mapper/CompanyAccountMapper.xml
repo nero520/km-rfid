@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.CompanyAccountMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.CompanyAccountEntity">
+		<result column="id" property="id" />
+		<result column="company_id" property="companyId" />
+		<result column="bill_type" property="billType" />
+		<result column="account_name" property="accountName" />
+		<result column="account_bank_name" property="accountBankName" />
+		<result column="account_number" property="accountNumber" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_company_account 字段 -->
+	<sql id="Column_List">
+		b_company_account.id,b_company_account.company_id,b_company_account.bill_type,b_company_account.account_name,b_company_account.account_bank_name,b_company_account.account_number,b_company_account.create_date,b_company_account.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_company_account.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_company_account.company_id = #{companyId}
+			</if>
+			<if test="billType != null and billType != ''">
+				and b_company_account.bill_type = #{billType}
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_company_account.account_name = #{accountName}
+			</if>
+			<if test="accountBankName != null and accountBankName != ''">
+				and b_company_account.account_bank_name = #{accountBankName}
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_company_account.account_number = #{accountNumber}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_company_account.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_company_account.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_company_account.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_company_account.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="billType != null and billType != ''">
+				and b_company_account.bill_type like CONCAT('%',#{billType},'%')
+			</if>
+			<if test="accountName != null and accountName != ''">
+				and b_company_account.account_name like CONCAT('%',#{accountName},'%')
+			</if>
+			<if test="accountBankName != null and accountBankName != ''">
+				and b_company_account.account_bank_name like CONCAT('%',#{accountBankName},'%')
+			</if>
+			<if test="accountNumber != null and accountNumber != ''">
+				and b_company_account.account_number like CONCAT('%',#{accountNumber},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_company_account.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_company_account.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_company_account(id,company_id,bill_type,account_name,account_bank_name,account_number,create_date,modify_date)
+ values(#{id},#{companyId},#{billType},#{accountName},#{accountBankName},#{accountNumber},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_company_account set 
+	<trim  suffixOverrides="," >
+	<if test="companyId != null  ">
+		company_id=#{companyId},
+	</if>
+	<if test="billType != null  ">
+		bill_type=#{billType},
+	</if>
+	<if test="accountName != null  ">
+		account_name=#{accountName},
+	</if>
+	<if test="accountBankName != null  ">
+		account_bank_name=#{accountBankName},
+	</if>
+	<if test="accountNumber != null  ">
+		account_number=#{accountNumber},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_company_account where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_company_account where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_company_account 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_company_account 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_company_account 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<!-- 根据companyId查询 -->
+	<select id="findByCompanyId" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_company_account where company_id = #{companyId}
+	</select>
+</mapper>   

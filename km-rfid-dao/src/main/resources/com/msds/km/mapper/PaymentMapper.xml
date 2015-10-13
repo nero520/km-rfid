@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.PaymentMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.PaymentEntity">
+		<result column="id" property="id" />
+		<result column="sn" property="sn" />
+		<result column="order_sn" property="orderSn" />
+		<result column="amount" property="amount" />
+		<result column="fee" property="fee" />
+		<result column="status" property="status" />
+		<result column="payment_date" property="paymentDate" />
+		<result column="payment_serial_number" property="paymentSerialNumber" />
+		<result column="payment_method" property="paymentMethod" />
+		<result column="payment_plugin_id" property="paymentPluginId" />
+		<result column="expire" property="expire" />
+		<result column="method" property="method" />
+		<result column="account" property="account" />
+		<result column="bank" property="bank" />
+		<result column="payer" property="payer" />
+		<result column="memo" property="memo" />
+		<result column="pay_type" property="payType" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_payment 字段 -->
+	<sql id="Column_List">
+		b_payment.id,b_payment.sn,b_payment.order_sn,b_payment.amount,b_payment.fee,b_payment.status,b_payment.payment_date,b_payment.payment_serial_number,b_payment.payment_method,b_payment.payment_plugin_id,b_payment.expire,b_payment.method,b_payment.account,b_payment.bank,b_payment.payer,b_payment.memo,b_payment.pay_type,b_payment.create_date,b_payment.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_payment.id = #{id}
+			</if>
+			<if test="sn != null and sn != ''">
+				and b_payment.sn = #{sn}
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_payment.order_sn = #{orderSn}
+			</if>
+			<if test="amount != null and amount != ''">
+				and b_payment.amount = #{amount}
+			</if>
+			<if test="fee != null and fee != ''">
+				and b_payment.fee = #{fee}
+			</if>
+			<if test="status != null and status != ''">
+				and b_payment.status = #{status}
+			</if>
+			<if test="paymentDate != null and paymentDate != ''">
+				and b_payment.payment_date = #{paymentDate}
+			</if>
+			<if test="paymentSerialNumber != null and paymentSerialNumber != ''">
+				and b_payment.payment_serial_number = #{paymentSerialNumber}
+			</if>
+			<if test="paymentMethod != null and paymentMethod != ''">
+				and b_payment.payment_method = #{paymentMethod}
+			</if>
+			<if test="paymentPluginId != null and paymentPluginId != ''">
+				and b_payment.payment_plugin_id = #{paymentPluginId}
+			</if>
+			<if test="expire != null and expire != ''">
+				and b_payment.expire = #{expire}
+			</if>
+			<if test="method != null and method != ''">
+				and b_payment.method = #{method}
+			</if>
+			<if test="account != null and account != ''">
+				and b_payment.account = #{account}
+			</if>
+			<if test="bank != null and bank != ''">
+				and b_payment.bank = #{bank}
+			</if>
+			<if test="payer != null and payer != ''">
+				and b_payment.payer = #{payer}
+			</if>
+			<if test="memo != null and memo != ''">
+				and b_payment.memo = #{memo}
+			</if>
+			<if test="payType != null and payType != ''">
+				and b_payment.pay_type = #{payType}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_payment.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_payment.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_payment.id = #{id}
+			</if>
+			<if test="sn != null and sn != ''">
+				and b_payment.sn like CONCAT('%',#{sn},'%')
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_payment.order_sn like CONCAT('%',#{orderSn},'%')
+			</if>
+			<if test="amount != null and amount != ''">
+				and b_payment.amount like CONCAT('%',#{amount},'%')
+			</if>
+			<if test="fee != null and fee != ''">
+				and b_payment.fee like CONCAT('%',#{fee},'%')
+			</if>
+			<if test="status != null and status != ''">
+				and b_payment.status like CONCAT('%',#{status},'%')
+			</if>
+			<if test="paymentDate != null and paymentDate != ''">
+				and b_payment.payment_date like CONCAT('%',#{paymentDate},'%')
+			</if>
+			<if test="paymentSerialNumber != null and paymentSerialNumber != ''">
+				and b_payment.payment_serial_number like CONCAT('%',#{paymentSerialNumber},'%')
+			</if>
+			<if test="paymentMethod != null and paymentMethod != ''">
+				and b_payment.payment_method like CONCAT('%',#{paymentMethod},'%')
+			</if>
+			<if test="paymentPluginId != null and paymentPluginId != ''">
+				and b_payment.payment_plugin_id like CONCAT('%',#{paymentPluginId},'%')
+			</if>
+			<if test="expire != null and expire != ''">
+				and b_payment.expire like CONCAT('%',#{expire},'%')
+			</if>
+			<if test="method != null and method != ''">
+				and b_payment.method like CONCAT('%',#{method},'%')
+			</if>
+			<if test="account != null and account != ''">
+				and b_payment.account like CONCAT('%',#{account},'%')
+			</if>
+			<if test="bank != null and bank != ''">
+				and b_payment.bank like CONCAT('%',#{bank},'%')
+			</if>
+			<if test="payer != null and payer != ''">
+				and b_payment.payer like CONCAT('%',#{payer},'%')
+			</if>
+			<if test="memo != null and memo != ''">
+				and b_payment.memo like CONCAT('%',#{memo},'%')
+			</if>
+			<if test="payType != null and payType != ''">
+				and b_payment.pay_type like CONCAT('%',#{payType},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_payment.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_payment.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_payment(id,sn,order_sn,amount,fee,status,payment_date,payment_serial_number,payment_method,payment_plugin_id,expire,method,account,bank,payer,memo,pay_type,create_date,modify_date)
+ values(#{id},#{sn},#{orderSn},#{amount},#{fee},#{status},#{paymentDate},#{paymentSerialNumber},#{paymentMethod},#{paymentPluginId},#{expire},#{method},#{account},#{bank},#{payer},#{memo},#{payType},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_payment set 
+	<trim  suffixOverrides="," >
+	<if test="sn != null  ">
+		sn=#{sn},
+	</if>
+	<if test="orderSn != null  ">
+		order_sn=#{orderSn},
+	</if>
+	<if test="amount != null  ">
+		amount=#{amount},
+	</if>
+	<if test="fee != null  ">
+		fee=#{fee},
+	</if>
+	<if test="status != null  ">
+		status=#{status},
+	</if>
+	<if test="paymentDate != null  ">
+		payment_date=#{paymentDate},
+	</if>
+	<if test="paymentSerialNumber != null  ">
+		payment_serial_number=#{paymentSerialNumber},
+	</if>
+	<if test="paymentMethod != null  ">
+		payment_method=#{paymentMethod},
+	</if>
+	<if test="paymentPluginId != null  ">
+		payment_plugin_id=#{paymentPluginId},
+	</if>
+	<if test="expire != null  ">
+		expire=#{expire},
+	</if>
+	<if test="method != null  ">
+		method=#{method},
+	</if>
+	<if test="account != null  ">
+		account=#{account},
+	</if>
+	<if test="bank != null  ">
+		bank=#{bank},
+	</if>
+	<if test="payer != null  ">
+		payer=#{payer},
+	</if>
+	<if test="memo != null  ">
+		memo=#{memo},
+	</if>
+	<if test="payType != null  ">
+		pay_type=#{payType},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_payment where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_payment where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_payment 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_payment 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_payment 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<select id="findBySn" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_payment where sn = #{sn}
+	</select>
+	
+	<select id="lockBySn" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_payment where sn = #{sn} for update
+	</select>
+	
+</mapper>   

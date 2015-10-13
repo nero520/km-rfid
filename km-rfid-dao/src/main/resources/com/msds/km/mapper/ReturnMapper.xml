@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.ReturnMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.ReturnEntity">
+		<result column="id" property="id" />
+		<result column="return_sn" property="returnSn" />
+		<result column="order_sn" property="orderSn" />
+		<result column="product_json" property="productJson" />
+		<result column="direct_shop_id" property="directShopId" />
+		<result column="company_id" property="companyId" />
+		<result column="status" property="status" />
+		<result column="remark" property="remark" />
+		<result column="parts_return_sn" property="partsReturnSn" />
+		<result column="operator" property="operator" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_return 字段 -->
+	<sql id="Column_List">
+		b_return.id,b_return.return_sn,b_return.order_sn,b_return.product_json,b_return.direct_shop_id,b_return.company_id,b_return.status,b_return.remark,b_return.parts_return_sn,b_return.operator,b_return.create_date,b_return.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_return.id = #{id}
+			</if>
+			<if test="returnSn != null and returnSn != ''">
+				and b_return.return_sn = #{returnSn}
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_return.order_sn = #{orderSn}
+			</if>
+			<if test="productJson != null and productJson != ''">
+				and b_return.product_json = #{productJson}
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and b_return.direct_shop_id = #{directShopId}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_return.company_id = #{companyId}
+			</if>
+			<if test="status != null and status != ''">
+				and b_return.status = #{status}
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_return.remark = #{remark}
+			</if>
+			<if test="partsReturnSn != null and partsReturnSn != ''">
+				and b_return.parts_return_sn = #{partsReturnSn}
+			</if>
+			<if test="operator != null and operator != ''">
+				and b_return.operator = #{operator}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_return.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_return.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_return.id = #{id}
+			</if>
+			<if test="returnSn != null and returnSn != ''">
+				and b_return.return_sn like CONCAT('%',#{returnSn},'%')
+			</if>
+			<if test="orderSn != null and orderSn != ''">
+				and b_return.order_sn like CONCAT('%',#{orderSn},'%')
+			</if>
+			<if test="productJson != null and productJson != ''">
+				and b_return.product_json like CONCAT('%',#{productJson},'%')
+			</if>
+			<if test="directShopId != null and directShopId != ''">
+				and b_return.direct_shop_id like CONCAT('%',#{directShopId},'%')
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_return.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="status != null and status != ''">
+				and b_return.status like CONCAT('%',#{status},'%')
+			</if>
+			<if test="remark != null and remark != ''">
+				and b_return.remark like CONCAT('%',#{remark},'%')
+			</if>
+			<if test="partsReturnSn != null and partsReturnSn != ''">
+				and b_return.parts_return_sn like CONCAT('%',#{partsReturnSn},'%')
+			</if>
+			<if test="operator != null and operator != ''">
+				and b_return.operator like CONCAT('%',#{operator},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_return.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_return.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_return(id,return_sn,order_sn,product_json,direct_shop_id,company_id,status,remark,parts_return_sn,operator,create_date,modify_date)
+ values(#{id},#{returnSn},#{orderSn},#{productJson},#{directShopId},#{companyId},#{status},#{remark},#{partsReturnSn},#{operator},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_return set 
+	<trim  suffixOverrides="," >
+	<if test="returnSn != null  ">
+		return_sn=#{returnSn},
+	</if>
+	<if test="orderSn != null  ">
+		order_sn=#{orderSn},
+	</if>
+	<if test="productJson != null  ">
+		product_json=#{productJson},
+	</if>
+	<if test="directShopId != null  ">
+		direct_shop_id=#{directShopId},
+	</if>
+	<if test="companyId != null  ">
+		company_id=#{companyId},
+	</if>
+	<if test="status != null  ">
+		status=#{status},
+	</if>
+	<if test="remark != null  ">
+		remark=#{remark},
+	</if>
+	<if test="partsReturnSn != null  ">
+		parts_return_sn=#{partsReturnSn},
+	</if>
+	<if test="operator != null  ">
+		operator=#{operator},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_return where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_return where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_return 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_return 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_return 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

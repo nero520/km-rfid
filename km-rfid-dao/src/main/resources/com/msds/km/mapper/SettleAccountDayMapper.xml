@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.SettleAccountDayMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.SettleAccountDayEntity">
+		<result column="id" property="id" />
+		<result column="company_id" property="companyId" />
+		<result column="settle_day_sn" property="settleDaySn" />
+		<result column="date" property="date" />
+		<result column="settling_amount" property="settlingAmount" />
+		<result column="settled_amount" property="settledAmount" />
+		<result column="all_settle_amount" property="allSettleAmount" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_settle_account_day 字段 -->
+	<sql id="Column_List">
+		b_settle_account_day.id,b_settle_account_day.company_id,b_settle_account_day.settle_day_sn,b_settle_account_day.date,b_settle_account_day.settling_amount,b_settle_account_day.settled_amount,b_settle_account_day.all_settle_amount,b_settle_account_day.create_date,b_settle_account_day.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account_day.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account_day.company_id = #{companyId}
+			</if>
+			<if test="settleDaySn != null and settleDaySn != ''">
+				and b_settle_account_day.settle_day_sn = #{settleDaySn}
+			</if>
+			<if test="date != null and date != ''">
+				and b_settle_account_day.date = #{date}
+			</if>
+			<if test="settlingAmount != null and settlingAmount != ''">
+				and b_settle_account_day.settling_amount = #{settlingAmount}
+			</if>
+			<if test="settledAmount != null and settledAmount != ''">
+				and b_settle_account_day.settled_amount = #{settledAmount}
+			</if>
+			<if test="allSettleAmount != null and allSettleAmount != ''">
+				and b_settle_account_day.all_settle_amount = #{allSettleAmount}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account_day.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account_day.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_settle_account_day.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_settle_account_day.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="settleDaySn != null and settleDaySn != ''">
+				and b_settle_account_day.settle_day_sn like CONCAT('%',#{settleDaySn},'%')
+			</if>
+			<if test="date != null and date != ''">
+				and b_settle_account_day.date like CONCAT('%',#{date},'%')
+			</if>
+			<if test="settlingAmount != null and settlingAmount != ''">
+				and b_settle_account_day.settling_amount like CONCAT('%',#{settlingAmount},'%')
+			</if>
+			<if test="settledAmount != null and settledAmount != ''">
+				and b_settle_account_day.settled_amount like CONCAT('%',#{settledAmount},'%')
+			</if>
+			<if test="allSettleAmount != null and allSettleAmount != ''">
+				and b_settle_account_day.all_settle_amount like CONCAT('%',#{allSettleAmount},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_settle_account_day.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_settle_account_day.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_settle_account_day(id,company_id,settle_day_sn,date,settling_amount,settled_amount,all_settle_amount,create_date,modify_date)
+ values(#{id},#{companyId},#{settleDaySn},#{date},#{settlingAmount},#{settledAmount},#{allSettleAmount},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_settle_account_day set 
+	<trim  suffixOverrides="," >
+	<if test="companyId != null  ">
+		company_id=#{companyId},
+	</if>
+	<if test="settleDaySn != null  ">
+		settle_day_sn=#{settleDaySn},
+	</if>
+	<if test="date != null  ">
+		date=#{date},
+	</if>
+	<if test="settlingAmount != null  ">
+		settling_amount=#{settlingAmount},
+	</if>
+	<if test="settledAmount != null  ">
+		settled_amount=#{settledAmount},
+	</if>
+	<if test="allSettleAmount != null  ">
+		all_settle_amount=#{allSettleAmount},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_settle_account_day where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_settle_account_day where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account_day 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_settle_account_day 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_settle_account_day 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	
+	<!-- 根据date查询 -->
+	<select id="findByDate" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_settle_account_day where date = #{date}
+	</select>
+</mapper>   

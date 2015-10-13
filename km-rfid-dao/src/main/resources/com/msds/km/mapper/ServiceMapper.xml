@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.ServiceMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.ServiceEntity">
+		<result column="id" property="id" />
+		<result column="service_code" property="serviceCode" />
+		<result column="service_name" property="serviceName" />
+		<result column="category_id" property="categoryId" />
+		<result column="category_name" property="categoryName" />
+		<result column="state" property="state" />
+		<result column="describe" property="describe" />
+		<result column="operator" property="operator" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="city_id" property="cityId" />
+		
+		<result column="username" property="username" />
+	</resultMap>
+
+	<resultMap id="ServiceResultMap" type="com.msds.km.vo.Service">
+		<result column="model_id" property="modelId" />
+		<result column="service_code" property="serviceCode" />
+		<result column="service_name" property="serviceName" />
+		<result column="describe" property="describe" />
+		<result column="price" property="price" />
+		<result column="city_id" property="cityId" />
+	</resultMap>
+
+	<!-- g_service 字段 -->
+	<sql id="Column_List">
+		g_service.id,g_service.service_code,g_service.service_name,g_service.category_id,g_service.category_name,g_service.state,g_service.describe,g_service.operator,g_service.create_date,g_service.modify_date,g_service.city_id
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_service.id = #{id}
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and g_service.service_code = #{serviceCode}
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and g_service.service_name = #{serviceName}
+			</if>
+			<if test="categoryId != null and categoryId != ''">
+				and g_service.category_id = #{categoryId}
+			</if>
+			<if test="categoryName != null and categoryName != ''">
+				and g_service.category_name = #{categoryName}
+			</if>
+			<if test="state != null and state != ''">
+				and g_service.state = #{state}
+			</if>
+			<if test="describe != null and describe != ''">
+				and g_service.describe = #{describe}
+			</if>
+			<if test="operator != null and operator != ''">
+				and g_service.operator = #{operator}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_service.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_service.modify_date = #{modifyDate}
+			</if>
+
+			<if test="cityId != null">
+				and g_service.city_id = #{cityId}
+			</if>
+
+
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_service.id = #{id}
+			</if>
+			<if test="serviceCode != null and serviceCode != ''">
+				and g_service.service_code like
+				CONCAT('%',#{serviceCode},'%')
+			</if>
+			<if test="serviceName != null and serviceName != ''">
+				and g_service.service_name like
+				CONCAT('%',#{serviceName},'%')
+			</if>
+			<if test="categoryId != null and categoryId != ''">
+				and g_service.category_id like
+				CONCAT('%',#{categoryId},'%')
+			</if>
+			<if test="categoryName != null and categoryName != ''">
+				and g_service.category_name like
+				CONCAT('%',#{categoryName},'%')
+			</if>
+			<if test="state != null and state != ''">
+				and g_service.state like CONCAT('%',#{state},'%')
+			</if>
+			<if test="describe != null and describe != ''">
+				and g_service.describe like CONCAT('%',#{describe},'%')
+			</if>
+			<if test="operator != null and operator != ''">
+				and g_service.operator like CONCAT('%',#{operator},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_service.create_date like
+				CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_service.modify_date like
+				CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="cityId != null">
+				and g_service.city_id = #{cityId}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		g_service(id,service_code,service_name,category_id,category_name,state,g_service.describe,operator,create_date,modify_date)
+		values(#{id},#{serviceCode},#{serviceName},#{categoryId},#{categoryName},#{state},#{describe},#{operator},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_service set
+		<trim suffixOverrides=",">
+			<if test="serviceCode != null  ">
+				service_code=#{serviceCode},
+			</if>
+			<if test="serviceName != null  ">
+				service_name=#{serviceName},
+			</if>
+			<if test="categoryId != null  ">
+				category_id=#{categoryId},
+			</if>
+			<if test="categoryName != null  ">
+				category_name=#{categoryName},
+			</if>
+			<if test="state != null  ">
+				state=#{state},
+			</if>
+			<if test="describe != null  ">
+				g_service.describe=#{describe},
+			</if>
+			<if test="operator != null  ">
+				operator=#{operator},
+			</if>
+			<if test="createDate != null  ">
+				create_date=#{createDate},
+			</if>
+			<if test="modifyDate != null  ">
+				modify_date=#{modifyDate},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from g_service where id
+		= #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_service where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_service
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_service
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_service
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<select id="findServiceLists" resultMap="ServiceResultMap"
+		parameterType="Object">
+		SELECT DISTINCT
+		s.service_code,sm.model_id,s.service_name,s.`describe`,sm.price,s.city_id
+		from g_service s,g_service_model sm , g_model m1, g_model m2, g_model
+		m3
+		where sm.service_code=s.service_code
+		and m1.id = m2.pid
+		and m2.id = m3.pid
+		and (sm.model_id = m1.id or sm.model_id = m2.id or sm.model_id = m3.id or sm.model_id = -1 )
+		and m3.id = #{modelId} and s.city_id = #{cityId}
+	</select>
+
+	<select id="findByCode" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_service where service_code = #{serviceCode}
+	</select>
+
+
+	<select id="findByCompany_id" resultMap="ResultMap"
+		parameterType="Object">
+		SELECT * FROM g_service WHERE service_code not in
+		(select service_code from g_service_company WHERE company_id =
+		#{companyId})
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="findServiceList" resultMap="ResultMap" parameterType="Object">
+		SELECT s.*,au.username as username from g_service s LEFT JOIN auth_user au ON s.operator=au.id
+		<include refid="Like_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+	
+	<!-- 列表总数 -->
+	<select id="queryServiceCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		SELECT count(1) from g_service s LEFT JOIN auth_user au ON s.operator=au.id
+		<include refid="Like_Where_Clause" />
+	</select>
+</mapper>   

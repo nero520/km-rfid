@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.CompaySettingMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.CompaySettingEntity">
+		<result column="id" property="id" />
+		<result column="company_id" property="companyId" />
+		<result column="settle_cycle" property="settleCycle" />
+		<result column="last_end_date" property="lastEndDate" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+	</resultMap>
+
+	<!-- b_compay_setting 字段 -->
+	<sql id="Column_List">
+		b_compay_setting.id,b_compay_setting.company_id,b_compay_setting.settle_cycle,b_compay_setting.last_end_date,b_compay_setting.create_date,b_compay_setting.modify_date
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_compay_setting.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_compay_setting.company_id = #{companyId}
+			</if>
+			<if test="settleCycle != null and settleCycle != ''">
+				and b_compay_setting.settle_cycle = #{settleCycle}
+			</if>
+			<if test="lastEndDate != null and lastEndDate != ''">
+				and b_compay_setting.last_end_date = #{lastEndDate}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_compay_setting.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_compay_setting.modify_date = #{modifyDate}
+			</if>
+		</trim>
+	</sql>
+	
+		<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and b_compay_setting.id = #{id}
+			</if>
+			<if test="companyId != null and companyId != ''">
+				and b_compay_setting.company_id like CONCAT('%',#{companyId},'%')
+			</if>
+			<if test="settleCycle != null and settleCycle != ''">
+				and b_compay_setting.settle_cycle like CONCAT('%',#{settleCycle},'%')
+			</if>
+			<if test="lastEndDate != null and lastEndDate != ''">
+				and b_compay_setting.last_end_date like CONCAT('%',#{lastEndDate},'%')
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and b_compay_setting.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and b_compay_setting.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID() 
+		</selectKey>
+		insert into b_compay_setting(id,company_id,settle_cycle,last_end_date,create_date,modify_date)
+ values(#{id},#{companyId},#{settleCycle},#{lastEndDate},#{createDate},#{modifyDate})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update b_compay_setting set 
+	<trim  suffixOverrides="," >
+	<if test="companyId != null  ">
+		company_id=#{companyId},
+	</if>
+	<if test="settleCycle != null  ">
+		settle_cycle=#{settleCycle},
+	</if>
+	<if test="lastEndDate != null  ">
+		last_end_date=#{lastEndDate},
+	</if>
+	<if test="createDate != null  ">
+		create_date=#{createDate},
+	</if>
+	<if test="modifyDate != null  ">
+		modify_date=#{modifyDate},
+	</if>
+	</trim> where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete 	 from b_compay_setting where id = #{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select <include refid="Column_List" /> 
+	 from b_compay_setting where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_compay_setting 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from b_compay_setting 
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select 
+		<include refid="Column_List" />
+		from b_compay_setting 
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition} 
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+</mapper>   

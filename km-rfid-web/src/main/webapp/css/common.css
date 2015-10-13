@@ -1,0 +1,38 @@
+@charset "utf-8";
+.tableClass table{
+	border-right:1px solid #D1D1D1;
+	border-bottom:1px solid #D1D1D1;
+	background:#FFF;
+	font-size: 13;
+}
+.tableClass table td{
+	border-left:1px solid #D1D1D1;
+	border-top:1px solid #D1D1D1;
+	height:25px;
+	text-align:center;
+	
+}
+.tableClass table th{
+	border-left:1px solid #D1D1D1;
+	border-top:1px solid #D1D1D1;
+	height:25px;
+	text-align:right;
+	background-color: #efefef;
+}
+
+.divClass table{
+	font-size: 13;
+}
+
+.icr, .dcr {
+	display: inline-block;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 5px;
+	margin: 5px;
+	cursor:pointer;
+}
+   
+.dotBorderTop{
+	border-top:1px dotted #000;
+}

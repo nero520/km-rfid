@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msds.km.mapper.AreaMapper">
+	<!-- Result Map -->
+	<resultMap id="ResultMap" type="com.msds.km.entity.AreaEntity">
+		<result column="id" property="id" />
+		<result column="create_date" property="createDate" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="orders" property="orders" />
+		<result column="full_name" property="fullName" />
+		<result column="name" property="name" />
+		<result column="tree_path" property="treePath" />
+		<result column="parent" property="parent" />
+		<result column="parent_area_code" property="parentAreaCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="level" property="level" />
+		<result column="region_type" property="regionType" />
+	</resultMap>
+
+	<!-- g_area 字段 -->
+	<sql id="Column_List">
+		g_area.id,g_area.create_date,g_area.modify_date,g_area.orders,g_area.full_name,g_area.name,g_area.tree_path,g_area.parent,g_area.parent_area_code,g_area.area_code,g_area.level,g_area.region_type
+	</sql>
+
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_area.id = #{id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_area.create_date = #{createDate}
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_area.modify_date = #{modifyDate}
+			</if>
+			<if test="orders != null and orders != ''">
+				and g_area.orders = #{orders}
+			</if>
+			<if test="fullName != null and fullName != ''">
+				and g_area.full_name = #{fullName}
+			</if>
+			<if test="name != null and name != ''">
+				and g_area.name = #{name}
+			</if>
+			<if test="treePath != null and treePath != ''">
+				and g_area.tree_path = #{treePath}
+			</if>
+			<if test="parent != null and parent != ''">
+				and g_area.parent = #{parent}
+			</if>
+			<if test="parentAreaCode != null and parentAreaCode != ''">
+				and g_area.parent_area_code = #{parentAreaCode}
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				and g_area.area_code = #{areaCode}
+			</if>
+			<if test="level != null and level != ''">
+				and g_area.level = #{level}
+			</if>
+			<if test="regionType != null and regionType != ''">
+				and g_area.region_type = #{regionType}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- like查询条件 -->
+	<sql id="Like_Where_Clause">
+		where 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				and g_area.id = #{id}
+			</if>
+			<if test="createDate != null and createDate != ''">
+				and g_area.create_date like CONCAT('%',#{createDate},'%')
+			</if>
+			<if test="modifyDate != null and modifyDate != ''">
+				and g_area.modify_date like CONCAT('%',#{modifyDate},'%')
+			</if>
+			<if test="orders != null and orders != ''">
+				and g_area.orders like CONCAT('%',#{orders},'%')
+			</if>
+			<if test="fullName != null and fullName != ''">
+				and g_area.full_name like CONCAT('%',#{fullName},'%')
+			</if>
+			<if test="name != null and name != ''">
+				and g_area.name like CONCAT('%',#{name},'%')
+			</if>
+			<if test="treePath != null and treePath != ''">
+				and g_area.tree_path like CONCAT('%',#{treePath},'%')
+			</if>
+			<if test="parent != null and parent != ''">
+				and g_area.parent like CONCAT('%',#{parent},'%')
+			</if>
+			<if test="parentAreaCode != null and parentAreaCode != ''">
+				and g_area.parent_area_code like
+				CONCAT('%',#{parentAreaCode},'%')
+			</if>
+			<if test="areaCode != null and areaCode != ''">
+				and g_area.area_code like CONCAT('%',#{areaCode},'%')
+			</if>
+			<if test="level != null and level != ''">
+				and g_area.level like CONCAT('%',#{level},'%')
+			</if>
+			<if test="regionType != null and regionType != ''">
+				and g_area.region_type like CONCAT('%',#{regionType},'%')
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Object">
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into
+		g_area(id,create_date,modify_date,orders,full_name,name,tree_path,parent,parent_area_code,area_code,level,region_type)
+		values(#{id},#{createDate},#{modifyDate},#{orders},#{fullName},#{name},#{treePath},#{parent},#{parentAreaCode},#{areaCode},#{level},#{regionType})
+	</insert>
+
+	<!-- 根据id，修改记录 -->
+	<update id="update" parameterType="Object">
+		update g_area set
+		<trim suffixOverrides=",">
+			<if test="createDate != null  ">
+				create_date=#{createDate},
+			</if>
+			<if test="modifyDate != null  ">
+				modify_date=#{modifyDate},
+			</if>
+			<if test="orders != null  ">
+				orders=#{orders},
+			</if>
+			<if test="fullName != null  ">
+				full_name=#{fullName},
+			</if>
+			<if test="name != null  ">
+				name=#{name},
+			</if>
+			<if test="treePath != null  ">
+				tree_path=#{treePath},
+			</if>
+			<if test="parent != null  ">
+				parent=#{parent},
+			</if>
+			<if test="parentAreaCode != null  ">
+				parent_area_code=#{parentAreaCode},
+			</if>
+			<if test="areaCode != null  ">
+				area_code=#{areaCode},
+			</if>
+			<if test="level != null  ">
+				level=#{level},
+			</if>
+			<if test="regionType != null  ">
+				region_type=#{regionType},
+			</if>
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Object">
+		delete from g_area where id =
+		#{id}
+	</delete>
+
+	<!-- 根据id查询 -->
+	<select id="findById" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_area where id = #{id}
+	</select>
+
+	<!-- 查询列表 -->
+	<select id="findListByCondition" resultMap="ResultMap"
+		parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_area
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 列表总数 -->
+	<select id="queryByCount" resultType="java.lang.Integer"
+		parameterType="Object">
+		select count(1) from g_area
+		<include refid="Example_Where_Clause" />
+	</select>
+
+	<!-- 查询分页列表 -->
+	<select id="queryByList" resultMap="ResultMap" parameterType="Object">
+		select
+		<include refid="Column_List" />
+		from g_area
+		<include refid="Example_Where_Clause" />
+		<if test="pager.orderCondition != null and pager.orderCondition != ''">
+			${pager.orderCondition}
+		</if>
+		<if test="pager.queryCondition != null and pager.queryCondition != ''">
+			${pager.queryCondition}
+		</if>
+	</select>
+
+	<select id="findIdByName" resultType="java.lang.Integer"
+		parameterType="Object">
+		select c.id from g_area c JOIN g_area p on c.parent=p.id
+		where c.`name`=#{city} and p.name=#{province};
+	</select>
+	
+	<select id="findList" resultMap="ResultMap" 
+		parameterType="Object">
+		select id,name from g_area where 1=1
+		<if test="level != null  ">
+				and level=#{level}
+		</if>
+		<if test="parent != null">
+				and parent=#{parent}
+		</if>	  
+		
+	</select>
+
+</mapper>   
